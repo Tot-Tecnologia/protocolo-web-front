@@ -1,26 +1,29 @@
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
 import { MainPageWithImage } from "../../components/MainPageWithImage";
 
 export function SignIn() {
+  const navigate = useNavigate();
+
+  const handleClickSignUp = () => navigate({ to: "/signUp" });
+
   return (
-    <MainPageWithImage title="Login">
+    <MainPageWithImage title="Login" fitImageToDisplayHeight>
       <form>
-        <div className="flex flex-col gap-4">
-          <Input className="w-full" placeholder="CPF/CNPJ" />
-          <Input className="w-full" placeholder="SENHA" />
+        <div className="flex flex-col gap-4 *:w-full">
+          <Input placeholder="CPF/CNPJ" />
+          <Input placeholder="Senha" />
 
           <div className="flex justify-end">
-            <Link className="mt-4" href="#">
-              Recuperar senha
-            </Link>
+            <Link href="#">Recuperar senha</Link>
           </div>
 
-          <Button className="mt-6 w-full" type="submit">
+          <Button className="mt-6" type="submit">
             Acessar
           </Button>
-          <Button className="w-full" type="button" variant="outlined">
+          <Button type="button" variant="outlined" onClick={handleClickSignUp}>
             Cadastrar
           </Button>
         </div>

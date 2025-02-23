@@ -1,10 +1,15 @@
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { routeTree } from "./routeTree.gen";
 import "./theme.css";
-import { SignIn } from "./views/SignIn";
+
+export const router = createRouter({ routeTree });
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <SignIn />
+    <RouterProvider router={router} />
+    <TanStackRouterDevtools router={router} />
   </StrictMode>,
 );
