@@ -7,11 +7,15 @@ import { Button } from "./components/Button";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <div className="mx-auto px-4 py-6">
-      <div>
-        <div className="max-w-sm">
-          <div className="flex flex-col items-center gap-16">
-            <img src="logo.png" alt="Logo da prefeitura de Patrocínio" />
+    <div>
+      <div className="flex justify-between gap-4">
+        <div className="mx-auto max-w-90 basis-full px-2 py-4 md:basis-65/100">
+          <div className="flex flex-col items-center gap-10">
+            <img
+              src="logo.png"
+              alt="Logo da prefeitura de Patrocínio"
+              className="h-18 md:h-24"
+            />
             <h1 className="text-primary-dark text-2xl font-bold">
               Protocolo Web
             </h1>
@@ -36,9 +40,13 @@ createRoot(document.getElementById("root")!).render(
           </form>
         </div>
 
-        {/* <div>
-          <img src="paisagem.png" alt="Paisagem com uma igreja" />
-        </div> */}
+        <div className="hidden h-screen w-full basis-45/100 md:block">
+          <img
+            src="paisagem.png"
+            alt="Paisagem com uma igreja"
+            className="size-full object-cover"
+          />
+        </div>
       </div>
     </div>
   </StrictMode>,
