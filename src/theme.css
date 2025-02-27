@@ -5,27 +5,27 @@
 
   --breakpoint-3xl: 120rem;
 
-  --color-pripary-main: #041A53;
+  --color-primary: #041A53;
   --color-primary-dark: #02123A;
   --color-primary-light: #364775;
 
-  --color-secondary-main: #751A61;
+  --color-secondary: #751A61;
   --color-secondary-dark: #511243;
   --color-secondary-light: #904780;
 
-  --color-error-main: #CE0909;
+  --color-error: #CE0909;
   --color-error-dark: #900606;
   --color-error-light: #D73A3A;
 
-  --color-warning-main: #F79009;
+  --color-warning: #F79009;
   --color-warning-dark: #AC6406;
   --color-warning-light: #F8A63A;
 
-  --color-info-main: #005EA2;
+  --color-info: #005EA2;
   --color-info-dark: #004171;
   --color-info-light: #337EB4;
 
-  --color-success-main: #2E7D32;
+  --color-success: #2E7D32;
   --color-success-dark: #1B5E20;
   --color-success-light: #4CAF50;
 }

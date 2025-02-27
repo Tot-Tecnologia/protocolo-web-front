@@ -5,22 +5,23 @@ type IButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 function getBackgroundColor(variant: IVariant) {
-  return variant === "contained" ? " bg-primary-dark " : " ";
+  return variant === "contained" ? " bg-primary " : " ";
 }
 
 function getColor(variant: IVariant) {
-  return variant === "contained" ? " text-white " : " text-primary-dark ";
+  return variant === "contained" ? " text-white " : " text-primary ";
 }
 
 function getBorder(variant: IVariant) {
   return variant !== "text"
-    ? " border-1 border-primary-dark "
+    ? " border-1 border-primary "
     : " border-1 border-transparent ";
 }
 
 export function Button({ variant = "contained", ...props }: IButtonProps) {
   return (
     <button
+      type="button"
       {...props}
       className={
         "rounded-md px-5 py-3 font-bold uppercase" +

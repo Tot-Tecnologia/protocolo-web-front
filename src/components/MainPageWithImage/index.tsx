@@ -23,10 +23,10 @@ export function MainPageWithImage({
               alt="Logo da prefeitura de Patrocínio"
               className="h-18 md:h-24"
             />
-            <h1 className="text-primary-dark text-2xl font-bold">
-              Protocolo Web
-            </h1>
-            <h2 className="text-primary-dark font-regular text-2xl uppercase">
+
+            <h1 className="text-primary text-2xl font-bold">Protocolo Web</h1>
+
+            <h2 className="text-primary font-regular text-2xl uppercase">
               {title}
             </h2>
           </div>

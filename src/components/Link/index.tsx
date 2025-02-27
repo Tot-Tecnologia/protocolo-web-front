@@ -1,10 +1,10 @@
-type ILinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
+import { Link as RouterLink, LinkComponentProps } from "@tanstack/react-router";
 
-export function Link(props: ILinkProps) {
+export function Link(props: LinkComponentProps) {
   return (
-    <a
+    <RouterLink
       {...props}
-      className={"text-primary-dark underline" + " " + (props.className ?? "")}
+      className={"text-primary underline" + " " + (props.className ?? "")}
     />
   );
 }
