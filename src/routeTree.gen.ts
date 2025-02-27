@@ -11,14 +11,28 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SignUpImport } from './routes/signUp'
+import { Route as RecuperarSenhaImport } from './routes/recuperarSenha'
+import { Route as LoginImport } from './routes/login'
+import { Route as CadastroImport } from './routes/cadastro'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
-const SignUpRoute = SignUpImport.update({
-  id: '/signUp',
-  path: '/signUp',
+const RecuperarSenhaRoute = RecuperarSenhaImport.update({
+  id: '/recuperarSenha',
+  path: '/recuperarSenha',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CadastroRoute = CadastroImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +53,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/signUp': {
-      id: '/signUp'
-      path: '/signUp'
-      fullPath: '/signUp'
-      preLoaderRoute: typeof SignUpImport
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/recuperarSenha': {
+      id: '/recuperarSenha'
+      path: '/recuperarSenha'
+      fullPath: '/recuperarSenha'
+      preLoaderRoute: typeof RecuperarSenhaImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +81,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/signUp': typeof SignUpRoute
+  '/cadastro': typeof CadastroRoute
+  '/login': typeof LoginRoute
+  '/recuperarSenha': typeof RecuperarSenhaRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/signUp': typeof SignUpRoute
+  '/cadastro': typeof CadastroRoute
+  '/login': typeof LoginRoute
+  '/recuperarSenha': typeof RecuperarSenhaRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/signUp': typeof SignUpRoute
+  '/cadastro': typeof CadastroRoute
+  '/login': typeof LoginRoute
+  '/recuperarSenha': typeof RecuperarSenhaRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signUp'
+  fullPaths: '/' | '/cadastro' | '/login' | '/recuperarSenha'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signUp'
-  id: '__root__' | '/' | '/signUp'
+  to: '/' | '/cadastro' | '/login' | '/recuperarSenha'
+  id: '__root__' | '/' | '/cadastro' | '/login' | '/recuperarSenha'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SignUpRoute: typeof SignUpRoute
+  CadastroRoute: typeof CadastroRoute
+  LoginRoute: typeof LoginRoute
+  RecuperarSenhaRoute: typeof RecuperarSenhaRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SignUpRoute: SignUpRoute,
+  CadastroRoute: CadastroRoute,
+  LoginRoute: LoginRoute,
+  RecuperarSenhaRoute: RecuperarSenhaRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +135,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/signUp"
+        "/cadastro",
+        "/login",
+        "/recuperarSenha"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/signUp": {
-      "filePath": "signUp.tsx"
+    "/cadastro": {
+      "filePath": "cadastro.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/recuperarSenha": {
+      "filePath": "recuperarSenha.tsx"
     }
   }
 }

@@ -3,11 +3,15 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
 import { MainPageWithImage } from "../../components/MainPageWithImage";
+import {
+  RECOVER_PASSWORD_ROUTE_URL,
+  SIGN_UP_ROUTE_URL,
+} from "../../constants/routesUrl";
 
 export function SignIn() {
   const navigate = useNavigate();
 
-  const handleClickSignUp = () => navigate({ to: "/signUp" });
+  const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });
 
   return (
     <MainPageWithImage title="Login" fitImageToDisplayHeight>
@@ -17,7 +21,7 @@ export function SignIn() {
           <Input placeholder="Senha" />
 
           <div className="flex justify-end">
-            <Link href="#">Recuperar senha</Link>
+            <Link to={RECOVER_PASSWORD_ROUTE_URL}>Recuperar senha</Link>
           </div>
 
           <Button className="mt-6" type="submit">

@@ -1,8 +1,14 @@
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { MainPageWithImage } from "../../components/MainPageWithImage";
+import { SIGN_IN_ROUTE_URL } from "../../constants/routesUrl";
 
 export function SignUp() {
+  const navigate = useNavigate();
+
+  const handleClickBack = () => navigate({ to: SIGN_IN_ROUTE_URL });
+
   return (
     <MainPageWithImage title="Cadastrar">
       <form>
@@ -17,6 +23,9 @@ export function SignUp() {
 
           <Button className="mt-6" type="submit">
             Cadastrar
+          </Button>
+          <Button type="submit" variant="outlined" onClick={handleClickBack}>
+            Voltar
           </Button>
         </div>
       </form>
