@@ -1,13 +1,18 @@
+import clsx from "clsx";
+
 type ICardProps = {
   title?: React.ReactNode;
   children?: React.ReactNode;
+  className?: string;
 };
 
-export function Card({ title, children }: ICardProps) {
+export function Card({ title, children, className }: ICardProps) {
   const isHeaderVisible = title != null;
 
   return (
-    <div className="rounded-lg border border-gray-200">
+    <div
+      className={clsx("rounded-lg border border-gray-200 bg-white", className)}
+    >
       {isHeaderVisible && (
         <>
           <div className="px-3 py-3 md:px-5 md:py-4">
