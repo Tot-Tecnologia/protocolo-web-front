@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SolicitarProcessoImport } from './routes/solicitarProcesso'
 import { Route as RecuperarSenhaImport } from './routes/recuperarSenha'
 import { Route as LoginImport } from './routes/login'
 import { Route as CadastroImport } from './routes/cadastro'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const SolicitarProcessoRoute = SolicitarProcessoImport.update({
+  id: '/solicitarProcesso',
+  path: '/solicitarProcesso',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const RecuperarSenhaRoute = RecuperarSenhaImport.update({
   id: '/recuperarSenha',
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecuperarSenhaImport
       parentRoute: typeof rootRoute
     }
+    '/solicitarProcesso': {
+      id: '/solicitarProcesso'
+      path: '/solicitarProcesso'
+      fullPath: '/solicitarProcesso'
+      preLoaderRoute: typeof SolicitarProcessoImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
+  '/solicitarProcesso': typeof SolicitarProcessoRoute
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
+  '/solicitarProcesso': typeof SolicitarProcessoRoute
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,26 @@ export interface FileRoutesById {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
+  '/solicitarProcesso': typeof SolicitarProcessoRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cadastro' | '/login' | '/recuperarSenha'
+  fullPaths:
+    | '/'
+    | '/cadastro'
+    | '/login'
+    | '/recuperarSenha'
+    | '/solicitarProcesso'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cadastro' | '/login' | '/recuperarSenha'
-  id: '__root__' | '/' | '/cadastro' | '/login' | '/recuperarSenha'
+  to: '/' | '/cadastro' | '/login' | '/recuperarSenha' | '/solicitarProcesso'
+  id:
+    | '__root__'
+    | '/'
+    | '/cadastro'
+    | '/login'
+    | '/recuperarSenha'
+    | '/solicitarProcesso'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +143,7 @@ export interface RootRouteChildren {
   CadastroRoute: typeof CadastroRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
+  SolicitarProcessoRoute: typeof SolicitarProcessoRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +151,7 @@ const rootRouteChildren: RootRouteChildren = {
   CadastroRoute: CadastroRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
+  SolicitarProcessoRoute: SolicitarProcessoRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +167,8 @@ export const routeTree = rootRoute
         "/",
         "/cadastro",
         "/login",
-        "/recuperarSenha"
+        "/recuperarSenha",
+        "/solicitarProcesso"
       ]
     },
     "/": {
@@ -151,6 +182,9 @@ export const routeTree = rootRoute
     },
     "/recuperarSenha": {
       "filePath": "recuperarSenha.tsx"
+    },
+    "/solicitarProcesso": {
+      "filePath": "solicitarProcesso.tsx"
     }
   }
 }
