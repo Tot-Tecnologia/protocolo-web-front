@@ -1,3 +1,5 @@
+import { PageContainer } from "@/components/PageContainer";
+
 type IMainPageWithImageProps = {
   title: React.ReactNode;
   children: React.ReactNode;
@@ -14,9 +16,9 @@ export function MainPageWithImage({
   fitImageToDisplayHeight,
 }: IMainPageWithImageProps) {
   return (
-    <div>
+    <PageContainer>
       <div className="flex justify-between gap-4">
-        <div className="mx-auto max-w-90 basis-full px-4 py-6 md:basis-65/100">
+        <div className="mx-auto max-w-90 basis-full md:basis-65/100">
           <div className="mb-7.5 flex flex-col items-center gap-8">
             <img
               src="logo.png"
@@ -47,6 +49,6 @@ export function MainPageWithImage({
           />
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }
