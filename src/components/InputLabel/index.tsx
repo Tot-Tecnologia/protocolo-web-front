@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 type IInputLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
 export function InputLabel(props: IInputLabelProps) {
@@ -5,9 +7,8 @@ export function InputLabel(props: IInputLabelProps) {
     <>
       <label
         {...props}
-        className={"text-sm leading-5" + " " + (props.className ?? "")}
+        className={clsx("text-sm leading-5", props.className)}
       />
-      <br />
     </>
   );
 }
