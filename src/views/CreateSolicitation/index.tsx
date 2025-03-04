@@ -52,95 +52,112 @@ export function CreateSolicitation() {
         </Button>
       </div>
 
-      <Card title="Informações do solicitante">
-        <div className="flex flex-wrap gap-x-5 gap-y-6">
-          <Input
-            name="cpfCnpj"
-            label="Número CPF/CNPJ"
-            containerClassName="w-full"
-          />
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          alert(JSON.stringify(Object.fromEntries(data), null, 2));
+        }}
+        className="flex flex-col gap-y-6"
+      >
+        <Card title="Informações do solicitante">
+          <div className="flex flex-wrap gap-x-5 gap-y-6">
+            <Input
+              name="cpfCnpj"
+              label="Número CPF/CNPJ"
+              containerClassName="w-full"
+            />
 
-          <Input
-            name="nameOfApplicant"
-            label="Nome do solicitante"
-            containerClassName="w-full"
-          />
+            <Input
+              name="nameOfApplicant"
+              label="Nome do solicitante"
+              containerClassName="w-full"
+            />
 
-          <Input
-            name="address"
-            label="Logradouro ???"
-            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-          />
+            <Input
+              name="address"
+              label="Logradouro ???"
+              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
+            />
 
-          <Input
-            name="code"
-            label="Número"
-            containerClassName="w-full md:w-20/100"
-          />
+            <Input
+              name="code"
+              label="Número"
+              containerClassName="w-full md:w-20/100"
+            />
 
-          <Input
-            name="neighbor"
-            label="Nome do bairro"
-            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-          />
+            <Input
+              name="neighbor"
+              label="Nome do bairro"
+              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
+            />
 
-          <Input
-            name="zipCode"
-            label="CEP"
-            containerClassName="w-full md:w-20/100"
-          />
+            <Input
+              name="zipCode"
+              label="CEP"
+              containerClassName="w-full md:w-20/100"
+              placeholder="Ex: 38740-000"
+            />
 
-          <Input
-            name="city"
-            label="Cidade"
-            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-          />
+            <Input
+              name="city"
+              label="Cidade"
+              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
+            />
 
-          <Input
-            name="state"
-            label="Estado"
-            containerClassName="w-full md:w-20/100"
-          />
+            <Input
+              name="state"
+              label="Estado"
+              containerClassName="w-full md:w-20/100"
+            />
 
-          <Input
-            name="email"
-            label="E-mail"
-            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-          />
+            <Input
+              name="email"
+              label="E-mail"
+              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
+              placeholder="exemplo@gmail.com"
+              type="email"
+            />
 
-          <Input
-            name="???"
-            label="Telefone"
-            containerClassName="w-full md:w-20/100"
-          />
+            <Input
+              name="???"
+              label="Telefone"
+              containerClassName="w-full md:w-20/100"
+              placeholder="Ex: (34) 99123-4567"
+              type="tel"
+            />
 
-          <Input
-            name="complement"
-            label="Complemento"
-            containerClassName="w-full"
-          />
-        </div>
-      </Card>
+            <Input
+              name="complement"
+              label="Complemento"
+              containerClassName="w-full"
+              placeholder="Ex: Ap. 201"
+            />
+          </div>
+        </Card>
 
-      <Card title="Solicitação" className="mt-6">
-        <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-          <Select name="solicitationTypeId" label="Tipo de solicitação">
-            <option value="0">Selecione uma opção</option>
-            <option value="1">Lorem ipsum dolor</option>
-            <option value="2">Ipsum dolor sit</option>
-            <option value="3">Dolor sit amet</option>
-          </Select>
+        <Card title="Solicitação">
+          <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
+            <Select name="solicitationTypeId" label="Tipo de solicitação">
+              <option value="0">Selecione uma opção</option>
+              <option value="1">Lorem ipsum dolor</option>
+              <option value="2">Ipsum dolor sit</option>
+              <option value="3">Dolor sit amet</option>
+            </Select>
 
-          <TextArea
-            name="description"
-            label="Descrição"
-            rows={6}
-            placeholder="Descreva em detalhes sua solicitação"
-          />
+            <TextArea
+              name="description"
+              label="Descrição"
+              rows={6}
+              placeholder="Descreva em detalhes sua solicitação"
+            />
 
-          <FileUpload name="file" label="Enviar arquivo" />
-        </div>
-      </Card>
+            <FileUpload name="file" label="Enviar arquivo" />
+          </div>
+        </Card>
+
+        <Button type="submit">Enviar</Button>
+      </form>
     </PageContainer>
   );
 }
