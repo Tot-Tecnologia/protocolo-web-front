@@ -3,6 +3,7 @@ import { Card } from "@/components/Card";
 import { FileUpload } from "@/components/FileUpload";
 import { Input } from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
+import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { widthDespiteGap } from "@/utils/css/widthDespiteGap";
 
@@ -123,7 +124,12 @@ export function CreateSolicitation() {
 
       <Card title="Solicitação" className="mt-6">
         <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-          <Input name="solicitationTypeId" label="Tipo de solicitação" />
+          <Select name="solicitationTypeId" label="Tipo de solicitação">
+            <option value="0">Selecione uma opção</option>
+            <option value="1">Lorem ipsum dolor</option>
+            <option value="2">Ipsum dolor sit</option>
+            <option value="3">Dolor sit amet</option>
+          </Select>
 
           <TextArea
             name="description"
