@@ -1,36 +1,41 @@
+import clsx from "clsx";
+
 type IVariant = "contained" | "outlined" | "text";
 
+type ISize = "small" | "medium" | "large";
+
 type IButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  size?: ISize;
   variant?: IVariant;
 };
 
-function getBackgroundColor(variant: IVariant) {
-  return variant === "contained" ? " bg-primary " : " ";
-}
-
-function getColor(variant: IVariant) {
-  return variant === "contained" ? " text-white " : " text-primary ";
-}
-
-function getBorder(variant: IVariant) {
-  return variant !== "text"
-    ? " border-1 border-primary "
-    : " border-1 border-transparent ";
-}
-
-export function Button({ variant = "contained", ...props }: IButtonProps) {
+export function Button({
+  variant = "contained",
+  size = "medium",
+  ...props
+}: IButtonProps) {
   return (
     <button
       type="button"
       {...props}
-      className={
-        "rounded-md px-5 py-3 font-bold uppercase" +
-        getBackgroundColor(variant) +
-        getColor(variant) +
-        getBorder(variant) +
-        " " +
-        (props.className ?? "")
-      }
+      className={clsx(
+        "rounded-md font-bold uppercase",
+        // font-size
+        size === "small" && "text-sm",
+        // padding
+        size === "small" && "px-2 py-1",
+        size === "medium" && "px-3 py-2",
+        size === "large" && "px-4 py-3",
+        // background-color
+        variant === "contained" && "bg-primary",
+        // color
+        variant === "contained" ? "text-white" : "text-primary",
+        // border
+        variant !== "text"
+          ? "border-primary border-1"
+          : "border-1 border-transparent",
+        props.className,
+      )}
     />
   );
 }
