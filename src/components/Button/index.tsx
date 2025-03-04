@@ -19,7 +19,7 @@ export function Button({
       type="button"
       {...props}
       className={clsx(
-        "rounded-md font-bold uppercase",
+        "cursor-pointer rounded-md font-bold uppercase",
         // font-size
         size === "small" && "text-sm",
         // padding
