@@ -1,7 +1,9 @@
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
+import { FileUpload } from "@/components/FileUpload";
 import { Input } from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
+import { TextArea } from "@/components/TextArea";
 import { widthDespiteGap } from "@/utils/css/widthDespiteGap";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -50,52 +52,87 @@ export function CreateSolicitation() {
       </div>
 
       <Card title="Informações do solicitante">
-        <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-          <Input name="cpfCnpj" label="Número CPF/CNPJ" />
+        <div className="flex flex-wrap gap-x-5 gap-y-6">
+          <Input
+            name="cpfCnpj"
+            label="Número CPF/CNPJ"
+            containerClassName="w-full"
+          />
 
-          <Input name="nameOfApplicant" label="Nome do solicitante" />
+          <Input
+            name="nameOfApplicant"
+            label="Nome do solicitante"
+            containerClassName="w-full"
+          />
 
           <Input
             name="address"
             label="Logradouro ???"
-            containerClassName={`md:!${widthDespiteGap("80%", "6")}`}
+            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
           />
 
-          <Input name="code" label="Número" containerClassName="md:!w-20/100" />
+          <Input
+            name="code"
+            label="Número"
+            containerClassName="w-full md:w-20/100"
+          />
 
           <Input
             name="neighbor"
             label="Nome do bairro"
-            containerClassName={`md:!${widthDespiteGap("80%", "6")}`}
+            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
           />
 
-          <Input name="zipCode" label="CEP" containerClassName="md:!w-20/100" />
+          <Input
+            name="zipCode"
+            label="CEP"
+            containerClassName="w-full md:w-20/100"
+          />
 
           <Input
             name="city"
             label="Cidade"
-            containerClassName={`md:!${widthDespiteGap("80%", "6")}`}
+            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
           />
 
           <Input
             name="state"
             label="Estado"
-            containerClassName="md:!w-20/100"
+            containerClassName="w-full md:w-20/100"
           />
 
           <Input
             name="email"
             label="E-mail"
-            containerClassName={`md:!${widthDespiteGap("80%", "6")}`}
+            containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
           />
 
           <Input
             name="???"
             label="Telefone"
-            containerClassName="md:!w-20/100"
+            containerClassName="w-full md:w-20/100"
           />
 
-          <Input name="complement" label="Complemento" />
+          <Input
+            name="complement"
+            label="Complemento"
+            containerClassName="w-full"
+          />
+        </div>
+      </Card>
+
+      <Card title="Solicitação" className="mt-6">
+        <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
+          <Input name="solicitationTypeId" label="Tipo de solicitação" />
+
+          <TextArea
+            name="description"
+            label="Descrição"
+            rows={6}
+            placeholder="Descreva em detalhes sua solicitação"
+          />
+
+          <FileUpload name="file" label="Enviar arquivo" />
         </div>
       </Card>
     </PageContainer>
