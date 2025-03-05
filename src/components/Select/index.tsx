@@ -15,7 +15,7 @@ export function Select(props: ISelectProps) {
       {...props}
       className={clsx(
         // setinha no fim do componente
-        "appearance-none bg-[url(/arrowDown.svg)] bg-[calc(100%_-_4_*_var(--spacing))_center] bg-no-repeat",
+        "appearance-none bg-[url(/arrowDownIcon.svg)] bg-[calc(100%_-_4_*_var(--spacing))_center] bg-no-repeat",
         // outras estilizações
         "cursor-pointer text-sm",
         props.className,

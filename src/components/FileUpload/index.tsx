@@ -13,7 +13,7 @@ function FileUploadComponent(
   return (
     <label className="flex w-full md:mt-2 md:cursor-pointer md:flex-col md:items-center md:justify-center md:gap-y-4 md:rounded-lg md:border md:border-dashed md:border-gray-300 md:bg-gray-50 md:py-15">
       <img
-        src="upload.svg"
+        src="/uploadIcon.svg"
         alt="Ícone de upload de arquivo"
         className="hidden size-16 rounded-full bg-gray-200 p-4 md:block"
       />
