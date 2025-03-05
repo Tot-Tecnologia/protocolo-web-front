@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SolicitarProcessoImport } from './routes/solicitarProcesso'
 import { Route as RecuperarSenhaImport } from './routes/recuperarSenha'
 import { Route as LoginImport } from './routes/login'
+import { Route as ConsultarProcessosImport } from './routes/consultarProcessos'
 import { Route as CadastroImport } from './routes/cadastro'
 import { Route as IndexImport } from './routes/index'
 
@@ -34,6 +35,12 @@ const RecuperarSenhaRoute = RecuperarSenhaImport.update({
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConsultarProcessosRoute = ConsultarProcessosImport.update({
+  id: '/consultarProcessos',
+  path: '/consultarProcessos',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CadastroImport
       parentRoute: typeof rootRoute
     }
+    '/consultarProcessos': {
+      id: '/consultarProcessos'
+      path: '/consultarProcessos'
+      fullPath: '/consultarProcessos'
+      preLoaderRoute: typeof ConsultarProcessosImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -96,6 +110,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/consultarProcessos': typeof ConsultarProcessosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProcesso': typeof SolicitarProcessoRoute
@@ -104,6 +119,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/consultarProcessos': typeof ConsultarProcessosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProcesso': typeof SolicitarProcessoRoute
@@ -113,6 +129,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/consultarProcessos': typeof ConsultarProcessosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProcesso': typeof SolicitarProcessoRoute
@@ -123,15 +140,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cadastro'
+    | '/consultarProcessos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProcesso'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cadastro' | '/login' | '/recuperarSenha' | '/solicitarProcesso'
+  to:
+    | '/'
+    | '/cadastro'
+    | '/consultarProcessos'
+    | '/login'
+    | '/recuperarSenha'
+    | '/solicitarProcesso'
   id:
     | '__root__'
     | '/'
     | '/cadastro'
+    | '/consultarProcessos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProcesso'
@@ -141,6 +166,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
+  ConsultarProcessosRoute: typeof ConsultarProcessosRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProcessoRoute: typeof SolicitarProcessoRoute
@@ -149,6 +175,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
+  ConsultarProcessosRoute: ConsultarProcessosRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProcessoRoute: SolicitarProcessoRoute,
@@ -166,6 +193,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/cadastro",
+        "/consultarProcessos",
         "/login",
         "/recuperarSenha",
         "/solicitarProcesso"
@@ -176,6 +204,9 @@ export const routeTree = rootRoute
     },
     "/cadastro": {
       "filePath": "cadastro.tsx"
+    },
+    "/consultarProcessos": {
+      "filePath": "consultarProcessos.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

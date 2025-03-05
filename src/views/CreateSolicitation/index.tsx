@@ -5,7 +5,7 @@ import { Input } from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { widthDespiteGap } from "@/utils/css/widthDespiteGap";
+import { OneLargeOneSmallInputsContainer } from "@/views/CreateSolicitation/OneLargeOneSmallInputsContainer";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type ICreateSolicitationDto = {
@@ -39,19 +39,7 @@ type ICreateSolicitationDto = {
 
 export function CreateSolicitation() {
   return (
-    <PageContainer>
-      <div className="flex items-center justify-between pb-10">
-        <h1 className="text-xl font-semibold">Solicitar Processo</h1>
-        <Button
-          variant="outlined"
-          size="small"
-          className="block md:hidden"
-          onClick={() => alert("TODO")}
-        >
-          Menu
-        </Button>
-      </div>
-
+    <PageContainer title="Solicitar Processo">
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -61,7 +49,7 @@ export function CreateSolicitation() {
         className="flex flex-col gap-y-6"
       >
         <Card title="Informações do solicitante">
-          <div className="flex flex-wrap gap-x-5 gap-y-6">
+          <div className="flex flex-wrap gap-y-6">
             <Input
               name="cpfCnpj"
               label="Número CPF/CNPJ"
@@ -74,58 +62,37 @@ export function CreateSolicitation() {
               containerClassName="w-full"
             />
 
-            <Input
-              name="address"
-              label="Logradouro ???"
-              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-            />
+            <OneLargeOneSmallInputsContainer>
+              <Input name="address" label="Logradouro ???" />
+              <Input name="code" label="Número" />
+            </OneLargeOneSmallInputsContainer>
 
-            <Input
-              name="code"
-              label="Número"
-              containerClassName="w-full md:w-20/100"
-            />
+            <OneLargeOneSmallInputsContainer>
+              <Input name="neighbor" label="Nome do bairro" />
+              <Input name="zipCode" label="CEP" placeholder="Ex: 38740-000" />
+            </OneLargeOneSmallInputsContainer>
 
-            <Input
-              name="neighbor"
-              label="Nome do bairro"
-              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-            />
+            <OneLargeOneSmallInputsContainer>
+              <Input name="city" label="Cidade" />
+              <Input name="state" label="Estado" />
+            </OneLargeOneSmallInputsContainer>
 
-            <Input
-              name="zipCode"
-              label="CEP"
-              containerClassName="w-full md:w-20/100"
-              placeholder="Ex: 38740-000"
-            />
-
-            <Input
-              name="city"
-              label="Cidade"
-              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-            />
-
-            <Input
-              name="state"
-              label="Estado"
-              containerClassName="w-full md:w-20/100"
-            />
-
-            <Input
-              name="email"
-              label="E-mail"
-              containerClassName={`w-full md:${widthDespiteGap("80%", "5")}`}
-              placeholder="exemplo@gmail.com"
-              type="email"
-            />
-
-            <Input
-              name="???"
-              label="Telefone"
-              containerClassName="w-full md:w-20/100"
-              placeholder="Ex: (34) 99123-4567"
-              type="tel"
-            />
+            <OneLargeOneSmallInputsContainer>
+              <Input
+                name="email"
+                label="E-mail"
+                containerClassName="w-full"
+                placeholder="exemplo@gmail.com"
+                type="email"
+              />
+              <Input
+                name="???"
+                label="Telefone"
+                containerClassName="w-full"
+                placeholder="Ex: (34) 99123-4567"
+                type="tel"
+              />
+            </OneLargeOneSmallInputsContainer>
 
             <Input
               name="complement"
