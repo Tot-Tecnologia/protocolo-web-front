@@ -14,6 +14,7 @@ export function NavLink({ to, iconSrc, children }: INavLinkProps) {
       activeProps={{
         className: "bg-white",
       }}
+      data-testid={`NavLink-to-${to}`}
     >
       <img
         src={iconSrc}
