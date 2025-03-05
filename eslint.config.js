@@ -5,6 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import prettierRecommended from "eslint-plugin-prettier/recommended";
+import vitest from "@vitest/eslint-plugin";
 
 export default tseslint.config(
   { ignores: ["dist"] },
@@ -28,11 +29,13 @@ export default tseslint.config(
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
       react: react,
+      vitest: vitest,
     },
     rules: {
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
+      ...vitest.configs.recommended.rules,
       "prettier/prettier": "warn",
       "react-refresh/only-export-components": [
         "warn",
@@ -44,6 +47,7 @@ export default tseslint.config(
           checksVoidReturn: false,
         },
       ],
+      "@typescript-eslint/triple-slash-reference": "off",
     },
   },
 );
