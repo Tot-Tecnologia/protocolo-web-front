@@ -5,39 +5,41 @@ import { Input } from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { OneLargeOneSmallInputsContainer } from "@/views/CreateSolicitation/OneLargeOneSmallInputsContainer";
+import { OneLargeOneSmallInputsContainer } from "@/views/CreateProcesso/OneLargeOneSmallInputsContainer";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type ICreateSolicitationDto = {
-  /** Número CPF/CNPJ */
+interface ICriarProcessoDto {
+  /** CPF ou CNPJ do solicitante */
   cpfCnpj: string;
   /** Nome do solicitante */
-  nameOfApplicant: string;
-  /** Endereço completo ??? */
-  address: string;
-  /** Logradouro ??? */
-  street: string;
-  /** Número do endereço ??? */
-  code: string;
-  /** Bairro */
-  neighbor: string;
-  /** CEP */
-  zipCode: string;
-  /** Cidade */
-  city: string;
-  /** Estado */
-  state: string;
-  /** E-mail */
+  nomeSolicitante: string;
+  /** Tipo do endereço */
+  logradouro: string;
+  /** Endereço completo */
+  endereco: string;
+  /** Código de identificação do endereço*/
+  numero: string;
+  /** Bairro do endereço */
+  bairro: string;
+  /** CEP do endereço */
+  cep: string;
+  /** Cidade do endereço */
+  cidade: string;
+  /** Estado do endereço */
+  estado: string;
+  /** E-mail do solicitante */
   email: string;
-  /** Complemento */
-  complement: string;
-  /** ID do Tipo de Solicitação */
-  solicitationTypeId: number;
-  /** Descrição */
-  description: string;
-};
+  /** Complemento do endereço */
+  complemento: string;
+  /** ID do tipo de solicitação */
+  tipoSolicitacaoId: number;
+  /** Descrição da solicitação */
+  descricao: string;
+  /** Telefone do solicitante */
+  telefone: string;
+}
 
-export function CreateSolicitation() {
+export function CreateProcesso() {
   return (
     <PageContainer title="Solicitar Processo">
       <form
@@ -57,24 +59,24 @@ export function CreateSolicitation() {
             />
 
             <Input
-              name="nameOfApplicant"
+              name="nomeSolicitante"
               label="Nome do solicitante"
               containerClassName="w-full"
             />
 
             <OneLargeOneSmallInputsContainer>
-              <Input name="address" label="Logradouro ???" />
-              <Input name="code" label="Número" />
+              <Input name="logradouro" label="Logradouro ???" />
+              <Input name="numero" label="Número" />
             </OneLargeOneSmallInputsContainer>
 
             <OneLargeOneSmallInputsContainer>
-              <Input name="neighbor" label="Nome do bairro" />
-              <Input name="zipCode" label="CEP" placeholder="Ex: 38740-000" />
+              <Input name="bairro" label="Nome do bairro" />
+              <Input name="cep" label="CEP" placeholder="Ex: 38740-000" />
             </OneLargeOneSmallInputsContainer>
 
             <OneLargeOneSmallInputsContainer>
-              <Input name="city" label="Cidade" />
-              <Input name="state" label="Estado" />
+              <Input name="cidade" label="Cidade" />
+              <Input name="estado" label="Estado" />
             </OneLargeOneSmallInputsContainer>
 
             <OneLargeOneSmallInputsContainer>
@@ -86,7 +88,7 @@ export function CreateSolicitation() {
                 type="email"
               />
               <Input
-                name="???"
+                name="telefone"
                 label="Telefone"
                 containerClassName="w-full"
                 placeholder="Ex: (34) 99123-4567"
@@ -95,7 +97,7 @@ export function CreateSolicitation() {
             </OneLargeOneSmallInputsContainer>
 
             <Input
-              name="complement"
+              name="complemento"
               label="Complemento"
               containerClassName="w-full"
               placeholder="Ex: Ap. 201"
@@ -105,7 +107,7 @@ export function CreateSolicitation() {
 
         <Card title="Solicitação">
           <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-            <Select name="solicitationTypeId" label="Tipo de solicitação">
+            <Select name="ProcessoTypeId" label="Tipo de solicitação">
               <option value="0">Selecione uma opção</option>
               <option value="1">Lorem ipsum dolor</option>
               <option value="2">Ipsum dolor sit</option>
@@ -113,13 +115,13 @@ export function CreateSolicitation() {
             </Select>
 
             <TextArea
-              name="description"
+              name="descricao"
               label="Descrição"
               rows={6}
               placeholder="Descreva em detalhes sua solicitação"
             />
 
-            <FileUpload name="file" label="Enviar arquivo" />
+            <FileUpload name="arquivos" label="Enviar arquivo" />
           </div>
         </Card>
 

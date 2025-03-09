@@ -4,7 +4,7 @@ import { Input } from "@/components/Input";
 import { Link } from "@/components/Link";
 import { MainPageWithImage } from "@/components/MainPageWithImage";
 import {
-  CREATE_SOLICITATION_ROUTE_URL,
+  CREATE_PROCESSO_ROUTE_URL,
   RECOVER_PASSWORD_ROUTE_URL,
   SIGN_UP_ROUTE_URL,
 } from "@/constants/routesUrl";
@@ -14,7 +14,7 @@ export function SignIn() {
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    void navigate({ to: CREATE_SOLICITATION_ROUTE_URL });
+    void navigate({ to: CREATE_PROCESSO_ROUTE_URL });
   };
 
   const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });

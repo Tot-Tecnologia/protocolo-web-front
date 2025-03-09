@@ -1,5 +1,5 @@
 import { NavBar } from "@/components/NavBar";
-import { CREATE_SOLICITATION_ROUTE_URL } from "@/constants/routesUrl";
+import { CREATE_PROCESSO_ROUTE_URL } from "@/constants/routesUrl";
 import {
   mockedRouter,
   renderWithProviders,
@@ -18,14 +18,14 @@ beforeAll(async () => {
 });
 
 describe("NavBar", () => {
-  test("should be able to navigate to CreateSolicitation view", async () => {
+  test("should be able to navigate to CreateProcesso view", async () => {
     const { sut, user } = makeSut();
 
-    const link = sut.getByTestId(`NavLink-to-${CREATE_SOLICITATION_ROUTE_URL}`);
+    const link = sut.getByTestId(`NavLink-to-${CREATE_PROCESSO_ROUTE_URL}`);
     await user.click(link);
 
     await waitFor(() => {
-      expect(window.location.href).toContain(CREATE_SOLICITATION_ROUTE_URL);
+      expect(window.location.href).toContain(CREATE_PROCESSO_ROUTE_URL);
     });
   });
 });
