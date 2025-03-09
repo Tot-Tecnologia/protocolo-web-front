@@ -14,9 +14,11 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SolicitarProcessoImport } from './routes/solicitarProcesso'
 import { Route as RecuperarSenhaImport } from './routes/recuperarSenha'
 import { Route as LoginImport } from './routes/login'
-import { Route as ConsultarProcessosImport } from './routes/consultarProcessos'
 import { Route as CadastroImport } from './routes/cadastro'
 import { Route as IndexImport } from './routes/index'
+import { Route as ConsultarProcessosIndexImport } from './routes/consultarProcessos/index'
+import { Route as ConsultarProcessosResultadoImport } from './routes/consultarProcessos/resultado'
+import { Route as ConsultarProcessosFiltroImport } from './routes/consultarProcessos/filtro'
 
 // Create/Update Routes
 
@@ -38,12 +40,6 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ConsultarProcessosRoute = ConsultarProcessosImport.update({
-  id: '/consultarProcessos',
-  path: '/consultarProcessos',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const CadastroRoute = CadastroImport.update({
   id: '/cadastro',
   path: '/cadastro',
@@ -53,6 +49,25 @@ const CadastroRoute = CadastroImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConsultarProcessosIndexRoute = ConsultarProcessosIndexImport.update({
+  id: '/consultarProcessos/',
+  path: '/consultarProcessos/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConsultarProcessosResultadoRoute =
+  ConsultarProcessosResultadoImport.update({
+    id: '/consultarProcessos/resultado',
+    path: '/consultarProcessos/resultado',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const ConsultarProcessosFiltroRoute = ConsultarProcessosFiltroImport.update({
+  id: '/consultarProcessos/filtro',
+  path: '/consultarProcessos/filtro',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -72,13 +87,6 @@ declare module '@tanstack/react-router' {
       path: '/cadastro'
       fullPath: '/cadastro'
       preLoaderRoute: typeof CadastroImport
-      parentRoute: typeof rootRoute
-    }
-    '/consultarProcessos': {
-      id: '/consultarProcessos'
-      path: '/consultarProcessos'
-      fullPath: '/consultarProcessos'
-      preLoaderRoute: typeof ConsultarProcessosImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -102,6 +110,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolicitarProcessoImport
       parentRoute: typeof rootRoute
     }
+    '/consultarProcessos/filtro': {
+      id: '/consultarProcessos/filtro'
+      path: '/consultarProcessos/filtro'
+      fullPath: '/consultarProcessos/filtro'
+      preLoaderRoute: typeof ConsultarProcessosFiltroImport
+      parentRoute: typeof rootRoute
+    }
+    '/consultarProcessos/resultado': {
+      id: '/consultarProcessos/resultado'
+      path: '/consultarProcessos/resultado'
+      fullPath: '/consultarProcessos/resultado'
+      preLoaderRoute: typeof ConsultarProcessosResultadoImport
+      parentRoute: typeof rootRoute
+    }
+    '/consultarProcessos/': {
+      id: '/consultarProcessos/'
+      path: '/consultarProcessos'
+      fullPath: '/consultarProcessos'
+      preLoaderRoute: typeof ConsultarProcessosIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -110,29 +139,35 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
-  '/consultarProcessos': typeof ConsultarProcessosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProcesso': typeof SolicitarProcessoRoute
+  '/consultarProcessos/filtro': typeof ConsultarProcessosFiltroRoute
+  '/consultarProcessos/resultado': typeof ConsultarProcessosResultadoRoute
+  '/consultarProcessos': typeof ConsultarProcessosIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
-  '/consultarProcessos': typeof ConsultarProcessosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProcesso': typeof SolicitarProcessoRoute
+  '/consultarProcessos/filtro': typeof ConsultarProcessosFiltroRoute
+  '/consultarProcessos/resultado': typeof ConsultarProcessosResultadoRoute
+  '/consultarProcessos': typeof ConsultarProcessosIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
-  '/consultarProcessos': typeof ConsultarProcessosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProcesso': typeof SolicitarProcessoRoute
+  '/consultarProcessos/filtro': typeof ConsultarProcessosFiltroRoute
+  '/consultarProcessos/resultado': typeof ConsultarProcessosResultadoRoute
+  '/consultarProcessos/': typeof ConsultarProcessosIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -140,45 +175,55 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cadastro'
-    | '/consultarProcessos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProcesso'
+    | '/consultarProcessos/filtro'
+    | '/consultarProcessos/resultado'
+    | '/consultarProcessos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cadastro'
-    | '/consultarProcessos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProcesso'
+    | '/consultarProcessos/filtro'
+    | '/consultarProcessos/resultado'
+    | '/consultarProcessos'
   id:
     | '__root__'
     | '/'
     | '/cadastro'
-    | '/consultarProcessos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProcesso'
+    | '/consultarProcessos/filtro'
+    | '/consultarProcessos/resultado'
+    | '/consultarProcessos/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
-  ConsultarProcessosRoute: typeof ConsultarProcessosRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProcessoRoute: typeof SolicitarProcessoRoute
+  ConsultarProcessosFiltroRoute: typeof ConsultarProcessosFiltroRoute
+  ConsultarProcessosResultadoRoute: typeof ConsultarProcessosResultadoRoute
+  ConsultarProcessosIndexRoute: typeof ConsultarProcessosIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
-  ConsultarProcessosRoute: ConsultarProcessosRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProcessoRoute: SolicitarProcessoRoute,
+  ConsultarProcessosFiltroRoute: ConsultarProcessosFiltroRoute,
+  ConsultarProcessosResultadoRoute: ConsultarProcessosResultadoRoute,
+  ConsultarProcessosIndexRoute: ConsultarProcessosIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -193,10 +238,12 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/cadastro",
-        "/consultarProcessos",
         "/login",
         "/recuperarSenha",
-        "/solicitarProcesso"
+        "/solicitarProcesso",
+        "/consultarProcessos/filtro",
+        "/consultarProcessos/resultado",
+        "/consultarProcessos/"
       ]
     },
     "/": {
@@ -204,9 +251,6 @@ export const routeTree = rootRoute
     },
     "/cadastro": {
       "filePath": "cadastro.tsx"
-    },
-    "/consultarProcessos": {
-      "filePath": "consultarProcessos.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
@@ -216,6 +260,15 @@ export const routeTree = rootRoute
     },
     "/solicitarProcesso": {
       "filePath": "solicitarProcesso.tsx"
+    },
+    "/consultarProcessos/filtro": {
+      "filePath": "consultarProcessos/filtro.tsx"
+    },
+    "/consultarProcessos/resultado": {
+      "filePath": "consultarProcessos/resultado.tsx"
+    },
+    "/consultarProcessos/": {
+      "filePath": "consultarProcessos/index.tsx"
     }
   }
 }

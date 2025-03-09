@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { NavLink } from "@/components/NavBar/common/components/NavLink";
 import {
   CREATE_PROCESSO_ROUTE_URL,
-  LIST_PROCESSOS_ROUTE_URL,
+  LIST_PROCESSOS_FILTER_ROUTE_URL,
 } from "@/constants/routesUrl";
 
 type INavBarProps = {
@@ -18,7 +18,7 @@ export function NavBar({ className }: INavBarProps) {
       )}
     >
       <img
-        src="logo.png"
+        src="/logo.png"
         alt="Logo da prefeitura de Patrocínio"
         className="mx-auto h-18 translate-x-[calc(-1_*_var(--spacing))]"
       />
@@ -37,7 +37,10 @@ export function NavBar({ className }: INavBarProps) {
         </li>
 
         <li>
-          <NavLink to={LIST_PROCESSOS_ROUTE_URL} iconSrc="/tableIcon.svg">
+          <NavLink
+            to={LIST_PROCESSOS_FILTER_ROUTE_URL}
+            iconSrc="/tableIcon.svg"
+          >
             Consultar Processos
           </NavLink>
         </li>
