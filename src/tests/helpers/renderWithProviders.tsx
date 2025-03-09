@@ -1,4 +1,4 @@
-import { routeTree } from "@/routeTree.gen";
+import { routeTree } from "@/presentation/router/generated/routeTree.gen";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
 

@@ -1,0 +1,6 @@
+import { ListProcessos } from "@/presentation/views/ListProcessos";
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/consultarProcessos/filtro")({
+  component: ListProcessos,
+});

@@ -10,10 +10,14 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "/src/tests/helpers/setupVitest.ts",
   },
   plugins: [
-    TanStackRouterVite({ autoCodeSplitting: true }),
+    TanStackRouterVite({
+      autoCodeSplitting: true,
+      routesDirectory: "./src/presentation/router/routes",
+      generatedRouteTree:
+        "./src/presentation/router/generated/routeTree.gen.ts",
+    }),
     react(),
     tailwindcss(),
   ],
