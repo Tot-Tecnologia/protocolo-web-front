@@ -1,6 +1,13 @@
 import { FirebaseAuthentication } from "@/data/usecases/authentication/firebaseAuthentication";
-import { faker } from "@faker-js/faker";
+import { mockAuthenticationArgs } from "@/domain/test/mockAuthenticationArgs";
 import { signInWithEmailAndPassword } from "firebase/auth";
+
+const auth = null as never;
+
+const makeSut = () => {
+  const sut = new FirebaseAuthentication(auth);
+  return { sut };
+};
 
 vi.mock("firebase/auth", () => {
   return {
@@ -9,18 +16,17 @@ vi.mock("firebase/auth", () => {
 });
 
 describe("FirebaseAuthentication", () => {
-  test("should call signInWithEmailAndPassword with correct email and password", () => {
-    const auth = null as never;
-    const sut = new FirebaseAuthentication(auth);
-    const email = faker.internet.email();
-    const password = faker.internet.password();
+  test("should call firebase's signInWithEmailAndPassword with correct email and password", () => {
+    const { sut } = makeSut();
 
-    sut.signIn({ email, password });
+    const authenticationArgs = mockAuthenticationArgs();
+
+    sut.signIn(authenticationArgs);
 
     expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
       auth,
-      email,
-      password,
+      authenticationArgs.email,
+      authenticationArgs.password,
     );
   });
 });
