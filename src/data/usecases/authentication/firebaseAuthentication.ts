@@ -2,8 +2,10 @@ import {
   HttpResponse,
   HttpStatusCode,
 } from "@/data/protocols/http/httpResponse";
+import { InvalidCredentialsError } from "@/domain/errors/invalidCredentialsError";
 import { AccountModel } from "@/domain/models";
 import { AuthenticationArgs } from "@/domain/usecases";
+import { FirebaseError } from "firebase/app";
 import { Auth, signInWithEmailAndPassword } from "firebase/auth";
 
 export class FirebaseAuthentication {
@@ -13,17 +15,27 @@ export class FirebaseAuthentication {
     email,
     password,
   }: AuthenticationArgs): Promise<HttpResponse<AccountModel>> {
-    const firebaseResponse = await signInWithEmailAndPassword(
-      this.auth,
-      email,
-      password,
-    );
+    try {
+      const firebaseResponse = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password,
+      );
 
-    const accessToken = await firebaseResponse.user.getIdToken();
+      const accessToken = await firebaseResponse.user.getIdToken();
 
-    return {
-      body: { accessToken },
-      statusCode: HttpStatusCode.ok,
-    };
+      return {
+        body: { accessToken },
+        statusCode: HttpStatusCode.ok,
+      };
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/invalid-credential") {
+          throw new InvalidCredentialsError();
+        }
+      }
+
+      throw new Error();
+    }
   }
 }
