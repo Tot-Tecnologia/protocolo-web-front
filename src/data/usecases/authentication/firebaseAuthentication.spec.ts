@@ -1,12 +1,26 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpResponse";
 import { FirebaseAuthentication } from "@/data/usecases/authentication/firebaseAuthentication";
+import { InvalidCredentialsError } from "@/domain/errors/invalidCredentialsError";
 import { mockAuthenticationArgs } from "@/domain/test/mockAuthenticationArgs";
 import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
+import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 
 const auth = null as never;
 const accessToken = faker.string.uuid();
+
+const { mockedSignInWithEmailAndPassword } = vi.hoisted(() => {
+  const mockedSignInWithEmailAndPassword = vi.fn(
+    (): DeepPartial<UserCredential> => ({
+      user: {
+        getIdToken: () => Promise.resolve(accessToken),
+      },
+    }),
+  );
+
+  return { mockedSignInWithEmailAndPassword };
+});
 
 const makeSut = () => {
   const sut = new FirebaseAuthentication(auth);
@@ -15,13 +29,7 @@ const makeSut = () => {
 
 vi.mock("firebase/auth", () => {
   return {
-    signInWithEmailAndPassword: vi.fn(
-      (): DeepPartial<UserCredential> => ({
-        user: {
-          getIdToken: () => Promise.resolve(accessToken),
-        },
-      }),
-    ),
+    signInWithEmailAndPassword: mockedSignInWithEmailAndPassword,
   };
 });
 
@@ -47,5 +55,17 @@ describe("FirebaseAuthentication", () => {
 
     expect(response.statusCode).toBe(HttpStatusCode.ok);
     expect(response.body.accessToken).toBe(accessToken);
+  });
+
+  test("should throw InvalidCredentialsError on FireBaseError code auth/invalid-credential", async () => {
+    const { sut } = makeSut();
+
+    mockedSignInWithEmailAndPassword.mockRejectedValueOnce(
+      new FirebaseError("auth/invalid-credential", ""),
+    );
+
+    const promise = sut.signIn(mockAuthenticationArgs());
+
+    await expect(promise).rejects.toThrowError(new InvalidCredentialsError());
   });
 });
