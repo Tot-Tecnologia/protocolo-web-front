@@ -1,5 +1,4 @@
-import { InvalidCredentialsError } from "@/domain/errors/invalidCredentialsError";
-import { UnexpectedError } from "@/domain/errors/unexpectedError";
+import { InvalidCredentialsError, UnexpectedError } from "@/domain/errors";
 import { AccountModel } from "@/domain/models";
 import { Authentication, AuthenticationArgs } from "@/domain/usecases";
 import { FirebaseError } from "firebase/app";
