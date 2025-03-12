@@ -1,21 +1,14 @@
-import {
-  HttpResponse,
-  HttpStatusCode,
-} from "@/data/protocols/http/httpResponse";
 import { InvalidCredentialsError } from "@/domain/errors/invalidCredentialsError";
 import { UnexpectedError } from "@/domain/errors/unexpectedError";
 import { AccountModel } from "@/domain/models";
-import { AuthenticationArgs } from "@/domain/usecases";
+import { Authentication, AuthenticationArgs } from "@/domain/usecases";
 import { FirebaseError } from "firebase/app";
 import { Auth, signInWithEmailAndPassword } from "firebase/auth";
 
-export class FirebaseAuthentication {
+export class FirebaseAuthentication implements Authentication {
   constructor(private readonly auth: Auth) {}
 
-  async signIn({
-    email,
-    password,
-  }: AuthenticationArgs): Promise<HttpResponse<AccountModel>> {
+  async signIn({ email, password }: AuthenticationArgs): Promise<AccountModel> {
     try {
       const firebaseResponse = await signInWithEmailAndPassword(
         this.auth,
@@ -26,8 +19,7 @@ export class FirebaseAuthentication {
       const accessToken = await firebaseResponse.user.getIdToken();
 
       return {
-        body: { accessToken },
-        statusCode: HttpStatusCode.ok,
+        accessToken,
       };
     } catch (error) {
       if (error instanceof FirebaseError) {

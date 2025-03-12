@@ -66,8 +66,7 @@ describe("FirebaseAuthentication", () => {
 
     const response = await sut.signIn(mockAuthenticationArgs());
 
-    expect(response.statusCode).toBe(HttpStatusCode.ok);
-    expect(response.body.accessToken).toBe(accessToken);
+    expect(response.accessToken).toBe(accessToken);
   });
 
   test("should throw InvalidCredentialsError on FireBaseError code auth/invalid-credential", async () => {
