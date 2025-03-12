@@ -1,6 +1,7 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpResponse";
 import { FirebaseAuthentication } from "@/data/usecases/authentication/firebaseAuthentication";
 import { InvalidCredentialsError } from "@/domain/errors/invalidCredentialsError";
+import { UnexpectedError } from "@/domain/errors/unexpectedError";
 import { mockAuthenticationArgs } from "@/domain/test/mockAuthenticationArgs";
 import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
@@ -25,6 +26,18 @@ const { mockedSignInWithEmailAndPassword } = vi.hoisted(() => {
 const makeSut = () => {
   const sut = new FirebaseAuthentication(auth);
   return { sut };
+};
+
+const simulateFirebaseError = async (errorCode: string) => {
+  const { sut } = makeSut();
+
+  mockedSignInWithEmailAndPassword.mockRejectedValueOnce(
+    new FirebaseError(errorCode, ""),
+  );
+
+  const promise = sut.signIn(mockAuthenticationArgs());
+
+  return promise;
 };
 
 vi.mock("firebase/auth", () => {
@@ -58,14 +71,38 @@ describe("FirebaseAuthentication", () => {
   });
 
   test("should throw InvalidCredentialsError on FireBaseError code auth/invalid-credential", async () => {
+    const promise = simulateFirebaseError("auth/invalid-credential");
+
+    await expect(promise).rejects.toThrowError(new InvalidCredentialsError());
+  });
+
+  test("should throw InvalidCredentialsError on FireBaseError code auth/invalid-email", async () => {
+    const promise = simulateFirebaseError("auth/invalid-email");
+
+    await expect(promise).rejects.toThrowError(new InvalidCredentialsError());
+  });
+
+  test("should throw InvalidCredentialsError on FireBaseError code auth/missing-email", async () => {
+    const promise = simulateFirebaseError("auth/missing-email");
+
+    await expect(promise).rejects.toThrowError(new InvalidCredentialsError());
+  });
+
+  test("should throw InvalidCredentialsError on FireBaseError code auth/missing-password", async () => {
+    const promise = simulateFirebaseError("auth/missing-password");
+
+    await expect(promise).rejects.toThrowError(new InvalidCredentialsError());
+  });
+
+  test("should throw UnexpectedError when some error was not handled by the code", async () => {
     const { sut } = makeSut();
 
     mockedSignInWithEmailAndPassword.mockRejectedValueOnce(
-      new FirebaseError("auth/invalid-credential", ""),
+      new Error(faker.lorem.sentence()),
     );
 
     const promise = sut.signIn(mockAuthenticationArgs());
 
-    await expect(promise).rejects.toThrowError(new InvalidCredentialsError());
+    await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
 });
