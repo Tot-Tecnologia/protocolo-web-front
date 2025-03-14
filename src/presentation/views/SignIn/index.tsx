@@ -12,10 +12,9 @@ import { FormProvider, useForm } from "react-hook-form";
 
 export function SignIn() {
   const form = useForm();
+  const navigate = useNavigate();
 
   const { handleSubmit } = form;
-
-  const navigate = useNavigate();
 
   const handleSignIn = handleSubmit((data) => {
     alert(JSON.stringify(data, null, 2));
