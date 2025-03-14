@@ -4,7 +4,7 @@ import { Input } from "@/presentation/components/Input";
 import { Link } from "@/presentation/components/Link";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import {
-  CREATE_PROCESSO_ROUTE_URL,
+  CREATE_DOCUMENTO_ROUTE_URL,
   RECOVER_PASSWORD_ROUTE_URL,
   SIGN_UP_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
@@ -19,7 +19,7 @@ export function SignIn() {
 
   const handleSignIn = handleSubmit((data) => {
     alert(JSON.stringify(data, null, 2));
-    void navigate({ to: CREATE_PROCESSO_ROUTE_URL });
+    void navigate({ to: CREATE_DOCUMENTO_ROUTE_URL });
   });
 
   const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });

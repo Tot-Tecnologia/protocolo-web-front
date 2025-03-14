@@ -5,7 +5,7 @@ import { Input } from "@/presentation/components/Input";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
-import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProcesso/OneLargeOneSmallInputsContainer";
+import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateDocumento/OneLargeOneSmallInputsContainer";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface ICriarProcessoDto {
@@ -39,7 +39,7 @@ interface ICriarProcessoDto {
   telefone: string;
 }
 
-export function CreateProcesso() {
+export function CreateDocumento() {
   return (
     <PageContainer title="Solicitar Processo">
       <form
@@ -107,7 +107,7 @@ export function CreateProcesso() {
 
         <Card title="Solicitação">
           <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-            <Select name="ProcessoTypeId" label="Tipo de solicitação">
+            <Select name="DocumentoTypeId" label="Tipo de solicitação">
               <option value="0">Selecione uma opção</option>
               <option value="1">Lorem ipsum dolor</option>
               <option value="2">Ipsum dolor sit</option>

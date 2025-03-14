@@ -11,20 +11,20 @@
 // Import Routes
 
 import { Route as rootRoute } from './../routes/__root'
-import { Route as SolicitarProcessoImport } from './../routes/solicitarProcesso'
+import { Route as SolicitarDocumentoImport } from './../routes/solicitarDocumento'
 import { Route as RecuperarSenhaImport } from './../routes/recuperarSenha'
 import { Route as LoginImport } from './../routes/login'
 import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
-import { Route as ConsultarProcessosIndexImport } from './../routes/consultarProcessos/index'
-import { Route as ConsultarProcessosResultadoImport } from './../routes/consultarProcessos/resultado'
-import { Route as ConsultarProcessosFiltroImport } from './../routes/consultarProcessos/filtro'
+import { Route as ConsultarDocumentoIndexImport } from './../routes/consultarDocumento/index'
+import { Route as ConsultarDocumentoResultadoImport } from './../routes/consultarDocumento/resultado'
+import { Route as ConsultarDocumentoFiltroImport } from './../routes/consultarDocumento/filtro'
 
 // Create/Update Routes
 
-const SolicitarProcessoRoute = SolicitarProcessoImport.update({
-  id: '/solicitarProcesso',
-  path: '/solicitarProcesso',
+const SolicitarDocumentoRoute = SolicitarDocumentoImport.update({
+  id: '/solicitarDocumento',
+  path: '/solicitarDocumento',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -52,22 +52,22 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ConsultarProcessosIndexRoute = ConsultarProcessosIndexImport.update({
-  id: '/consultarProcessos/',
-  path: '/consultarProcessos/',
+const ConsultarDocumentoIndexRoute = ConsultarDocumentoIndexImport.update({
+  id: '/consultarDocumento/',
+  path: '/consultarDocumento/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ConsultarProcessosResultadoRoute =
-  ConsultarProcessosResultadoImport.update({
-    id: '/consultarProcessos/resultado',
-    path: '/consultarProcessos/resultado',
+const ConsultarDocumentoResultadoRoute =
+  ConsultarDocumentoResultadoImport.update({
+    id: '/consultarDocumento/resultado',
+    path: '/consultarDocumento/resultado',
     getParentRoute: () => rootRoute,
   } as any)
 
-const ConsultarProcessosFiltroRoute = ConsultarProcessosFiltroImport.update({
-  id: '/consultarProcessos/filtro',
-  path: '/consultarProcessos/filtro',
+const ConsultarDocumentoFiltroRoute = ConsultarDocumentoFiltroImport.update({
+  id: '/consultarDocumento/filtro',
+  path: '/consultarDocumento/filtro',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -103,32 +103,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecuperarSenhaImport
       parentRoute: typeof rootRoute
     }
-    '/solicitarProcesso': {
-      id: '/solicitarProcesso'
-      path: '/solicitarProcesso'
-      fullPath: '/solicitarProcesso'
-      preLoaderRoute: typeof SolicitarProcessoImport
+    '/solicitarDocumento': {
+      id: '/solicitarDocumento'
+      path: '/solicitarDocumento'
+      fullPath: '/solicitarDocumento'
+      preLoaderRoute: typeof SolicitarDocumentoImport
       parentRoute: typeof rootRoute
     }
-    '/consultarProcessos/filtro': {
-      id: '/consultarProcessos/filtro'
-      path: '/consultarProcessos/filtro'
-      fullPath: '/consultarProcessos/filtro'
-      preLoaderRoute: typeof ConsultarProcessosFiltroImport
+    '/consultarDocumento/filtro': {
+      id: '/consultarDocumento/filtro'
+      path: '/consultarDocumento/filtro'
+      fullPath: '/consultarDocumento/filtro'
+      preLoaderRoute: typeof ConsultarDocumentoFiltroImport
       parentRoute: typeof rootRoute
     }
-    '/consultarProcessos/resultado': {
-      id: '/consultarProcessos/resultado'
-      path: '/consultarProcessos/resultado'
-      fullPath: '/consultarProcessos/resultado'
-      preLoaderRoute: typeof ConsultarProcessosResultadoImport
+    '/consultarDocumento/resultado': {
+      id: '/consultarDocumento/resultado'
+      path: '/consultarDocumento/resultado'
+      fullPath: '/consultarDocumento/resultado'
+      preLoaderRoute: typeof ConsultarDocumentoResultadoImport
       parentRoute: typeof rootRoute
     }
-    '/consultarProcessos/': {
-      id: '/consultarProcessos/'
-      path: '/consultarProcessos'
-      fullPath: '/consultarProcessos'
-      preLoaderRoute: typeof ConsultarProcessosIndexImport
+    '/consultarDocumento/': {
+      id: '/consultarDocumento/'
+      path: '/consultarDocumento'
+      fullPath: '/consultarDocumento'
+      preLoaderRoute: typeof ConsultarDocumentoIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -141,10 +141,10 @@ export interface FileRoutesByFullPath {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
-  '/solicitarProcesso': typeof SolicitarProcessoRoute
-  '/consultarProcessos/filtro': typeof ConsultarProcessosFiltroRoute
-  '/consultarProcessos/resultado': typeof ConsultarProcessosResultadoRoute
-  '/consultarProcessos': typeof ConsultarProcessosIndexRoute
+  '/solicitarDocumento': typeof SolicitarDocumentoRoute
+  '/consultarDocumento/filtro': typeof ConsultarDocumentoFiltroRoute
+  '/consultarDocumento/resultado': typeof ConsultarDocumentoResultadoRoute
+  '/consultarDocumento': typeof ConsultarDocumentoIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -152,10 +152,10 @@ export interface FileRoutesByTo {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
-  '/solicitarProcesso': typeof SolicitarProcessoRoute
-  '/consultarProcessos/filtro': typeof ConsultarProcessosFiltroRoute
-  '/consultarProcessos/resultado': typeof ConsultarProcessosResultadoRoute
-  '/consultarProcessos': typeof ConsultarProcessosIndexRoute
+  '/solicitarDocumento': typeof SolicitarDocumentoRoute
+  '/consultarDocumento/filtro': typeof ConsultarDocumentoFiltroRoute
+  '/consultarDocumento/resultado': typeof ConsultarDocumentoResultadoRoute
+  '/consultarDocumento': typeof ConsultarDocumentoIndexRoute
 }
 
 export interface FileRoutesById {
@@ -164,10 +164,10 @@ export interface FileRoutesById {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
-  '/solicitarProcesso': typeof SolicitarProcessoRoute
-  '/consultarProcessos/filtro': typeof ConsultarProcessosFiltroRoute
-  '/consultarProcessos/resultado': typeof ConsultarProcessosResultadoRoute
-  '/consultarProcessos/': typeof ConsultarProcessosIndexRoute
+  '/solicitarDocumento': typeof SolicitarDocumentoRoute
+  '/consultarDocumento/filtro': typeof ConsultarDocumentoFiltroRoute
+  '/consultarDocumento/resultado': typeof ConsultarDocumentoResultadoRoute
+  '/consultarDocumento/': typeof ConsultarDocumentoIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -177,30 +177,30 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/login'
     | '/recuperarSenha'
-    | '/solicitarProcesso'
-    | '/consultarProcessos/filtro'
-    | '/consultarProcessos/resultado'
-    | '/consultarProcessos'
+    | '/solicitarDocumento'
+    | '/consultarDocumento/filtro'
+    | '/consultarDocumento/resultado'
+    | '/consultarDocumento'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cadastro'
     | '/login'
     | '/recuperarSenha'
-    | '/solicitarProcesso'
-    | '/consultarProcessos/filtro'
-    | '/consultarProcessos/resultado'
-    | '/consultarProcessos'
+    | '/solicitarDocumento'
+    | '/consultarDocumento/filtro'
+    | '/consultarDocumento/resultado'
+    | '/consultarDocumento'
   id:
     | '__root__'
     | '/'
     | '/cadastro'
     | '/login'
     | '/recuperarSenha'
-    | '/solicitarProcesso'
-    | '/consultarProcessos/filtro'
-    | '/consultarProcessos/resultado'
-    | '/consultarProcessos/'
+    | '/solicitarDocumento'
+    | '/consultarDocumento/filtro'
+    | '/consultarDocumento/resultado'
+    | '/consultarDocumento/'
   fileRoutesById: FileRoutesById
 }
 
@@ -209,10 +209,10 @@ export interface RootRouteChildren {
   CadastroRoute: typeof CadastroRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
-  SolicitarProcessoRoute: typeof SolicitarProcessoRoute
-  ConsultarProcessosFiltroRoute: typeof ConsultarProcessosFiltroRoute
-  ConsultarProcessosResultadoRoute: typeof ConsultarProcessosResultadoRoute
-  ConsultarProcessosIndexRoute: typeof ConsultarProcessosIndexRoute
+  SolicitarDocumentoRoute: typeof SolicitarDocumentoRoute
+  ConsultarDocumentoFiltroRoute: typeof ConsultarDocumentoFiltroRoute
+  ConsultarDocumentoResultadoRoute: typeof ConsultarDocumentoResultadoRoute
+  ConsultarDocumentoIndexRoute: typeof ConsultarDocumentoIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -220,10 +220,10 @@ const rootRouteChildren: RootRouteChildren = {
   CadastroRoute: CadastroRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
-  SolicitarProcessoRoute: SolicitarProcessoRoute,
-  ConsultarProcessosFiltroRoute: ConsultarProcessosFiltroRoute,
-  ConsultarProcessosResultadoRoute: ConsultarProcessosResultadoRoute,
-  ConsultarProcessosIndexRoute: ConsultarProcessosIndexRoute,
+  SolicitarDocumentoRoute: SolicitarDocumentoRoute,
+  ConsultarDocumentoFiltroRoute: ConsultarDocumentoFiltroRoute,
+  ConsultarDocumentoResultadoRoute: ConsultarDocumentoResultadoRoute,
+  ConsultarDocumentoIndexRoute: ConsultarDocumentoIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -240,10 +240,10 @@ export const routeTree = rootRoute
         "/cadastro",
         "/login",
         "/recuperarSenha",
-        "/solicitarProcesso",
-        "/consultarProcessos/filtro",
-        "/consultarProcessos/resultado",
-        "/consultarProcessos/"
+        "/solicitarDocumento",
+        "/consultarDocumento/filtro",
+        "/consultarDocumento/resultado",
+        "/consultarDocumento/"
       ]
     },
     "/": {
@@ -258,17 +258,17 @@ export const routeTree = rootRoute
     "/recuperarSenha": {
       "filePath": "recuperarSenha.tsx"
     },
-    "/solicitarProcesso": {
-      "filePath": "solicitarProcesso.tsx"
+    "/solicitarDocumento": {
+      "filePath": "solicitarDocumento.tsx"
     },
-    "/consultarProcessos/filtro": {
-      "filePath": "consultarProcessos/filtro.tsx"
+    "/consultarDocumento/filtro": {
+      "filePath": "consultarDocumento/filtro.tsx"
     },
-    "/consultarProcessos/resultado": {
-      "filePath": "consultarProcessos/resultado.tsx"
+    "/consultarDocumento/resultado": {
+      "filePath": "consultarDocumento/resultado.tsx"
     },
-    "/consultarProcessos/": {
-      "filePath": "consultarProcessos/index.tsx"
+    "/consultarDocumento/": {
+      "filePath": "consultarDocumento/index.tsx"
     }
   }
 }
