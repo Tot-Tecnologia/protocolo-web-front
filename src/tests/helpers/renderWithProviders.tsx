@@ -1,8 +1,10 @@
 import { routeTree } from "@/presentation/router/generated/routeTree.gen";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
 
 export const mockedRouter = createRouter({ routeTree });
+export const mockedQueryClient = new QueryClient();
 
 export const updateRouterWithWrappedChildren = ({
   children,
@@ -10,7 +12,12 @@ export const updateRouterWithWrappedChildren = ({
   children?: React.ReactNode;
 } = {}) => {
   mockedRouter.routesById["__root__"].update({
-    component: () => <>{children}</>, // Providers default são colocados aqui <---
+    component: () => (
+      // Providers default são colocados logo abaixo
+      <QueryClientProvider client={mockedQueryClient}>
+        {children}
+      </QueryClientProvider>
+    ),
   });
 };
 
