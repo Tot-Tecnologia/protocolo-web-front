@@ -9,8 +9,14 @@ import {
   SIGN_UP_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 import { FormProvider, useForm } from "react-hook-form";
+import { Authentication } from "@/domain/usecases";
 
-export function SignIn() {
+type ISignInProps = {
+  authentication: Authentication;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function SignIn({ authentication }: ISignInProps) {
   const form = useForm();
   const navigate = useNavigate();
 
