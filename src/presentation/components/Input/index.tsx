@@ -18,7 +18,12 @@ export function Input(props: IInputProps) {
     <Controller
       name={props.name}
       render={({ field }) => (
-        <BaseInput Component={InputComponent} {...props} {...field} />
+        <BaseInput
+          Component={InputComponent}
+          {...props}
+          {...field}
+          value={props.value ?? (field.value as never) ?? ""}
+        />
       )}
     ></Controller>
   );
