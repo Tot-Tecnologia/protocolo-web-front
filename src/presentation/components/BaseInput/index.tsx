@@ -13,6 +13,8 @@ export type IBaseInputProps<
   React.InputHTMLAttributes<HTMLInputElement> & {
     Component: React.ComponentType<TComponentProps>;
     label?: React.ReactNode;
+    helperText?: React.ReactNode;
+    error?: boolean;
     containerClassName?: string;
   };
 
@@ -22,9 +24,12 @@ export function BaseInput({
   containerClassName,
   id,
   label,
+  helperText,
+  error,
   ...props
 }: IBaseInputProps) {
   const isLabelVisible = label != null;
+  const isHelperTextVisible = helperText != null;
   const generatedId = useId();
   const finalId = id ?? generatedId;
 
@@ -39,12 +44,26 @@ export function BaseInput({
       <Component
         id={finalId}
         className={clsx(
-          "focus:border-primary focus:outline-primary rounded-lg border-1 border-gray-300 bg-white px-3 py-1.5 text-gray-900 -outline-offset-2 placeholder:text-sm focus:outline-2",
+          "rounded-lg border bg-white px-3 py-1.5 -outline-offset-2 placeholder:text-sm focus:outline-2",
           isLabelVisible && "mt-2",
+          error ? "text-error" : "text-gray-900",
+          error ? "border-error" : "border-gray-300",
+          error ? "focus:outline-error" : "focus:outline-primary",
           className,
         )}
         {...props}
       />
+
+      {isHelperTextVisible && (
+        <span
+          className={clsx(
+            "mt-1 text-sm leading-5",
+            error ? "text-error" : "text-gray-500",
+          )}
+        >
+          {helperText}
+        </span>
+      )}
     </div>
   );
 }

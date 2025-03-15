@@ -17,12 +17,14 @@ export function Input(props: IInputProps) {
   return (
     <Controller
       name={props.name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <BaseInput
           Component={InputComponent}
           {...props}
           {...field}
-          value={props.value ?? (field.value as never) ?? ""}
+          value={(field.value as never) ?? ""}
+          helperText={fieldState.error?.message ?? props.helperText}
+          error={!!fieldState.error || props.error}
         />
       )}
     ></Controller>
