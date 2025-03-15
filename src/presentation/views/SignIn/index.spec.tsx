@@ -3,7 +3,7 @@ import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import { screen, waitFor } from "@testing-library/react";
 
 const makeSut = () => {
-  renderWithProviders(<SignIn />);
+  renderWithProviders(<SignIn authentication={null as never} />);
   return { sut: screen };
 };
 
