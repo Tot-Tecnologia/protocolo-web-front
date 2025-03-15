@@ -11,6 +11,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { Authentication } from "@/domain/usecases";
 import { useAuthenticationMutation } from "@/presentation/views/SignIn/common/hooks/useAuthenticationMutation";
+import { notificationService } from "@/presentation/services/notificationService";
 
 type ISignInProps = {
   authentication: Authentication;
@@ -32,9 +33,7 @@ export function SignIn({ authentication }: ISignInProps) {
           console.log({ accessToken });
           void navigate({ to: CREATE_DOCUMENTO_ROUTE_URL });
         },
-        onError: (error) => {
-          console.error({ error });
-        },
+        onError: (error) => notificationService.error(error.message),
       },
     );
   });
