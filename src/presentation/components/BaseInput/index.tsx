@@ -9,13 +9,12 @@ type IBaseInputComponentProps = {
 
 export type IBaseInputProps<
   TComponentProps extends IBaseInputComponentProps = IBaseInputComponentProps,
-> = {
-  Component: React.ComponentType<TComponentProps>;
-  label?: React.ReactNode;
-  id?: string;
-  className?: string;
-  containerClassName?: string;
-};
+> = React.SelectHTMLAttributes<HTMLSelectElement> &
+  React.InputHTMLAttributes<HTMLInputElement> & {
+    Component: React.ComponentType<TComponentProps>;
+    label?: React.ReactNode;
+    containerClassName?: string;
+  };
 
 export function BaseInput({
   Component,
