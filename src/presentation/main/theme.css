@@ -29,3 +29,11 @@
   --color-success-dark: #1B5E20;
   --color-success-light: #4CAF50;
 }
+
+:root {
+  --toastify-font-family: var(--font-sans);
+  --toastify-color-info: var(--color-primary-light);
+  --toastify-color-success: var(--color-success-light);
+  --toastify-color-warning: var(--color-warning-light);
+  --toastify-color-error: var(--color-error-light);
+}

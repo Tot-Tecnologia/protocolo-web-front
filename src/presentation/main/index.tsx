@@ -4,6 +4,7 @@ import { RouterProvider } from "@tanstack/react-router";
 // import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { ToastContainer, Zoom } from "react-toastify";
 import { queryClient } from "@/presentation/queryClient";
 import { router } from "@/presentation/router";
 import "@/presentation/main/theme.css";
@@ -12,6 +13,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ToastContainer transition={Zoom} />
       {/* <TanStackRouterDevtools router={router} /> */}
       {/* <ReactQueryDevtools client={queryClient} /> */}
     </QueryClientProvider>

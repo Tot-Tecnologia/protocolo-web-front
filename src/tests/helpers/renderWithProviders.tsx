@@ -2,6 +2,7 @@ import { routeTree } from "@/presentation/router/generated/routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
+import { ToastContainer } from "react-toastify";
 
 export const mockedRouter = createRouter({ routeTree });
 export const mockedQueryClient = new QueryClient();
@@ -16,6 +17,7 @@ export const updateRouterWithWrappedChildren = ({
       // Providers default são colocados logo abaixo
       <QueryClientProvider client={mockedQueryClient}>
         {children}
+        <ToastContainer />
       </QueryClientProvider>
     ),
   });
