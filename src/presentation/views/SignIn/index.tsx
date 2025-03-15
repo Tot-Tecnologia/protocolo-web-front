@@ -10,21 +10,33 @@ import {
 } from "@/presentation/constants/routesUrl";
 import { FormProvider, useForm } from "react-hook-form";
 import { Authentication } from "@/domain/usecases";
+import { useAuthenticationMutation } from "@/presentation/views/SignIn/common/hooks/useAuthenticationMutation";
 
 type ISignInProps = {
   authentication: Authentication;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SignIn({ authentication }: ISignInProps) {
   const form = useForm();
   const navigate = useNavigate();
+  const authenticationMutation = useAuthenticationMutation({ authentication });
 
   const { handleSubmit } = form;
 
-  const handleSignIn = handleSubmit((data) => {
-    alert(JSON.stringify(data, null, 2));
-    void navigate({ to: CREATE_DOCUMENTO_ROUTE_URL });
+  const handleSignIn = handleSubmit(({ email, password }) => {
+    authenticationMutation.mutate(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      { email, password },
+      {
+        onSuccess: ({ accessToken }) => {
+          console.log({ accessToken });
+          void navigate({ to: CREATE_DOCUMENTO_ROUTE_URL });
+        },
+        onError: (error) => {
+          console.error({ error });
+        },
+      },
+    );
   });
 
   const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });
