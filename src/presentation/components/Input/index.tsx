@@ -4,7 +4,7 @@ import {
 } from "@/presentation/components/BaseInput";
 import { Controller } from "react-hook-form";
 
-type IInputProps = React.InputHTMLAttributes<HTMLInputElement> &
+export type IInputProps = React.InputHTMLAttributes<HTMLInputElement> &
   Omit<IBaseInputProps, "Component"> & {
     name: string;
   };

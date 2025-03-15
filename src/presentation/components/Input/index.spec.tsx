@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Input } from "@/presentation/components/Input";
-import { faker } from "@faker-js/faker";
 import { render, renderHook, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
+import { faker } from "@faker-js/faker";
 import { FormProvider, useForm } from "react-hook-form";
+import { IInputProps, Input } from "@/presentation/components/Input";
+import "@testing-library/jest-dom";
 
 const inputName = faker.lorem.word();
 
-const makeSut = () => {
+type IMakeSutArgs = {
+  inputProps?: Partial<IInputProps>;
+};
+
+const makeSut = (args?: IMakeSutArgs) => {
   const user = userEvent.setup();
 
   const { result } = renderHook(() => useForm());
 
   render(
     <FormProvider {...result.current}>
-      <Input name={inputName} data-testid={inputName} />
+      <Input name={inputName} data-testid={inputName} {...args?.inputProps} />
     </FormProvider>,
   );
 
@@ -44,5 +49,15 @@ describe("Input", () => {
 
     expect(input.value).toBe(typedValue);
     expect(fieldStateValue).toBe(typedValue);
+  });
+
+  test("should render helperText when its prop is valued", () => {
+    const helperTextValue = faker.lorem.word();
+
+    const { sut } = makeSut({ inputProps: { helperText: helperTextValue } });
+
+    const helperTextElement = sut.getByText(helperTextValue);
+
+    expect(helperTextElement).toBeInTheDocument();
   });
 });
