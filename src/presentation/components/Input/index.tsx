@@ -1,19 +1,22 @@
+import { Controller, FieldValues, Path } from "react-hook-form";
 import {
   BaseInput,
   IBaseInputProps,
 } from "@/presentation/components/BaseInput";
-import { Controller } from "react-hook-form";
 
-export type IInputProps = React.InputHTMLAttributes<HTMLInputElement> &
-  Omit<IBaseInputProps, "Component"> & {
-    name: string;
-  };
+export type IInputProps<TFieldValues extends FieldValues = FieldValues> =
+  React.InputHTMLAttributes<HTMLInputElement> &
+    Omit<IBaseInputProps, "Component"> & {
+      name: Path<TFieldValues>;
+    };
 
 function InputComponent(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} />;
 }
 
-export function Input(props: IInputProps) {
+export function Input<TFieldValues extends FieldValues = FieldValues>(
+  props: IInputProps<TFieldValues>,
+) {
   return (
     <Controller
       name={props.name}
@@ -27,6 +30,6 @@ export function Input(props: IInputProps) {
           error={!!fieldState.error || props.error}
         />
       )}
-    ></Controller>
+    />
   );
 }
