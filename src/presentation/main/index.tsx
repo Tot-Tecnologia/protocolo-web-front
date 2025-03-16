@@ -8,6 +8,9 @@ import { ToastContainer, Zoom } from "react-toastify";
 import { queryClient } from "@/presentation/queryClient";
 import { router } from "@/presentation/router";
 import "@/presentation/main/theme.css";
+import { setupZodErrorMessageTranslation } from "@/presentation/config/zod";
+
+setupZodErrorMessageTranslation();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
