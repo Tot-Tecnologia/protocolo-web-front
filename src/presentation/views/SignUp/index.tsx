@@ -1,9 +1,10 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
-import { FormProvider, useForm } from "react-hook-form";
+import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks/changeCpfCnpjEventHandler";
 
 export function SignUp() {
   const form = useForm();
@@ -22,12 +23,26 @@ export function SignUp() {
       <FormProvider {...form}>
         <form onSubmit={handleSignUp}>
           <div className="flex flex-col gap-4 *:w-full">
-            <Input name="cpfCnpj" placeholder="CPF/CNPJ" />
+            <Input
+              name="cpfCnpj"
+              placeholder="CPF/CNPJ"
+              onChange={changeCpfCnpjEventHandler}
+            />
+
             <Input name="nome" placeholder="Nome" />
+
             <Input name="telefone" placeholder="Celular" />
-            <Input name="email" placeholder="E-mail" />
-            <Input name="confirmacaoEmail" placeholder="Confirmar e-mail" />
+
+            <Input name="email" placeholder="E-mail" type="email" />
+
+            <Input
+              name="confirmacaoEmail"
+              placeholder="Confirmar e-mail"
+              type="email"
+            />
+
             <Input name="senha" placeholder="Senha" />
+
             <Input name="confirmacaoSenha" placeholder="Confirmar senha" />
 
             <Button className="mt-6" type="submit" size="large">
