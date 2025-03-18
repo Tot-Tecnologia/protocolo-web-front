@@ -1,5 +1,4 @@
-const cpfLength = 14;
-const cnpjLength = 18;
+import { CNPJ_LENGTH, CPF_LENGTH } from "@/presentation/constants/stringLength";
 
 function cpfMask(value: string) {
   value = value.replace(/\D/g, "");
@@ -22,10 +21,10 @@ export function changeCpfCnpjEventHandler(
   event: React.ChangeEvent<HTMLInputElement>,
 ) {
   const value = event.target.value;
-  if (value.length > cnpjLength) {
+  if (value.length > CNPJ_LENGTH) {
     // não permite que exceda a quantidade de caracteres de um CNPJ
-    event.target.value = value.slice(0, cnpjLength);
-  } else if (value.length <= cpfLength) {
+    event.target.value = value.slice(0, CNPJ_LENGTH);
+  } else if (value.length <= CPF_LENGTH) {
     // formata com máscara de CPF
     event.target.value = cpfMask(value);
   } else {
