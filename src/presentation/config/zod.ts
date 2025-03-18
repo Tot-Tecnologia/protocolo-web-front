@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const customErrorMap: z.ZodErrorMap = (error, ctx) => {
-  console.log(error);
+  console.log(error); // TODO: remover
   switch (error.code) {
     case z.ZodIssueCode.invalid_type:
       if (["undefined", "null"].includes(error.received)) {
@@ -12,6 +12,9 @@ const customErrorMap: z.ZodErrorMap = (error, ctx) => {
     case z.ZodIssueCode.invalid_string:
       if (error.validation === "email") {
         return { message: "E-mail inválido" };
+      }
+      if (error.validation === "regex") {
+        return { message: "Inválido" };
       }
       break;
 
