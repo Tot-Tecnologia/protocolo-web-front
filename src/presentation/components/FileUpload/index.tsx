@@ -8,7 +8,10 @@ type IFileUploadProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "type"
 > &
-  Omit<IBaseInputProps, "Component">;
+  Omit<
+    IBaseInputProps<React.InputHTMLAttributes<HTMLInputElement>>,
+    "Component"
+  >;
 
 function FileUploadComponent(
   props: React.InputHTMLAttributes<HTMLInputElement>,
@@ -30,7 +33,7 @@ function FileUploadComponent(
 
 export function FileUpload(props: IFileUploadProps) {
   return (
-    <BaseInput
+    <BaseInput<React.InputHTMLAttributes<HTMLInputElement>>
       Component={FileUploadComponent}
       {...props}
       className={clsx(

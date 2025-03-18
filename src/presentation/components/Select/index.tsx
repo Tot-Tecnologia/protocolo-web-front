@@ -5,7 +5,10 @@ import {
 import clsx from "clsx";
 
 type ISelectProps = React.SelectHTMLAttributes<HTMLSelectElement> &
-  Omit<IBaseInputProps, "Component">;
+  Omit<
+    IBaseInputProps<React.SelectHTMLAttributes<HTMLSelectElement>>,
+    "Component"
+  >;
 
 function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return <select {...props} />;
@@ -13,7 +16,7 @@ function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
 
 export function Select(props: ISelectProps) {
   return (
-    <BaseInput
+    <BaseInput<React.SelectHTMLAttributes<HTMLSelectElement>>
       Component={SelectComponent}
       {...props}
       className={clsx(

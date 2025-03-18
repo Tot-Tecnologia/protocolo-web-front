@@ -4,7 +4,10 @@ import {
 } from "@/presentation/components/BaseInput";
 
 type ITextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
-  Omit<IBaseInputProps, "Component">;
+  Omit<
+    IBaseInputProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>>,
+    "Component"
+  >;
 
 function TextAreaComponent(
   props: React.TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -13,5 +16,10 @@ function TextAreaComponent(
 }
 
 export function TextArea(props: ITextAreaProps) {
-  return <BaseInput Component={TextAreaComponent} {...props} />;
+  return (
+    <BaseInput<React.TextareaHTMLAttributes<HTMLTextAreaElement>>
+      Component={TextAreaComponent}
+      {...props}
+    />
+  );
 }

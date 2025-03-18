@@ -8,17 +8,25 @@ type IBaseInputComponentProps = {
 };
 
 export type IBaseInputProps<
+  THTMLAttributes extends
+    | React.SelectHTMLAttributes<HTMLSelectElement>
+    | React.InputHTMLAttributes<HTMLInputElement>
+    | React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   TComponentProps extends IBaseInputComponentProps = IBaseInputComponentProps,
-> = React.SelectHTMLAttributes<HTMLSelectElement> &
-  React.InputHTMLAttributes<HTMLInputElement> & {
-    Component: React.ComponentType<TComponentProps>;
-    label?: React.ReactNode;
-    helperText?: React.ReactNode;
-    error?: boolean;
-    containerClassName?: string;
-  };
+> = THTMLAttributes & {
+  Component: React.ComponentType<TComponentProps>;
+  label?: React.ReactNode;
+  helperText?: React.ReactNode;
+  error?: boolean;
+  containerClassName?: string;
+};
 
-export function BaseInput({
+export function BaseInput<
+  THTMLAttributes extends
+    | React.SelectHTMLAttributes<HTMLSelectElement>
+    | React.InputHTMLAttributes<HTMLInputElement>
+    | React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+>({
   Component,
   className,
   containerClassName,
@@ -27,7 +35,7 @@ export function BaseInput({
   helperText,
   error,
   ...props
-}: IBaseInputProps) {
+}: IBaseInputProps<THTMLAttributes>) {
   const isLabelVisible = label != null;
   const isHelperTextVisible = helperText != null;
   const generatedId = useId();
