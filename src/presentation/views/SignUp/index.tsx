@@ -1,18 +1,22 @@
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks/changeCpfCnpjEventHandler";
+import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
+import {
+  SignUpDto,
+  signUpValidationSchema,
+} from "@/presentation/views/SignUp/common/validation/signUpValidationSchema";
 
 export function SignUp() {
-  const form = useForm();
+  const form = useFormWithZod({ schema: signUpValidationSchema });
+
   const navigate = useNavigate();
 
-  const { handleSubmit } = form;
-
-  const handleSignUp = handleSubmit((data) => {
+  const handleSignUp = form.handleSubmit((data) => {
     alert(JSON.stringify(data, null, 2));
   });
 
@@ -23,7 +27,7 @@ export function SignUp() {
       <FormProvider {...form}>
         <form onSubmit={handleSignUp}>
           <div className="flex flex-col gap-4 *:w-full">
-            <Input
+            <Input<SignUpDto>
               name="cpfCnpj"
               placeholder="CPF/CNPJ"
               onChange={changeCpfCnpjEventHandler}
