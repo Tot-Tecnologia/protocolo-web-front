@@ -60,7 +60,12 @@ export function SignIn({ authentication }: ISignInProps) {
             <Link to={RECOVER_PASSWORD_ROUTE_URL}>Recuperar senha</Link>
           </div>
 
-          <Button className="mt-6" type="submit" size="large">
+          <Button
+            className="mt-6"
+            type="submit"
+            size="large"
+            loading={authenticationMutation.isPending}
+          >
             Acessar
           </Button>
 
