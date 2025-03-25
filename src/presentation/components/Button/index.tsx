@@ -1,3 +1,4 @@
+import { Spinner } from "@/presentation/components/Spinner";
 import clsx from "clsx";
 
 type IVariant = "contained" | "outlined" | "text";
@@ -7,9 +8,13 @@ type ISize = "small" | "medium" | "large";
 type IButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: ISize;
   variant?: IVariant;
+  loading?: boolean;
 };
 
 export function Button({
+  children,
+  loading,
+  disabled,
   variant = "contained",
   size = "medium",
   ...props
@@ -17,9 +22,10 @@ export function Button({
   return (
     <button
       type="button"
+      disabled={disabled || loading}
       {...props}
       className={clsx(
-        "cursor-pointer rounded-md font-bold uppercase",
+        "flex cursor-pointer items-center justify-center rounded-md font-bold uppercase",
         // font-size
         size === "small" && "text-sm",
         // padding
@@ -36,6 +42,8 @@ export function Button({
           : "border-1 border-transparent",
         props.className,
       )}
-    />
+    >
+      {!loading ? children : <Spinner />}
+    </button>
   );
 }
