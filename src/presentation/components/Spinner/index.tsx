@@ -1,20 +1,17 @@
 import clsx from "clsx";
+import { ISpinnerProps } from "@/presentation/components/Spinner/types/spinnerTypes";
+import {
+  colorVariants,
+  sizeVariants,
+} from "@/presentation/components/Spinner/style/spinnerVariants";
 
-type ISpinnerProps = {
-  color?: string;
-  size?: string;
-};
-
-export function Spinner({
-  color = "primary-light",
-  size = "5",
-}: ISpinnerProps) {
+export function Spinner({ color = "primary", size = "medium" }: ISpinnerProps) {
   return (
     <div
       className={clsx(
         "rounded-50/10 m-0.5 animate-spin rounded-full border-3 border-gray-400 text-[0px]",
-        `border-t-${color}`,
-        `size-${size}`,
+        colorVariants[color],
+        sizeVariants[size],
       )}
     >
       Carregando

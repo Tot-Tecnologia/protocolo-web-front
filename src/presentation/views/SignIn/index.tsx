@@ -77,6 +77,63 @@ export function SignIn({ authentication }: ISignInProps) {
           >
             Cadastrar
           </Button>
+
+          <Button variant="contained" size="small">
+            contained small
+          </Button>
+          <Button loading variant="contained" size="small">
+            contained small
+          </Button>
+          <Button variant="contained" size="medium">
+            contained medium
+          </Button>
+          <Button loading variant="contained" size="medium">
+            contained medium
+          </Button>
+          <Button variant="contained" size="large">
+            contained large
+          </Button>
+          <Button loading variant="contained" size="large">
+            contained large
+          </Button>
+
+          <Button variant="outlined" size="small">
+            outlined small
+          </Button>
+          <Button loading variant="outlined" size="small">
+            outlined small
+          </Button>
+          <Button variant="outlined" size="medium">
+            outlined medium
+          </Button>
+          <Button loading variant="outlined" size="medium">
+            outlined medium
+          </Button>
+          <Button variant="outlined" size="large">
+            outlined large
+          </Button>
+          <Button loading variant="outlined" size="large">
+            outlined large
+          </Button>
+
+          <Button variant="text" size="small">
+            text small
+          </Button>
+          <Button loading variant="text" size="small">
+            text small
+          </Button>
+          <Button variant="text" size="medium">
+            text medium
+          </Button>
+          <Button loading variant="text" size="medium">
+            text medium
+          </Button>
+          <Button variant="text" size="large">
+            text large
+          </Button>
+          <Button loading variant="text" size="large">
+            text large
+          </Button>
         </form>
       </FormProvider>
     </MainPageWithImage>
