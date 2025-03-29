@@ -1,6 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
 import { FormProvider } from "react-hook-form";
 import { Authentication } from "@/domain/usecases";
+import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
+import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { Link } from "@/presentation/components/Link";
@@ -16,13 +18,14 @@ import {
   signInValidationSchema,
 } from "./common/validation/signInValidationSchema";
 import { useAuthenticationMutation } from "./common/hooks/useAuthenticationMutation";
-import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 
 type ISignInProps = {
   authentication: Authentication;
 };
 
 export function SignIn({ authentication }: ISignInProps) {
+  const [, setAccessToken] = useAccessToken();
+
   const form = useFormWithZod({ schema: signInValidationSchema });
 
   const authenticationMutation = useAuthenticationMutation({ authentication });
@@ -33,8 +36,8 @@ export function SignIn({ authentication }: ISignInProps) {
     authenticationMutation.mutate(
       { email, password },
       {
-        onSuccess: ({ accessToken }) => {
-          console.log({ accessToken });
+        onSuccess: (accountModel) => {
+          setAccessToken(accountModel.accessToken);
           void navigate({ to: CREATE_DOCUMENTO_ROUTE_URL });
         },
         onError: (error) => notificationService.error(error.message),
