@@ -1,4 +1,4 @@
-import { AuthenticationSpy } from "@/presentation/test/mockAuthentication";
+import { AuthenticationSpy } from "@/domain/test/mockAuthentication";
 import { SignIn } from "@/presentation/views/SignIn";
 import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import { faker } from "@faker-js/faker";
