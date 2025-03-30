@@ -1,6 +1,6 @@
 import { FirebaseAuthentication } from "@/data/usecases/authentication/firebaseAuthentication";
 import { InvalidCredentialsError, UnexpectedError } from "@/domain/errors";
-import { mockAuthenticationArgs } from "@/domain/test/mockAuthenticationArgs";
+import { mockAuthenticationArgs } from "@/domain/test/mockAuthentication";
 import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
 import { FirebaseError } from "firebase/app";
