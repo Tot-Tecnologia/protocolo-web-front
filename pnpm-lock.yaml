@@ -23,6 +23,9 @@ importers:
       '@tanstack/react-router':
         specifier: ^1.109.2
         version: 1.109.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      axios:
+        specifier: ^1.8.4
+        version: 1.8.4
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1521,6 +1524,9 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
+  axios@1.8.4:
+    resolution: {integrity: sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==}
+
   babel-dead-code-elimination@1.0.9:
     resolution: {integrity: sha512-JLIhax/xullfInZjtu13UJjaLHDeTzt3vOeomaSUdO/nAMEL/pWC/laKrSvWylXMnVWyL5bpmG9njqBZlUQOdg==}
 
@@ -1924,6 +1930,15 @@ packages:
 
   flatted@3.3.2:
     resolution: {integrity: sha512-AiwGJM8YcNOaobumgtng+6NHuOqC3A7MixFeDafM3X9cIUM+xUXoS5Vfgf+OihAYe20fxqNM9yPBXJzRtZ/4eA==}
+
+  follow-redirects@1.15.9:
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
 
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
@@ -2598,6 +2613,9 @@ packages:
   protobufjs@7.4.0:
     resolution: {integrity: sha512-mRUWCc3KUU4w1jU8sGxICXH/gNS94DvI1gxqDvBzhj1JpcsimQkYiOJfwsPUykUI5ZaspFbSgmBLER8IrQ3tqw==}
     engines: {node: '>=12.0.0'}
+
+  proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
   psl@1.15.0:
     resolution: {integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==}
@@ -4574,12 +4592,19 @@ snapshots:
 
   async-function@1.0.0: {}
 
-  asynckit@0.4.0:
-    optional: true
+  asynckit@0.4.0: {}
 
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.1.0
+
+  axios@1.8.4:
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.2
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
 
   babel-dead-code-elimination@1.0.9:
     dependencies:
@@ -4688,7 +4713,6 @@ snapshots:
   combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
-    optional: true
 
   concat-map@0.0.1: {}
 
@@ -4759,8 +4783,7 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
-  delayed-stream@1.0.0:
-    optional: true
+  delayed-stream@1.0.0: {}
 
   dequal@2.0.3: {}
 
@@ -5162,6 +5185,8 @@ snapshots:
 
   flatted@3.3.2: {}
 
+  follow-redirects@1.15.9: {}
+
   for-each@0.3.5:
     dependencies:
       is-callable: 1.2.7
@@ -5172,7 +5197,6 @@ snapshots:
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
       mime-types: 2.1.35
-    optional: true
 
   fsevents@2.3.3:
     optional: true
@@ -5610,13 +5634,11 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.1
 
-  mime-db@1.52.0:
-    optional: true
+  mime-db@1.52.0: {}
 
   mime-types@2.1.35:
     dependencies:
       mime-db: 1.52.0
-    optional: true
 
   min-indent@1.0.1: {}
 
@@ -5801,6 +5823,8 @@ snapshots:
       '@protobufjs/utf8': 1.1.0
       '@types/node': 22.13.10
       long: 5.3.1
+
+  proxy-from-env@1.1.0: {}
 
   psl@1.15.0:
     dependencies:
