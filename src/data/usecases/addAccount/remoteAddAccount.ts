@@ -1,4 +1,5 @@
-import { HttpClient } from "@/data/protocols/http/httpClient";
+import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { ValidationError } from "@/domain/errors/validationError";
 import { AddAccount, AddAccountArgs } from "@/domain/usecases";
 
 export class RemoteAddAccount implements AddAccount {
@@ -8,13 +9,18 @@ export class RemoteAddAccount implements AddAccount {
   ) {}
 
   async signIn(args: AddAccountArgs): Promise<void> {
-    const promise = await this.httpClient.request({
+    const httpResponse = await this.httpClient.request({
       url: this.url,
       method: "post",
       body: args,
       headers: undefined,
     });
 
-    return promise.body;
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.unprocessableEntity:
+        throw new ValidationError();
+      default:
+        break;
+    }
   }
 }

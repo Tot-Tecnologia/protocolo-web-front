@@ -16,6 +16,7 @@ export type HttpMethod = "post" | "get" | "put" | "delete";
 export enum HttpStatusCode {
   ok = 200,
   badRequest = 400,
+  unprocessableEntity = 422,
 }
 
 export type HttpResponse<TBody = unknown> = {
