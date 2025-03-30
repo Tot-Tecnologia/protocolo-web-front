@@ -1,36 +1,8 @@
-import {
-  HttpClient,
-  HttpMethod,
-  HttpRequest,
-  HttpResponse,
-  HttpStatusCode,
-} from "@/data/protocols/http/httpClient";
 import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
 import { AddAccountArgs } from "@/domain/usecases";
 import { CPF_LENGTH } from "@/presentation/constants/stringLength";
+import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { faker } from "@faker-js/faker";
-
-class HttpClientSpy<TRequestBody = unknown, TResponseBody = unknown>
-  implements HttpClient<TRequestBody, TResponseBody>
-{
-  url?: string;
-  method?: HttpMethod;
-  body?: TRequestBody;
-  response?: Promise<HttpResponse<TResponseBody>>;
-
-  request(data: HttpRequest<TRequestBody>) {
-    this.url = data.url;
-    this.method = data.method;
-    this.body = data.body;
-
-    this.response = Promise.resolve({
-      body: null as never,
-      statusCode: HttpStatusCode.ok,
-    });
-
-    return Promise.resolve(this.response);
-  }
-}
 
 describe("RemoteAddAccount", () => {
   test("should call HttpClient with correct values", async () => {
