@@ -1,5 +1,6 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
+import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
 import { AddAccountArgs } from "@/domain/usecases";
 import { CPF_LENGTH } from "@/presentation/constants/stringLength";
@@ -46,5 +47,18 @@ describe("RemoteAddAccount", () => {
     const promise = sut.signIn(mockAddAccountArgs());
 
     await expect(promise).rejects.toThrowError(new ValidationError());
+  });
+
+  test("should throw UnexpectedError if HttpClient returns 400", async () => {
+    const { sut, httpClientSpy } = makeSut();
+
+    httpClientSpy.response = {
+      body: null as never,
+      statusCode: HttpStatusCode.badRequest,
+    };
+
+    const promise = sut.signIn(mockAddAccountArgs());
+
+    await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
 });
