@@ -1,32 +1,72 @@
-import { HttpMethod } from "@/data/protocols/http/httpClient";
 import { AxiosHttpClient } from "@/infra/http/axiosHttpClient";
-import { faker } from "@faker-js/faker";
-
-const url = faker.internet.url();
+import { mockHttpRequest } from "@/tests/data/mocks/mockHttpClient";
 
 const makeSut = () => {
   const sut = new AxiosHttpClient();
   return { sut };
 };
 
-const { mockedRequest } = vi.hoisted(() => {
-  const mockedRequest = vi.fn().mockResolvedValue({ data: {} });
-  return { mockedRequest };
+const { mockedRequest, mockedRequestValue } = vi.hoisted(() => {
+  const mockedRequestValue = { status: 200, data: { key: "value" } };
+  const mockedRequest = vi.fn().mockResolvedValue(mockedRequestValue);
+  return { mockedRequest, mockedRequestValue };
 });
 
-vi.mock("axios", () => ({
-  default: {
-    request: mockedRequest,
-  },
-}));
+vi.mock("axios", async () => {
+  const originalAxios = await vi.importActual<typeof import("axios")>("axios");
+
+  return {
+    ...originalAxios,
+    default: {
+      ...originalAxios.default,
+      request: mockedRequest,
+    },
+  };
+});
 
 describe("AxiosHttpClient", () => {
   test("should call axios with correct parameters", async () => {
     const { sut } = makeSut();
-    const method: HttpMethod = "post";
+    const httpRequest = mockHttpRequest();
 
-    await sut.request({ url, method });
+    await sut.request(httpRequest);
 
-    expect(mockedRequest).toHaveBeenCalledWith({ url, method });
+    expect(mockedRequest).toHaveBeenCalledWith({
+      url: httpRequest.url,
+      method: httpRequest.method,
+      data: httpRequest.body,
+    });
+  });
+
+  test("should return correct response", async () => {
+    const { sut } = makeSut();
+
+    const httpResponse = await sut.request(mockHttpRequest());
+
+    expect(httpResponse).toEqual({
+      statusCode: mockedRequestValue.status,
+      body: mockedRequestValue.data,
+    });
+  });
+
+  test("should return correct error", async () => {
+    const { sut } = makeSut();
+
+    const mockedRejectedValue = {
+      status: 500,
+      data: null,
+    };
+
+    mockedRequest.mockRejectedValue({
+      isAxiosError: true,
+      response: mockedRejectedValue,
+    });
+
+    const errorResponse = await sut.request(mockHttpRequest());
+
+    expect(errorResponse).toEqual({
+      statusCode: mockedRejectedValue.status,
+      body: mockedRejectedValue.data,
+    });
   });
 });
