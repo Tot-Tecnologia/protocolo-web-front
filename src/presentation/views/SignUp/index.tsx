@@ -10,14 +10,36 @@ import {
   SignUpDto,
   signUpValidationSchema,
 } from "@/presentation/views/SignUp/common/validation/signUpValidationSchema";
+import { AddAccount } from "@/domain/usecases";
+import { useAddAccountMutation } from "@/presentation/views/SignUp/common/hooks/useAddAccountMutation";
+import { notificationService } from "@/presentation/services/notificationService";
+import { ValidationError } from "@/domain/errors/validationError";
 
-export function SignUp() {
+type ISignUpProps = {
+  addAccount: AddAccount;
+};
+
+export function SignUp({ addAccount }: ISignUpProps) {
   const form = useFormWithZod({ schema: signUpValidationSchema });
+
+  const addAccountMutation = useAddAccountMutation({ addAccount });
 
   const navigate = useNavigate();
 
   const handleSignUp = form.handleSubmit((data) => {
-    alert(JSON.stringify(data, null, 2));
+    addAccountMutation.mutate(data, {
+      onSuccess: () => {
+        notificationService.success("Cadastro realizado com sucesso.");
+        void navigate({ to: SIGN_IN_ROUTE_URL });
+      },
+      onError: (error) => {
+        if (error instanceof ValidationError) {
+          error.errors.forEach((message) => notificationService.error(message));
+          return;
+        }
+        notificationService.error(error.message);
+      },
+    });
   });
 
   const handleClickBack = () => navigate({ to: SIGN_IN_ROUTE_URL });
@@ -33,23 +55,36 @@ export function SignUp() {
               onChange={changeCpfCnpjEventHandler}
             />
 
-            <Input name="nome" placeholder="Nome" />
+            <Input<SignUpDto> name="nome" placeholder="Nome" />
 
-            <Input name="telefone" placeholder="Celular" />
+            <Input<SignUpDto> name="telefone" placeholder="Celular" />
 
-            <Input name="email" placeholder="E-mail" type="email" />
+            <Input<SignUpDto> name="email" placeholder="E-mail" type="email" />
 
-            <Input
+            <Input<SignUpDto>
               name="confirmacaoEmail"
               placeholder="Confirmar e-mail"
               type="email"
             />
 
-            <Input name="senha" placeholder="Senha" />
+            <Input<SignUpDto>
+              name="senha"
+              placeholder="Senha"
+              type="password"
+            />
 
-            <Input name="confirmacaoSenha" placeholder="Confirmar senha" />
+            <Input<SignUpDto>
+              name="confirmacaoSenha"
+              placeholder="Confirmar senha"
+              type="password"
+            />
 
-            <Button className="mt-6" type="submit" size="large">
+            <Button
+              className="mt-6"
+              type="submit"
+              size="large"
+              loading={addAccountMutation.isPending}
+            >
               Cadastrar
             </Button>
 
