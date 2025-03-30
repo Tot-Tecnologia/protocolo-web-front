@@ -3,6 +3,7 @@ import {
   HttpClient,
   HttpRequest,
   HttpResponse,
+  HttpStatusCode,
 } from "@/data/protocols/http/httpClient";
 
 export class AxiosHttpClient<TRequestBody = unknown, TResponseBody = unknown>
@@ -11,14 +12,31 @@ export class AxiosHttpClient<TRequestBody = unknown, TResponseBody = unknown>
   async request(
     data: HttpRequest<TRequestBody>,
   ): Promise<HttpResponse<TResponseBody>> {
-    const axiosResponse = await axios.request<TResponseBody>({
-      url: data.url,
-      method: data.method,
-    });
+    try {
+      const axiosResponse = await axios.request<TResponseBody>({
+        url: data.url,
+        method: data.method,
+        data: data.body,
+      });
+
+      return {
+        statusCode: axiosResponse.status,
+        body: axiosResponse.data,
+      };
+    } catch (error) {
+      if (axios.isAxiosError<TResponseBody>(error)) {
+        if (error.response) {
+          return {
+            body: error.response?.data,
+            statusCode: error.response?.status,
+          };
+        }
+      }
+    }
 
     return {
-      statusCode: axiosResponse.status,
-      body: axiosResponse.data,
+      body: null as never,
+      statusCode: HttpStatusCode.serverError,
     };
   }
 }
