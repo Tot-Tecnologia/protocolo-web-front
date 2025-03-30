@@ -1,15 +1,26 @@
+import { AddAccountArgs } from "@/domain/usecases/addAccount";
 import { CPF_CNPJ_REGEXP } from "@/presentation/constants/regExps";
 import { z } from "zod";
 
-// TODO: completar
-export const signUpValidationSchema = z.object({
-  cpfCnpj: z.string().regex(CPF_CNPJ_REGEXP),
-  nome: z.unknown(),
-  telefone: z.unknown(),
-  email: z.unknown(),
-  confirmacaoEmail: z.unknown(),
-  senha: z.unknown(),
-  confirmacaoSenha: z.unknown(),
-});
+export type SignUpDto = AddAccountArgs;
 
-export type SignUpDto = z.infer<typeof signUpValidationSchema>;
+export const signUpValidationSchema: z.Schema<SignUpDto> = z
+  .object({
+    cpfCnpj: z.string().regex(CPF_CNPJ_REGEXP),
+    nome: z.string().min(1, "Obrigatório"),
+    telefone: z
+      .string()
+      .regex(/^\d{2}\d{8,9}$/, "Deve conter DDD e 8 ou 9 dígitos"),
+    email: z.string().email(),
+    confirmacaoEmail: z.string().email(),
+    senha: z.string(),
+    confirmacaoSenha: z.string(),
+  })
+  .refine((data) => data.email === data.confirmacaoEmail, {
+    message: "A confirmação do e-mail não bate com o e-mail",
+    path: ["confirmacaoEmail"],
+  })
+  .refine((data) => data.senha === data.confirmacaoSenha, {
+    message: "A confirmação da senha não bate com a senha",
+    path: ["confirmacaoSenha"],
+  });
