@@ -1,4 +1,5 @@
 import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
 import { AddAccount, AddAccountArgs } from "@/domain/usecases";
 
@@ -19,6 +20,8 @@ export class RemoteAddAccount implements AddAccount {
     switch (httpResponse.statusCode) {
       case HttpStatusCode.unprocessableEntity:
         throw new ValidationError();
+      case HttpStatusCode.badRequest:
+        throw new UnexpectedError();
       default:
         break;
     }
