@@ -18,14 +18,12 @@ export class RemoteAddAccount implements AddAccount {
     });
 
     switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok:
+        return httpResponse.body;
       case HttpStatusCode.unprocessableEntity:
         throw new ValidationError();
-      case HttpStatusCode.badRequest:
-        throw new UnexpectedError();
-      case HttpStatusCode.serverError:
-        throw new UnexpectedError();
       default:
-        break;
+        throw new UnexpectedError();
     }
   }
 }
