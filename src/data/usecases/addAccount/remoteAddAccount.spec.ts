@@ -8,6 +8,14 @@ import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockAddAccountArgs } from "@/tests/domain/mocks/mockAddAccount";
 import { faker } from "@faker-js/faker";
 
+const mockProtocoloWebErrorResponse = (
+  statusCode: HttpStatusCode,
+): ProtocoloWebErrorResponse => ({
+  error: faker.lorem.sentence(),
+  message: [faker.lorem.sentence(), faker.lorem.sentence()],
+  statusCode: statusCode,
+});
+
 const makeSut = () => {
   const url = faker.internet.url();
   const httpClientSpy = new HttpClientSpy<
@@ -35,11 +43,9 @@ describe("RemoteAddAccount", () => {
   test("should throw ValidationError if HttpClient returns 422", async () => {
     const { sut, httpClientSpy } = makeSut();
 
-    const errorResponse: ProtocoloWebErrorResponse = {
-      error: faker.lorem.sentence(),
-      message: [faker.lorem.sentence(), faker.lorem.sentence()],
-      statusCode: HttpStatusCode.unprocessableEntity,
-    };
+    const errorResponse = mockProtocoloWebErrorResponse(
+      HttpStatusCode.unprocessableEntity,
+    );
 
     httpClientSpy.response = {
       body: errorResponse,
@@ -53,11 +59,30 @@ describe("RemoteAddAccount", () => {
     );
   });
 
-  test("should throw UnexpectedError if HttpClient returns 400", async () => {
+  test("should throw ValidationError if HttpClient returns 400 with message", async () => {
+    const { sut, httpClientSpy } = makeSut();
+
+    const errorResponse = mockProtocoloWebErrorResponse(
+      HttpStatusCode.badRequest,
+    );
+
+    httpClientSpy.response = {
+      body: errorResponse,
+      statusCode: errorResponse.statusCode,
+    };
+
+    const promise = sut.signUp(mockAddAccountArgs());
+
+    await expect(promise).rejects.toThrowError(
+      new ValidationError({ errors: errorResponse.message as string[] }),
+    );
+  });
+
+  test("should throw UnexpectedError if HttpClient returns 400 without message", async () => {
     const { sut, httpClientSpy } = makeSut();
 
     httpClientSpy.response = {
-      body: null as never,
+      body: {} as never,
       statusCode: HttpStatusCode.badRequest,
     };
 
@@ -70,7 +95,7 @@ describe("RemoteAddAccount", () => {
     const { sut, httpClientSpy } = makeSut();
 
     httpClientSpy.response = {
-      body: null as never,
+      body: {} as never,
       statusCode: HttpStatusCode.serverError,
     };
 
