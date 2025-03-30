@@ -12,17 +12,15 @@ export class HttpClientSpy<TRequestBody = unknown, TResponseBody = unknown>
   url?: string;
   method?: HttpMethod;
   body?: TRequestBody;
-  response?: Promise<HttpResponse<TResponseBody>>;
+  response: HttpResponse<TResponseBody> = {
+    body: null as never,
+    statusCode: HttpStatusCode.ok,
+  };
 
   request(data: HttpRequest<TRequestBody>) {
     this.url = data.url;
     this.method = data.method;
     this.body = data.body;
-
-    this.response = Promise.resolve({
-      body: null as never,
-      statusCode: HttpStatusCode.ok,
-    });
 
     return Promise.resolve(this.response);
   }
