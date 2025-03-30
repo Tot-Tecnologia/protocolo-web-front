@@ -5,6 +5,25 @@ import {
   HttpRequest,
   HttpStatusCode,
 } from "@/data/protocols/http/httpClient";
+import { faker } from "@faker-js/faker";
+
+export const mockHttpRequest = (): HttpRequest => {
+  const url = faker.internet.url();
+  const methods: HttpMethod[] = ["delete", "get", "post", "put"];
+  const method = faker.helpers.arrayElement(methods);
+  const requestBody = {
+    number: faker.number.int(),
+    string: faker.string.alphanumeric(),
+    boolean: faker.datatype.boolean(),
+  };
+
+  return {
+    url: url,
+    method: method,
+    body: requestBody,
+    headers: undefined,
+  };
+};
 
 export class HttpClientSpy<TRequestBody = unknown, TResponseBody = unknown>
   implements HttpClient<TRequestBody, TResponseBody>
