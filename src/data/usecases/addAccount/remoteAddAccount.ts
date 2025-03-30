@@ -22,6 +22,8 @@ export class RemoteAddAccount implements AddAccount {
         throw new ValidationError();
       case HttpStatusCode.badRequest:
         throw new UnexpectedError();
+      case HttpStatusCode.serverError:
+        throw new UnexpectedError();
       default:
         break;
     }
