@@ -7,5 +7,5 @@ export type AddAccountArgs = {
 };
 
 export interface AddAccount {
-  signIn(args: AddAccountArgs): Promise<void>;
+  signUp(args: AddAccountArgs): Promise<void>;
 }

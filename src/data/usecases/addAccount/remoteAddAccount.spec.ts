@@ -29,7 +29,7 @@ describe("RemoteAddAccount", () => {
 
     const addAccountArgs = mockAddAccountArgs();
 
-    await sut.signIn(addAccountArgs);
+    await sut.signUp(addAccountArgs);
 
     expect(httpClientSpy.url).toBe(url);
     expect(httpClientSpy.method).toBe("post");
@@ -44,7 +44,7 @@ describe("RemoteAddAccount", () => {
       statusCode: HttpStatusCode.unprocessableEntity,
     };
 
-    const promise = sut.signIn(mockAddAccountArgs());
+    const promise = sut.signUp(mockAddAccountArgs());
 
     await expect(promise).rejects.toThrowError(new ValidationError());
   });
@@ -57,7 +57,7 @@ describe("RemoteAddAccount", () => {
       statusCode: HttpStatusCode.badRequest,
     };
 
-    const promise = sut.signIn(mockAddAccountArgs());
+    const promise = sut.signUp(mockAddAccountArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
