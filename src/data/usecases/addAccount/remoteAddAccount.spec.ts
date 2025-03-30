@@ -3,8 +3,8 @@ import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
 import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
 import { AddAccountArgs } from "@/domain/usecases";
-import { CPF_LENGTH } from "@/presentation/constants/stringLength";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
+import { mockAddAccountArgs } from "@/tests/domain/mocks/mockAddAccount";
 import { faker } from "@faker-js/faker";
 
 const makeSut = () => {
@@ -14,14 +14,6 @@ const makeSut = () => {
 
   return { sut, url, httpClientSpy };
 };
-
-const mockAddAccountArgs = (): AddAccountArgs => ({
-  cpfCnpj: faker.string.numeric(CPF_LENGTH),
-  email: faker.internet.email(),
-  nome: faker.person.fullName(),
-  senha: faker.string.alphanumeric(6),
-  telefone: faker.string.numeric(10),
-});
 
 describe("RemoteAddAccount", () => {
   test("should call HttpClient with correct values", async () => {
