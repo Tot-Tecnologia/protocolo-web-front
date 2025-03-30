@@ -24,6 +24,7 @@ export class AxiosHttpClient<TRequestBody = unknown, TResponseBody = unknown>
         body: axiosResponse.data,
       };
     } catch (error) {
+      console.error(error);
       if (axios.isAxiosError<TResponseBody>(error)) {
         if (error.response) {
           return {
