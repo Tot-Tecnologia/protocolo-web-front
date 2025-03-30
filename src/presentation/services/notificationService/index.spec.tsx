@@ -47,4 +47,18 @@ describe("NotificationService", () => {
       expect(alert.innerHTML).toContain(messageText);
     });
   });
+
+  test("should display correct success message", async () => {
+    const messageText = faker.lorem.words();
+
+    const { sut } = makeSut({
+      serviceFn: () => notificationService.success(messageText),
+    });
+
+    const alert = await sut.findByRole("alert");
+
+    await waitFor(() => {
+      expect(alert.innerHTML).toContain(messageText);
+    });
+  });
 });

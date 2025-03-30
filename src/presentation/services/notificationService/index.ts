@@ -6,6 +6,10 @@ export class NotificationService implements UiNotification {
     toast.info(message);
   }
 
+  success(message: React.ReactNode): void {
+    toast.success(message);
+  }
+
   error(message: React.ReactNode): void {
     toast.error(message);
   }
