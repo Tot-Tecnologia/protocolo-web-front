@@ -32,13 +32,13 @@ export function NavBar({ className }: INavBarProps) {
       <ul className="mt-3 flex w-62 flex-col gap-y-1">
         <li>
           <NavLink to={CREATE_DOCUMENTO_ROUTE_URL} iconSrc="/pageIcon.svg">
-            Solicitar Processo
+            Solicitação
           </NavLink>
         </li>
 
         <li>
           <NavLink to={LIST_DOCUMENTOS_ROUTE_URL} iconSrc="/tableIcon.svg">
-            Consultar Processos
+            Consultar Solicitação
           </NavLink>
         </li>
       </ul>

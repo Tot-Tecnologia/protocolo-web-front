@@ -50,7 +50,7 @@ export function CreateDocumento() {
   });
 
   return (
-    <PageContainer title="Solicitar Processo">
+    <PageContainer title="Solicitar Documento">
       <FormProvider {...form}>
         <form onSubmit={handleSignUp} className="flex flex-col gap-y-6">
           <Card title="Informações do solicitante">
