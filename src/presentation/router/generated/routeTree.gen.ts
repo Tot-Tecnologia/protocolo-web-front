@@ -14,11 +14,9 @@ import { Route as rootRoute } from './../routes/__root'
 import { Route as SolicitarDocumentoImport } from './../routes/solicitarDocumento'
 import { Route as RecuperarSenhaImport } from './../routes/recuperarSenha'
 import { Route as LoginImport } from './../routes/login'
+import { Route as ConsultarDocumentosImport } from './../routes/consultarDocumentos'
 import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
-import { Route as ConsultarDocumentoIndexImport } from './../routes/consultarDocumento/index'
-import { Route as ConsultarDocumentoResultadoImport } from './../routes/consultarDocumento/resultado'
-import { Route as ConsultarDocumentoFiltroImport } from './../routes/consultarDocumento/filtro'
 
 // Create/Update Routes
 
@@ -40,6 +38,12 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ConsultarDocumentosRoute = ConsultarDocumentosImport.update({
+  id: '/consultarDocumentos',
+  path: '/consultarDocumentos',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const CadastroRoute = CadastroImport.update({
   id: '/cadastro',
   path: '/cadastro',
@@ -49,25 +53,6 @@ const CadastroRoute = CadastroImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ConsultarDocumentoIndexRoute = ConsultarDocumentoIndexImport.update({
-  id: '/consultarDocumento/',
-  path: '/consultarDocumento/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ConsultarDocumentoResultadoRoute =
-  ConsultarDocumentoResultadoImport.update({
-    id: '/consultarDocumento/resultado',
-    path: '/consultarDocumento/resultado',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const ConsultarDocumentoFiltroRoute = ConsultarDocumentoFiltroImport.update({
-  id: '/consultarDocumento/filtro',
-  path: '/consultarDocumento/filtro',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -87,6 +72,13 @@ declare module '@tanstack/react-router' {
       path: '/cadastro'
       fullPath: '/cadastro'
       preLoaderRoute: typeof CadastroImport
+      parentRoute: typeof rootRoute
+    }
+    '/consultarDocumentos': {
+      id: '/consultarDocumentos'
+      path: '/consultarDocumentos'
+      fullPath: '/consultarDocumentos'
+      preLoaderRoute: typeof ConsultarDocumentosImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -110,27 +102,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolicitarDocumentoImport
       parentRoute: typeof rootRoute
     }
-    '/consultarDocumento/filtro': {
-      id: '/consultarDocumento/filtro'
-      path: '/consultarDocumento/filtro'
-      fullPath: '/consultarDocumento/filtro'
-      preLoaderRoute: typeof ConsultarDocumentoFiltroImport
-      parentRoute: typeof rootRoute
-    }
-    '/consultarDocumento/resultado': {
-      id: '/consultarDocumento/resultado'
-      path: '/consultarDocumento/resultado'
-      fullPath: '/consultarDocumento/resultado'
-      preLoaderRoute: typeof ConsultarDocumentoResultadoImport
-      parentRoute: typeof rootRoute
-    }
-    '/consultarDocumento/': {
-      id: '/consultarDocumento/'
-      path: '/consultarDocumento'
-      fullPath: '/consultarDocumento'
-      preLoaderRoute: typeof ConsultarDocumentoIndexImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -139,35 +110,29 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/consultarDocumentos': typeof ConsultarDocumentosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarDocumento': typeof SolicitarDocumentoRoute
-  '/consultarDocumento/filtro': typeof ConsultarDocumentoFiltroRoute
-  '/consultarDocumento/resultado': typeof ConsultarDocumentoResultadoRoute
-  '/consultarDocumento': typeof ConsultarDocumentoIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/consultarDocumentos': typeof ConsultarDocumentosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarDocumento': typeof SolicitarDocumentoRoute
-  '/consultarDocumento/filtro': typeof ConsultarDocumentoFiltroRoute
-  '/consultarDocumento/resultado': typeof ConsultarDocumentoResultadoRoute
-  '/consultarDocumento': typeof ConsultarDocumentoIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/consultarDocumentos': typeof ConsultarDocumentosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarDocumento': typeof SolicitarDocumentoRoute
-  '/consultarDocumento/filtro': typeof ConsultarDocumentoFiltroRoute
-  '/consultarDocumento/resultado': typeof ConsultarDocumentoResultadoRoute
-  '/consultarDocumento/': typeof ConsultarDocumentoIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -175,55 +140,45 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cadastro'
+    | '/consultarDocumentos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarDocumento'
-    | '/consultarDocumento/filtro'
-    | '/consultarDocumento/resultado'
-    | '/consultarDocumento'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cadastro'
+    | '/consultarDocumentos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarDocumento'
-    | '/consultarDocumento/filtro'
-    | '/consultarDocumento/resultado'
-    | '/consultarDocumento'
   id:
     | '__root__'
     | '/'
     | '/cadastro'
+    | '/consultarDocumentos'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarDocumento'
-    | '/consultarDocumento/filtro'
-    | '/consultarDocumento/resultado'
-    | '/consultarDocumento/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
+  ConsultarDocumentosRoute: typeof ConsultarDocumentosRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarDocumentoRoute: typeof SolicitarDocumentoRoute
-  ConsultarDocumentoFiltroRoute: typeof ConsultarDocumentoFiltroRoute
-  ConsultarDocumentoResultadoRoute: typeof ConsultarDocumentoResultadoRoute
-  ConsultarDocumentoIndexRoute: typeof ConsultarDocumentoIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
+  ConsultarDocumentosRoute: ConsultarDocumentosRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarDocumentoRoute: SolicitarDocumentoRoute,
-  ConsultarDocumentoFiltroRoute: ConsultarDocumentoFiltroRoute,
-  ConsultarDocumentoResultadoRoute: ConsultarDocumentoResultadoRoute,
-  ConsultarDocumentoIndexRoute: ConsultarDocumentoIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -238,12 +193,10 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/cadastro",
+        "/consultarDocumentos",
         "/login",
         "/recuperarSenha",
-        "/solicitarDocumento",
-        "/consultarDocumento/filtro",
-        "/consultarDocumento/resultado",
-        "/consultarDocumento/"
+        "/solicitarDocumento"
       ]
     },
     "/": {
@@ -251,6 +204,9 @@ export const routeTree = rootRoute
     },
     "/cadastro": {
       "filePath": "cadastro.tsx"
+    },
+    "/consultarDocumentos": {
+      "filePath": "consultarDocumentos.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
@@ -260,15 +216,6 @@ export const routeTree = rootRoute
     },
     "/solicitarDocumento": {
       "filePath": "solicitarDocumento.tsx"
-    },
-    "/consultarDocumento/filtro": {
-      "filePath": "consultarDocumento/filtro.tsx"
-    },
-    "/consultarDocumento/resultado": {
-      "filePath": "consultarDocumento/resultado.tsx"
-    },
-    "/consultarDocumento/": {
-      "filePath": "consultarDocumento/index.tsx"
     }
   }
 }

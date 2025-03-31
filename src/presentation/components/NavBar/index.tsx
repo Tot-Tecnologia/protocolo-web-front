@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { NavLink } from "@/presentation/components/NavBar/common/components/NavLink";
 import {
   CREATE_DOCUMENTO_ROUTE_URL,
-  LIST_DOCUMENTOS_FILTER_ROUTE_URL,
+  LIST_DOCUMENTOS_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 
 type INavBarProps = {
@@ -37,10 +37,7 @@ export function NavBar({ className }: INavBarProps) {
         </li>
 
         <li>
-          <NavLink
-            to={LIST_DOCUMENTOS_FILTER_ROUTE_URL}
-            iconSrc="/tableIcon.svg"
-          >
+          <NavLink to={LIST_DOCUMENTOS_ROUTE_URL} iconSrc="/tableIcon.svg">
             Consultar Processos
           </NavLink>
         </li>
