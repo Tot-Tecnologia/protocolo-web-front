@@ -7,7 +7,10 @@ export function InputLabel(props: IInputLabelProps) {
     <>
       <label
         {...props}
-        className={clsx("text-sm leading-5", props.className)}
+        className={clsx(
+          "w-full overflow-hidden text-sm leading-5 overflow-ellipsis whitespace-nowrap",
+          props.className,
+        )}
       />
     </>
   );
