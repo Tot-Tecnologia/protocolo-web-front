@@ -22,7 +22,7 @@ export function Button({
       disabled={disabled || loading}
       {...props}
       className={clsx(
-        "flex cursor-pointer items-center justify-center rounded-md font-bold uppercase",
+        "flex h-fit cursor-pointer items-center justify-center rounded-md font-bold uppercase",
         "disabled:cursor-default",
         fontSizeVariants[size],
         paddingVariants[size],
