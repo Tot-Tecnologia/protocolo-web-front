@@ -1,4 +1,4 @@
-import { notificationService } from "@/presentation/services/notificationService";
+import { ToastifyNotification } from "@/presentation/services/toastifyNotification";
 import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import { faker } from "@faker-js/faker";
 import { screen, waitFor } from "@testing-library/react";
@@ -9,6 +9,8 @@ type IMakeSutArgs = {
 };
 
 const makeSut = ({ serviceFn }: IMakeSutArgs) => {
+  const toastifyNotification = new ToastifyNotification();
+
   function Component() {
     useEffect(() => serviceFn(), []);
     return null;
@@ -16,15 +18,18 @@ const makeSut = ({ serviceFn }: IMakeSutArgs) => {
 
   renderWithProviders(<Component />);
 
-  return { sut: screen };
+  return {
+    sut: screen,
+    toastifyNotification: toastifyNotification,
+  };
 };
 
-describe("NotificationService", () => {
+describe("ToastifyNotification", () => {
   test("should display correct info message", async () => {
     const messageText = faker.lorem.words();
 
-    const { sut } = makeSut({
-      serviceFn: () => notificationService.info(messageText),
+    const { sut, toastifyNotification } = makeSut({
+      serviceFn: () => toastifyNotification.info(messageText),
     });
 
     const alert = await sut.findByRole("alert");
@@ -37,8 +42,8 @@ describe("NotificationService", () => {
   test("should display correct error message", async () => {
     const messageText = faker.lorem.words();
 
-    const { sut } = makeSut({
-      serviceFn: () => notificationService.error(messageText),
+    const { sut, toastifyNotification } = makeSut({
+      serviceFn: () => toastifyNotification.error(messageText),
     });
 
     const alert = await sut.findByRole("alert");
@@ -51,8 +56,8 @@ describe("NotificationService", () => {
   test("should display correct success message", async () => {
     const messageText = faker.lorem.words();
 
-    const { sut } = makeSut({
-      serviceFn: () => notificationService.success(messageText),
+    const { sut, toastifyNotification } = makeSut({
+      serviceFn: () => toastifyNotification.success(messageText),
     });
 
     const alert = await sut.findByRole("alert");

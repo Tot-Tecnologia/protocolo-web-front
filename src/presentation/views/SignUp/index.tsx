@@ -10,16 +10,16 @@ import {
   SignUpDto,
   signUpValidationSchema,
 } from "@/presentation/views/SignUp/common/validation/signUpValidationSchema";
-import { AddAccount } from "@/domain/usecases";
+import { AddAccount, UiNotification } from "@/domain/usecases";
 import { useAddAccountMutation } from "@/presentation/views/SignUp/common/hooks/useAddAccountMutation";
-import { notificationService } from "@/presentation/services/notificationService";
 import { ValidationError } from "@/domain/errors/validationError";
 
 type ISignUpProps = {
   addAccount: AddAccount;
+  uiNotification: UiNotification;
 };
 
-export function SignUp({ addAccount }: ISignUpProps) {
+export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
   const form = useFormWithZod({ schema: signUpValidationSchema });
 
   const addAccountMutation = useAddAccountMutation({ addAccount });
@@ -29,15 +29,15 @@ export function SignUp({ addAccount }: ISignUpProps) {
   const handleSignUp = form.handleSubmit((data) => {
     addAccountMutation.mutate(data, {
       onSuccess: () => {
-        notificationService.success("Cadastro realizado com sucesso.");
+        uiNotification.success("Cadastro realizado com sucesso.");
         void navigate({ to: SIGN_IN_ROUTE_URL });
       },
       onError: (error) => {
         if (error instanceof ValidationError) {
-          error.errors.forEach((message) => notificationService.error(message));
+          error.errors.forEach((message) => uiNotification.error(message));
           return;
         }
-        notificationService.error(error.message);
+        uiNotification.error(error.message);
       },
     });
   });

@@ -1,7 +1,7 @@
 import { UiNotification } from "@/domain/usecases";
 import { toast } from "react-toastify";
 
-export class NotificationService implements UiNotification {
+export class ToastifyNotification implements UiNotification {
   info(message: React.ReactNode): void {
     toast.info(message);
   }
@@ -14,5 +14,3 @@ export class NotificationService implements UiNotification {
     toast.error(message);
   }
 }
-
-export const notificationService = new NotificationService();
