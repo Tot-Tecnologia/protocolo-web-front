@@ -1,5 +1,55 @@
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table } from "@/presentation/components/Table";
+import {
+  columns,
+  IDocumento,
+} from "@/presentation/views/ListDocumentos/common/components/ListDocumentosTable/columns";
+
+const fakeData: IDocumento[] = [
+  {
+    numero: 1869,
+    tipoSolicitacao: "Alvará de funcionamento",
+    dataSolicitacao: new Date("2025/02/21"),
+    status: "aberto",
+  },
+  {
+    numero: 7236,
+    tipoSolicitacao: "Alvará de funcionamento",
+    dataSolicitacao: new Date("2025/02/21"),
+    status: "aberto",
+  },
+  {
+    numero: 5623,
+    tipoSolicitacao: "Alvará de funcionamento",
+    dataSolicitacao: new Date("2025/02/21"),
+    status: "emAnalise",
+  },
+  {
+    numero: 9845,
+    tipoSolicitacao: "Alvará de funcionamento",
+    dataSolicitacao: new Date("2025/02/21"),
+    status: "emAnalise",
+  },
+  {
+    numero: 4112,
+    tipoSolicitacao: "Alvará de funcionamento",
+    dataSolicitacao: new Date("2025/02/21"),
+    status: "aprovado",
+  },
+  {
+    numero: 5689,
+    tipoSolicitacao: "Alvará de funcionamento",
+    dataSolicitacao: new Date("2025/02/21"),
+    status: "rejeitado",
+  },
+];
 
 export function ListDocumentosTable() {
-  return <Table />;
+  const table = useReactTable({
+    data: fakeData,
+    columns: columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return <Table table={table} />;
 }
