@@ -5,7 +5,7 @@ import { ListDocumentosTable } from "./common/components/ListDocumentosTable";
 export function ListDocumentos() {
   return (
     <PageContainer title="Consultar Solicitação">
-      <div className="flex flex-col gap-y-10">
+      <div className="grid gap-y-10">
         <ListDocumentosFilter />
         <ListDocumentosTable />
       </div>

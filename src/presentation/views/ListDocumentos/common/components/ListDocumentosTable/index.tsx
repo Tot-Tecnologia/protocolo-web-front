@@ -14,7 +14,7 @@ const fakeData: IDocumento[] = [
   },
   {
     numero: 7236,
-    tipoSolicitacao: "Alvará de funcionamento",
+    tipoSolicitacao: "Alvará de funcionamento de funcionamento",
     dataSolicitacao: new Date("2025/02/21"),
     status: "aberto",
   },
