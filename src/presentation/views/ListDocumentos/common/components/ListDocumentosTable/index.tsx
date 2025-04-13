@@ -4,6 +4,7 @@ import {
   columns,
   IDocumento,
 } from "@/presentation/views/ListDocumentos/common/components/ListDocumentosTable/columns";
+import { TablePagination } from "@/presentation/components/TablePagination";
 
 const fakeData: IDocumento[] = [
   {
@@ -51,5 +52,10 @@ export function ListDocumentosTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return <Table table={table} />;
+  return (
+    <div className="grid gap-y-6 md:gap-y-2">
+      <Table table={table} />
+      <TablePagination />
+    </div>
+  );
 }
