@@ -55,7 +55,7 @@ export function ListDocumentosTable() {
   return (
     <div className="grid gap-y-6 md:gap-y-2">
       <Table table={table} />
-      <TablePagination />
+      <TablePagination total={44} />
     </div>
   );
 }

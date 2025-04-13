@@ -1,8 +1,13 @@
 import { Button } from "@/presentation/components/Button";
 import { usePagination } from "@/presentation/hooks/usePagination";
 
-export function TablePagination() {
-  const pagination = usePagination({ total: 15 });
+type ITablePaginationProps = {
+  /** Número total de páginas. */
+  total: number;
+};
+
+export function TablePagination({ total }: ITablePaginationProps) {
+  const pagination = usePagination({ total });
 
   return (
     <ul
