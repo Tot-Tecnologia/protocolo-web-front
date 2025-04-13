@@ -121,4 +121,35 @@ describe("TablePagination", () => {
       targetPageButton.textContent || "",
     );
   });
+
+  test("should not change page when when previous button is clicked at first page", async () => {
+    const { sut, user } = makeSut();
+
+    const prevButton = sut.getByLabelText("Página anterior");
+
+    await user.click(prevButton);
+
+    const currentPageButtonAfterClickPrevious = await sut.findByRole("button", {
+      current: "page",
+    });
+
+    expect(currentPageButtonAfterClickPrevious).toHaveTextContent("1");
+  });
+
+  test("should not change page when when next button is clicked at last page", async () => {
+    const { sut, user } = makeSut();
+
+    const nextButton = sut.getByLabelText("Próxima página");
+    const lastPageButton = sut.getByLabelText("Ir para página " + TOTAL);
+
+    // Vai para a última página antes de clicar on botão next
+    await user.click(lastPageButton);
+    await user.click(nextButton);
+
+    const currentPageButtonAfterClickNext = await sut.findByRole("button", {
+      current: "page",
+    });
+
+    expect(currentPageButtonAfterClickNext).toHaveTextContent(TOTAL.toString());
+  });
 });
