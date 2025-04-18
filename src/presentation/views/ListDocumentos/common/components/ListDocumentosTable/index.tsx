@@ -1,10 +1,8 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table } from "@/presentation/components/Table";
-import {
-  columns,
-  IDocumento,
-} from "@/presentation/views/ListDocumentos/common/components/ListDocumentosTable/columns";
 import { TablePagination } from "@/presentation/components/TablePagination";
+import { columns } from "./columns";
+import { IDocumento } from "./types";
 
 const fakeData: IDocumento[] = [
   {

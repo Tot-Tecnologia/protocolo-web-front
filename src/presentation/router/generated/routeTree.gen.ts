@@ -17,6 +17,7 @@ import { Route as LoginImport } from './../routes/login'
 import { Route as ConsultarDocumentosImport } from './../routes/consultarDocumentos'
 import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
+import { Route as ExibirDocumentoNumeroDocumentoImport } from './../routes/exibirDocumento.$numeroDocumento'
 
 // Create/Update Routes
 
@@ -55,6 +56,13 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const ExibirDocumentoNumeroDocumentoRoute =
+  ExibirDocumentoNumeroDocumentoImport.update({
+    id: '/exibirDocumento/$numeroDocumento',
+    path: '/exibirDocumento/$numeroDocumento',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -102,6 +110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolicitarDocumentoImport
       parentRoute: typeof rootRoute
     }
+    '/exibirDocumento/$numeroDocumento': {
+      id: '/exibirDocumento/$numeroDocumento'
+      path: '/exibirDocumento/$numeroDocumento'
+      fullPath: '/exibirDocumento/$numeroDocumento'
+      preLoaderRoute: typeof ExibirDocumentoNumeroDocumentoImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -114,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarDocumento': typeof SolicitarDocumentoRoute
+  '/exibirDocumento/$numeroDocumento': typeof ExibirDocumentoNumeroDocumentoRoute
 }
 
 export interface FileRoutesByTo {
@@ -123,6 +139,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarDocumento': typeof SolicitarDocumentoRoute
+  '/exibirDocumento/$numeroDocumento': typeof ExibirDocumentoNumeroDocumentoRoute
 }
 
 export interface FileRoutesById {
@@ -133,6 +150,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarDocumento': typeof SolicitarDocumentoRoute
+  '/exibirDocumento/$numeroDocumento': typeof ExibirDocumentoNumeroDocumentoRoute
 }
 
 export interface FileRouteTypes {
@@ -144,6 +162,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/recuperarSenha'
     | '/solicitarDocumento'
+    | '/exibirDocumento/$numeroDocumento'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -152,6 +171,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/recuperarSenha'
     | '/solicitarDocumento'
+    | '/exibirDocumento/$numeroDocumento'
   id:
     | '__root__'
     | '/'
@@ -160,6 +180,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/recuperarSenha'
     | '/solicitarDocumento'
+    | '/exibirDocumento/$numeroDocumento'
   fileRoutesById: FileRoutesById
 }
 
@@ -170,6 +191,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarDocumentoRoute: typeof SolicitarDocumentoRoute
+  ExibirDocumentoNumeroDocumentoRoute: typeof ExibirDocumentoNumeroDocumentoRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -179,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarDocumentoRoute: SolicitarDocumentoRoute,
+  ExibirDocumentoNumeroDocumentoRoute: ExibirDocumentoNumeroDocumentoRoute,
 }
 
 export const routeTree = rootRoute
@@ -196,7 +219,8 @@ export const routeTree = rootRoute
         "/consultarDocumentos",
         "/login",
         "/recuperarSenha",
-        "/solicitarDocumento"
+        "/solicitarDocumento",
+        "/exibirDocumento/$numeroDocumento"
       ]
     },
     "/": {
@@ -216,6 +240,9 @@ export const routeTree = rootRoute
     },
     "/solicitarDocumento": {
       "filePath": "solicitarDocumento.tsx"
+    },
+    "/exibirDocumento/$numeroDocumento": {
+      "filePath": "exibirDocumento.$numeroDocumento.tsx"
     }
   }
 }
