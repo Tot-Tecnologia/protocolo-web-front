@@ -1,10 +1,18 @@
+import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { flexRender, Table as TableType } from "@tanstack/react-table";
+import { useMemo } from "react";
 
 type ITableProps<TData = unknown> = {
   table: TableType<TData>;
 };
 
 export function Table<TData = unknown>({ table }: ITableProps<TData>) {
+  const mustRenderActionsColumn = useMemo(
+    () =>
+      table._getColumnDefs().some((column) => column.id === ACTIONS_COLUMN_ID),
+    [table],
+  );
+
   return (
     <>
       <div className="hidden overflow-x-auto rounded-md border border-neutral-200 bg-white md:block">
@@ -48,26 +56,50 @@ export function Table<TData = unknown>({ table }: ITableProps<TData>) {
 
       <div className="block space-y-6 md:hidden">
         {table.getRowModel().rows.map((row) => (
-          <ul
+          <div
+            className="flex rounded-md border border-neutral-200 bg-white py-1"
             key={row.id}
-            className="rounded-md border border-neutral-200 bg-white py-1 *:px-4 *:py-1"
           >
-            {row.getVisibleCells().map((cell) => (
-              <li key={cell.id}>
-                <b>
-                  {flexRender(cell.column.columnDef.header, {
-                    ...cell.getContext(),
-                    header: table
-                      .getFlatHeaders()
-                      .find(
-                        (header) => header.id === cell.column.columnDef.id,
-                      )!,
-                  })}
-                </b>
-                : {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </li>
-            ))}
-          </ul>
+            <ul className="grow *:px-4 *:py-1">
+              {row.getVisibleCells().map((cell) => {
+                if (cell.column.columnDef.id === ACTIONS_COLUMN_ID) {
+                  return null;
+                }
+
+                return (
+                  <li key={cell.id}>
+                    <b>
+                      {flexRender(cell.column.columnDef.header, {
+                        ...cell.getContext(),
+                        header: table
+                          .getFlatHeaders()
+                          .find(
+                            (header) => header.id === cell.column.columnDef.id,
+                          )!,
+                      })}
+                    </b>
+                    :{" "}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </li>
+                );
+              })}
+            </ul>
+
+            {mustRenderActionsColumn && (
+              <div className="flex items-center px-4 py-1">
+                {row.getVisibleCells().map((cell) => {
+                  if (cell.column.id !== ACTIONS_COLUMN_ID) {
+                    return null;
+                  }
+
+                  return flexRender(
+                    cell.column.columnDef.cell,
+                    cell.getContext(),
+                  );
+                })}
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </>
