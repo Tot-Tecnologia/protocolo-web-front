@@ -1,11 +1,10 @@
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { FormProvider } from "react-hook-form";
 import { Authentication, UiNotification } from "@/domain/usecases";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
-import { Link } from "@/presentation/components/Link";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import {
   CREATE_DOCUMENTO_ROUTE_URL,
@@ -60,7 +59,9 @@ export function SignIn({ authentication, uiNotification }: ISignInProps) {
           />
 
           <div className="flex justify-end">
-            <Link to={RECOVER_PASSWORD_ROUTE_URL}>Recuperar senha</Link>
+            <Link to={RECOVER_PASSWORD_ROUTE_URL} className="underline">
+              Recuperar senha
+            </Link>
           </div>
 
           <Button
