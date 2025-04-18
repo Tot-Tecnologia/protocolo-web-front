@@ -26,7 +26,10 @@ export function Table<TData = unknown>({ table }: ITableProps<TData>) {
 
           <tbody className="divide-y divide-neutral-200">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="*:px-4 *:py-3 *:whitespace-nowrap">
+              <tr
+                key={row.id}
+                className="*:px-4 *:py-3 *:whitespace-nowrap hover:bg-violet-50"
+              >
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <td key={cell.id}>
