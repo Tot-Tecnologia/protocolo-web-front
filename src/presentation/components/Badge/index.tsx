@@ -7,12 +7,12 @@ type IBadgeProps = {
 };
 
 const colorVariants: Record<ThemeColor, string> = {
-  error: "text-error-dark bg-rose-50",
+  error: "text-error-dark bg-rose-100",
   info: "text-info-dark bg-indigo-50",
   primary: "text-primary bg-indigo-50",
   secondary: "text-secondary bg-stone-300",
-  success: "text-success-dark bg-emerald-50",
-  warning: "text-warning-dark bg-amber-50",
+  success: "text-success-dark bg-emerald-100",
+  warning: "text-warning-dark bg-amber-100",
 };
 
 export function Badge({ color = "info", children }: IBadgeProps) {
