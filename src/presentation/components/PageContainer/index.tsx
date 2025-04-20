@@ -3,6 +3,7 @@ import { router } from "@/presentation/router";
 import { LIST_DOCUMENTOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { Button } from "@/presentation/components/Button";
 import { NavBar } from "@/presentation/components/NavBar";
+import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
 
 type IPageContainerProps = {
   title?: React.ReactNode;
@@ -24,18 +25,7 @@ export function PageContainer({
           <div className="flex items-center space-x-8">
             {!!navigateBackwardTo?.length && (
               <Link to={LIST_DOCUMENTOS_ROUTE_URL}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="size-6"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <ArrowLeftIcon className="size-6" viewBox="0 0 20 20" />
               </Link>
             )}
 
