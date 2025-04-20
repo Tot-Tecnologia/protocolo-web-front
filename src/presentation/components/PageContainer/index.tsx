@@ -24,7 +24,7 @@ export function PageContainer({
         <div className="flex items-center justify-between pb-10">
           <div className="flex items-center space-x-8">
             {!!navigateBackwardTo?.length && (
-              <Link to={LIST_DOCUMENTOS_ROUTE_URL}>
+              <Link to={LIST_DOCUMENTOS_ROUTE_URL} title="Voltar">
                 <ArrowLeftIcon className="size-6" viewBox="0 0 20 20" />
               </Link>
             )}
