@@ -31,9 +31,9 @@ export const columns = [
   columnHelper.display({
     id: ACTIONS_COLUMN_ID,
     cell: () => (
-      <span className="text-info flex justify-end gap-3.5">
+      <span className="text-info flex shrink flex-col items-center justify-end gap-5 md:flex-row md:gap-3.5">
         <DownloadIcon />
-        <EyeIcon />
+        <EyeIcon className="ml-0.25" />
       </span>
     ),
   }),

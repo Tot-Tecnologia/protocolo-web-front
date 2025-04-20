@@ -2,6 +2,7 @@ import { PageContainer } from "@/presentation/components/PageContainer";
 import { LIST_DOCUMENTOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { HistoricoAtualizacoesTable } from "./common/HistoricoAtualizacoesTable";
 import { InformacoesCard } from "./common/InformacoesCard";
+import { GuiasPagamentoTable } from "./common/GuiasPagamentoTable";
 
 export function DetailsDocumento() {
   return (
@@ -12,6 +13,7 @@ export function DetailsDocumento() {
       <div className="space-y-10">
         <InformacoesCard />
         <HistoricoAtualizacoesTable />
+        <GuiasPagamentoTable />
       </div>
     </PageContainer>
   );
