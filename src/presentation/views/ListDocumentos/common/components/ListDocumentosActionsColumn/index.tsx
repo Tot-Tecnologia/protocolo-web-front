@@ -15,6 +15,7 @@ export function ListDocumentosActionsColumn({
     <span className="flex justify-end">
       <Link
         to={DETAILS_DOCUMENTO_ROUTE_URL}
+        title={`Acessar solicitacao de numero ${info.row.original.numero}`}
         params={{
           numeroDocumento: `${info.row.original.numero}`,
         }}
