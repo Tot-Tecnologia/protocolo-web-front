@@ -3,6 +3,7 @@ import { LIST_DOCUMENTOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { HistoricoAtualizacoesTable } from "./common/HistoricoAtualizacoesTable";
 import { InformacoesCard } from "./common/InformacoesCard";
 import { GuiasPagamentoTable } from "./common/GuiasPagamentoTable";
+import { ComplementarCard } from "./common/ComplementarCard";
 
 export function DetailsDocumento() {
   return (
@@ -14,6 +15,7 @@ export function DetailsDocumento() {
         <InformacoesCard />
         <HistoricoAtualizacoesTable />
         <GuiasPagamentoTable />
+        <ComplementarCard />
       </div>
     </PageContainer>
   );
