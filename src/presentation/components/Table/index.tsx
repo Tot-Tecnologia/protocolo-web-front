@@ -1,7 +1,7 @@
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { flexRender, Table as TableType } from "@tanstack/react-table";
 import clsx from "clsx";
-import { useMemo } from "react";
+import { useMemo, Fragment } from "react";
 
 type ITableProps<TData = unknown> = {
   table: TableType<TData>;
@@ -113,9 +113,13 @@ export function Table<TData = unknown>({ table, title }: ITableProps<TData>) {
                     if (cell.column.id !== ACTIONS_COLUMN_ID) {
                       return null;
                     }
-                    return flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext(),
+                    return (
+                      <Fragment key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </Fragment>
                     );
                   })}
                 </div>
