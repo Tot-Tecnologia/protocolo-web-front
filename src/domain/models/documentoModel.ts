@@ -1,4 +1,4 @@
-export type IDocumento = {
+export type IDocumentoModel = {
   numero: number;
   tipoSolicitacao: string;
   dataSolicitacao: Date;

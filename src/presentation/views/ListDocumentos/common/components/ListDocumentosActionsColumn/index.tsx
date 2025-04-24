@@ -1,11 +1,11 @@
 import { CellContext } from "@tanstack/react-table";
 import { Link } from "@tanstack/react-router";
-import { IDocumento } from "@/domain/models/listDocumentosModel";
+import { IDocumentoModel } from "@/domain/models";
 import { DETAILS_DOCUMENTO_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { SearchIcon } from "@/presentation/icons/SearchIcon";
 
 type IListDocumentosActionsColumnProps = {
-  info: CellContext<IDocumento, unknown>;
+  info: CellContext<IDocumentoModel, unknown>;
 };
 
 export function ListDocumentosActionsColumn({

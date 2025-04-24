@@ -1,13 +1,13 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { ThemeColor } from "@/types/utils";
-import { IDocumento } from "@/domain/models/listDocumentosModel";
+import { IDocumentoModel } from "@/domain/models";
 import { Badge } from "@/presentation/components/Badge";
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { ListDocumentosActionsColumn } from "../ListDocumentosActionsColumn";
 
-const columnHelper = createColumnHelper<IDocumento>();
+const columnHelper = createColumnHelper<IDocumentoModel>();
 
-const getColor = (status: IDocumento["status"]): ThemeColor => {
+const getColor = (status: IDocumentoModel["status"]): ThemeColor => {
   switch (status) {
     case "aberto":
       return "info";
@@ -22,7 +22,7 @@ const getColor = (status: IDocumento["status"]): ThemeColor => {
   }
 };
 
-const getDescription = (status: IDocumento["status"]) => {
+const getDescription = (status: IDocumentoModel["status"]) => {
   switch (status) {
     case "aberto":
       return "Aberto";

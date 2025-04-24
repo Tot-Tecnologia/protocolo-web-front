@@ -1,10 +1,10 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { IDocumento } from "@/domain/models/listDocumentosModel";
+import { IDocumentoModel } from "@/domain/models";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
 import { columns } from "./columns";
 
-const fakeData: IDocumento[] = [
+const fakeData: IDocumentoModel[] = [
   {
     numero: 1869,
     tipoSolicitacao: "Alvará de funcionamento",
