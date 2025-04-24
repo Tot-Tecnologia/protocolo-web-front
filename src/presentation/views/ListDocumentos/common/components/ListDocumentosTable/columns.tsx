@@ -1,9 +1,9 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { ThemeColor } from "@/types/utils";
+import { IDocumento } from "@/domain/models/listDocumentosModel";
 import { Badge } from "@/presentation/components/Badge";
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { ListDocumentosActionsColumn } from "../ListDocumentosActionsColumn";
-import { IDocumento } from "./types";
 
 const columnHelper = createColumnHelper<IDocumento>();
 

@@ -1,7 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
 import { Link } from "@tanstack/react-router";
+import { IDocumento } from "@/domain/models/listDocumentosModel";
 import { DETAILS_DOCUMENTO_ROUTE_URL } from "@/presentation/constants/routesUrl";
-import { IDocumento } from "../ListDocumentosTable/types";
 import { SearchIcon } from "@/presentation/icons/SearchIcon";
 
 type IListDocumentosActionsColumnProps = {
