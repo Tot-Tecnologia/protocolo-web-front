@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
-import { ProtocoloWebErrorResponse } from "@/domain/models/protocoloWebModel";
+import { ProtocoloWebErrorResponse } from "@/domain/models";
 import { AddAccount, AddAccountArgs } from "@/domain/usecases";
 
 export class RemoteAddAccount implements AddAccount {

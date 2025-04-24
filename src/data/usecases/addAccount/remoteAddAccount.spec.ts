@@ -1,8 +1,7 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
-import { UnexpectedError } from "@/domain/errors";
-import { ValidationError } from "@/domain/errors/validationError";
-import { ProtocoloWebErrorResponse } from "@/domain/models/protocoloWebModel";
+import { UnexpectedError, ValidationError } from "@/domain/errors";
+import { ProtocoloWebErrorResponse } from "@/domain/models";
 import { AddAccountArgs } from "@/domain/usecases";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockAddAccountArgs } from "@/tests/domain/mocks/mockAddAccount";

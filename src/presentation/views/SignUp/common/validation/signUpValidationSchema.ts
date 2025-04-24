@@ -1,4 +1,4 @@
-import { AddAccountArgs } from "@/domain/usecases/addAccount";
+import { AddAccountArgs } from "@/domain/usecases";
 import { CPF_CNPJ_REGEXP } from "@/presentation/constants/regExps";
 import { z } from "zod";
 
