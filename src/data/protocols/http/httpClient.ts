@@ -1,16 +1,3 @@
-export type HttpRequest<TBody = unknown> = {
-  url: string;
-  method: HttpMethod;
-  body?: TBody;
-  headers?: unknown;
-};
-
-export interface HttpClient<TRequestBody = unknown, TResponseBody = unknown> {
-  request: (
-    data: HttpRequest<TRequestBody>,
-  ) => Promise<HttpResponse<TResponseBody>>;
-}
-
 export type HttpMethod = "post" | "get" | "put" | "delete";
 
 export enum HttpStatusCode {
@@ -20,7 +7,20 @@ export enum HttpStatusCode {
   serverError = 500,
 }
 
-export type HttpResponse<TBody = unknown> = {
+export type HttpRequest<TBody = any> = {
+  url: string;
+  method: HttpMethod;
+  body?: TBody;
+  headers?: unknown;
+};
+
+export type HttpResponse<TBody = any> = {
   statusCode: HttpStatusCode;
   body: TBody;
 };
+
+export interface HttpClient {
+  request: <TResponseBody = any, TRequestBody = any>(
+    data: HttpRequest<TRequestBody>,
+  ) => Promise<HttpResponse<TResponseBody>>;
+}

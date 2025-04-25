@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { AxiosHttpClient } from "@/infra/http/axiosHttpClient";
 import { mockHttpRequest } from "@/tests/data/mocks/mockHttpClient";
 

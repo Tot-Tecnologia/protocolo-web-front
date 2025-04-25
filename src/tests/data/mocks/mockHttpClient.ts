@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   HttpClient,
   HttpMethod,
@@ -25,18 +26,16 @@ export const mockHttpRequest = (): HttpRequest => {
   };
 };
 
-export class HttpClientSpy<TRequestBody = unknown, TResponseBody = unknown>
-  implements HttpClient<TRequestBody, TResponseBody>
-{
+export class HttpClientSpy implements HttpClient {
   url?: string;
   method?: HttpMethod;
-  body?: TRequestBody;
-  response: HttpResponse<TResponseBody> = {
+  body?: any;
+  response: HttpResponse = {
     body: null as never,
     statusCode: HttpStatusCode.ok,
   };
 
-  request(data: HttpRequest<TRequestBody>) {
+  request(data: HttpRequest) {
     this.url = data.url;
     this.method = data.method;
     this.body = data.body;

@@ -48,6 +48,7 @@ export default tseslint.config(
         },
       ],
       "@typescript-eslint/triple-slash-reference": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 );

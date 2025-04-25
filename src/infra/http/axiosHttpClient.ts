@@ -6,10 +6,8 @@ import {
   HttpStatusCode,
 } from "@/data/protocols/http/httpClient";
 
-export class AxiosHttpClient<TRequestBody = unknown, TResponseBody = unknown>
-  implements HttpClient<TRequestBody, TResponseBody>
-{
-  async request(
+export class AxiosHttpClient implements HttpClient {
+  async request<TResponseBody = any, TRequestBody = any>(
     data: HttpRequest<TRequestBody>,
   ): Promise<HttpResponse<TResponseBody>> {
     try {

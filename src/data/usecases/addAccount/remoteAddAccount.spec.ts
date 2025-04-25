@@ -2,7 +2,6 @@ import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
 import { UnexpectedError, ValidationError } from "@/domain/errors";
 import { ProtocoloWebErrorResponse } from "@/domain/models";
-import { AddAccountArgs } from "@/domain/usecases";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockAddAccountArgs } from "@/tests/domain/mocks/mockAddAccount";
 import { faker } from "@faker-js/faker";
@@ -17,10 +16,7 @@ const mockProtocoloWebErrorResponse = (
 
 const makeSut = () => {
   const url = faker.internet.url();
-  const httpClientSpy = new HttpClientSpy<
-    AddAccountArgs,
-    void | ProtocoloWebErrorResponse
-  >();
+  const httpClientSpy = new HttpClientSpy();
   const sut = new RemoteAddAccount(url, httpClientSpy);
 
   return { sut, url, httpClientSpy };

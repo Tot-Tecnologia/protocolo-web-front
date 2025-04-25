@@ -7,18 +7,16 @@ import { AddAccount, AddAccountArgs } from "@/domain/usecases";
 export class RemoteAddAccount implements AddAccount {
   constructor(
     private readonly url: string,
-    private readonly httpClient: HttpClient<
-      AddAccountArgs,
-      void | ProtocoloWebErrorResponse
-    >,
+    private readonly httpClient: HttpClient,
   ) {}
 
   async signUp(args: AddAccountArgs): Promise<void> {
-    const httpResponse = await this.httpClient.request({
-      url: this.url,
-      method: "post",
-      body: args,
-    });
+    const httpResponse =
+      await this.httpClient.request<ProtocoloWebErrorResponse | void>({
+        url: this.url,
+        method: "post",
+        body: args,
+      });
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
