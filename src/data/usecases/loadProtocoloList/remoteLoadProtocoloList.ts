@@ -1,21 +1,21 @@
 import {
-  LoadDocumentoList,
-  ILoadDocumentoListArgs,
-  ILoadDocumentoListResponse,
+  LoadProtocoloList,
+  ILoadProtocoloListArgs,
+  ILoadProtocoloListResponse,
 } from "@/domain/usecases";
 import { HttpClient } from "@/data/protocols/http/httpClient";
 
-export class RemoteLoadDocumentoList implements LoadDocumentoList {
+export class RemoteLoadProtocoloList implements LoadProtocoloList {
   constructor(
     private readonly url: string,
     private readonly httpClient: HttpClient,
   ) {}
 
   async loadWithFilter(
-    args: ILoadDocumentoListArgs,
-  ): Promise<ILoadDocumentoListResponse[]> {
+    args: ILoadProtocoloListArgs,
+  ): Promise<ILoadProtocoloListResponse[]> {
     const response = await this.httpClient.request<
-      ILoadDocumentoListResponse[]
+      ILoadProtocoloListResponse[]
     >({
       url: this.url,
       method: "get",

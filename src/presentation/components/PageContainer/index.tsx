@@ -1,6 +1,6 @@
 import { Link, LinkComponentProps } from "@tanstack/react-router";
 import { router } from "@/presentation/router";
-import { LIST_DOCUMENTOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { Button } from "@/presentation/components/Button";
 import { NavBar } from "@/presentation/components/NavBar";
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
@@ -24,7 +24,7 @@ export function PageContainer({
         <div className="flex items-center justify-between pb-10">
           <div className="flex items-center space-x-8">
             {!!navigateBackwardTo?.length && (
-              <Link to={LIST_DOCUMENTOS_ROUTE_URL} title="Voltar">
+              <Link to={LIST_PROTOCOLOS_ROUTE_URL} title="Voltar">
                 <ArrowLeftIcon className="size-6" viewBox="0 0 20 20" />
               </Link>
             )}

@@ -1,23 +1,23 @@
 import { CellContext } from "@tanstack/react-table";
 import { Link } from "@tanstack/react-router";
-import { IDocumentoModel } from "@/domain/models";
-import { DETAILS_DOCUMENTO_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import { IProtocoloModel } from "@/domain/models";
+import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { SearchIcon } from "@/presentation/icons/SearchIcon";
 
-type IListDocumentosActionsColumnProps = {
-  info: CellContext<IDocumentoModel, unknown>;
+type IListProtocolosActionsColumnProps = {
+  info: CellContext<IProtocoloModel, unknown>;
 };
 
-export function ListDocumentosActionsColumn({
+export function ListProtocolosActionsColumn({
   info,
-}: IListDocumentosActionsColumnProps) {
+}: IListProtocolosActionsColumnProps) {
   return (
     <span className="flex justify-end">
       <Link
-        to={DETAILS_DOCUMENTO_ROUTE_URL}
+        to={DETAILS_PROTOCOLO_ROUTE_URL}
         title={`Acessar detalhes da solicitação de número ${info.row.original.numero}`}
         params={{
-          numeroDocumento: `${info.row.original.numero}`,
+          numeroProtocolo: `${info.row.original.numero}`,
         }}
       >
         <SearchIcon className="size-5" />

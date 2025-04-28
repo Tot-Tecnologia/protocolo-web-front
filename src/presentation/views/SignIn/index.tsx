@@ -7,7 +7,7 @@ import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import {
-  CREATE_DOCUMENTO_ROUTE_URL,
+  CREATE_PROTOCOLO_ROUTE_URL,
   RECOVER_PASSWORD_ROUTE_URL,
   SIGN_UP_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
@@ -37,7 +37,7 @@ export function SignIn({ authentication, uiNotification }: ISignInProps) {
       {
         onSuccess: (accountModel) => {
           setAccessToken(accountModel.accessToken);
-          void navigate({ to: CREATE_DOCUMENTO_ROUTE_URL });
+          void navigate({ to: CREATE_PROTOCOLO_ROUTE_URL });
         },
         onError: (error) => uiNotification.error(error.message),
       },

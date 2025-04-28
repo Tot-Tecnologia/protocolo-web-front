@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { NavBar } from "@/presentation/components/NavBar";
-import { CREATE_DOCUMENTO_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import { CREATE_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import {
   mockedRouter,
   renderWithProviders,
@@ -19,14 +19,14 @@ beforeAll(async () => {
 });
 
 describe("NavBar", () => {
-  test("should be able to navigate to CreateDocumento view", async () => {
+  test("should be able to navigate to CreateProtocolo view", async () => {
     const { sut, user } = makeSut();
 
-    const link = sut.getByTestId(`NavLink-to-${CREATE_DOCUMENTO_ROUTE_URL}`);
+    const link = sut.getByTestId(`NavLink-to-${CREATE_PROTOCOLO_ROUTE_URL}`);
     await user.click(link);
 
     await waitFor(() => {
-      expect(window.location.href).toContain(CREATE_DOCUMENTO_ROUTE_URL);
+      expect(window.location.href).toContain(CREATE_PROTOCOLO_ROUTE_URL);
     });
   });
 });

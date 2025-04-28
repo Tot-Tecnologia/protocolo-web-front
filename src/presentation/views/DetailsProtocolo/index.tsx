@@ -1,14 +1,14 @@
 import { PageContainer } from "@/presentation/components/PageContainer";
-import { LIST_DOCUMENTOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { HistoricoAtualizacoesTable } from "./common/HistoricoAtualizacoesTable";
 import { InformacoesCard } from "./common/InformacoesCard";
 import { GuiasPagamentoTable } from "./common/GuiasPagamentoTable";
 import { ComplementarCard } from "./common/ComplementarCard";
 
-export function DetailsDocumento() {
+export function DetailsProtocolo() {
   return (
     <PageContainer
-      navigateBackwardTo={LIST_DOCUMENTOS_ROUTE_URL}
+      navigateBackwardTo={LIST_PROTOCOLOS_ROUTE_URL}
       title="Consultar solicitação"
     >
       <div className="space-y-10">

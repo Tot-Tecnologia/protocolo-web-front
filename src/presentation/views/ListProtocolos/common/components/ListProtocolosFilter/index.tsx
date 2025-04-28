@@ -5,7 +5,7 @@ import { Input } from "@/presentation/components/Input";
 import { Select } from "@/presentation/components/Select";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 
-export function ListDocumentosFilter() {
+export function ListProtocolosFilter() {
   const form = useFormWithZod({ schema: z.object({}) });
 
   return (
@@ -14,11 +14,11 @@ export function ListDocumentosFilter() {
         onSubmit={() => alert("// TODO")}
         className="grid items-end gap-4 md:grid-cols-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto_auto]"
       >
-        <Input name="numeroDocumento" label="Número Documento" />
+        <Input name="numeroProtocolo" label="Número Protocolo" />
 
         <Input name="ano" label="Ano" />
 
-        <Select name="tipoSolicitacao" label="Tipo de Documento">
+        <Select name="tipoSolicitacao" label="Tipo de Protocolo">
           <option value=""></option>
           <option value="lorem">Lorem</option>
           <option value="ipsum">Ipsum</option>

@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { NavLink } from "@/presentation/components/NavBar/common/components/NavLink";
 import {
-  CREATE_DOCUMENTO_ROUTE_URL,
-  LIST_DOCUMENTOS_ROUTE_URL,
+  CREATE_PROTOCOLO_ROUTE_URL,
+  LIST_PROTOCOLOS_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 
 type INavBarProps = {
@@ -31,13 +31,13 @@ export function NavBar({ className }: INavBarProps) {
 
       <ul className="mt-3 flex w-62 flex-col gap-y-1">
         <li>
-          <NavLink to={CREATE_DOCUMENTO_ROUTE_URL} iconSrc="/pageIcon.svg">
+          <NavLink to={CREATE_PROTOCOLO_ROUTE_URL} iconSrc="/pageIcon.svg">
             Solicitação
           </NavLink>
         </li>
 
         <li>
-          <NavLink to={LIST_DOCUMENTOS_ROUTE_URL} iconSrc="/tableIcon.svg">
+          <NavLink to={LIST_PROTOCOLOS_ROUTE_URL} iconSrc="/tableIcon.svg">
             Consultar Solicitação
           </NavLink>
         </li>

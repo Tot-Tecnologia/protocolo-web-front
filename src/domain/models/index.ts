@@ -1,3 +1,3 @@
 export * from "./authenticationModel";
 export * from "./protocoloWebModel";
-export * from "./documentoModel";
+export * from "./protocoloModel";

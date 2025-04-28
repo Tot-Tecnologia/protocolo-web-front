@@ -5,7 +5,7 @@ import { Input } from "@/presentation/components/Input";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
-import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateDocumento/OneLargeOneSmallInputsContainer";
+import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProtocolo/OneLargeOneSmallInputsContainer";
 import { FormProvider, useForm } from "react-hook-form";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -40,7 +40,7 @@ interface ICriarProcessoDto {
   telefone: string;
 }
 
-export function CreateDocumento() {
+export function CreateProtocolo() {
   const form = useForm();
 
   const { handleSubmit } = form;
@@ -50,7 +50,7 @@ export function CreateDocumento() {
   });
 
   return (
-    <PageContainer title="Solicitar Documento">
+    <PageContainer title="Solicitar Protocolo">
       <FormProvider {...form}>
         <form onSubmit={handleSignUp} className="flex flex-col gap-y-6">
           <Card title="Informações do solicitante">
@@ -110,7 +110,7 @@ export function CreateDocumento() {
 
           <Card title="Solicitação">
             <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-              <Select name="DocumentoTypeId" label="Tipo de solicitação">
+              <Select name="ProtocoloTypeId" label="Tipo de solicitação">
                 <option value="0">Selecione uma opção</option>
                 <option value="1">Lorem ipsum dolor</option>
                 <option value="2">Ipsum dolor sit</option>

@@ -1,13 +1,13 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { ThemeColor } from "@/types/utils";
-import { IDocumentoModel } from "@/domain/models";
+import { IProtocoloModel } from "@/domain/models";
 import { Badge } from "@/presentation/components/Badge";
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
-import { ListDocumentosActionsColumn } from "../ListDocumentosActionsColumn";
+import { ListProtocolosActionsColumn } from "../ListProtocolosActionsColumn";
 
-const columnHelper = createColumnHelper<IDocumentoModel>();
+const columnHelper = createColumnHelper<IProtocoloModel>();
 
-const getColor = (status: IDocumentoModel["status"]): ThemeColor => {
+const getColor = (status: IProtocoloModel["status"]): ThemeColor => {
   switch (status) {
     case "aberto":
       return "info";
@@ -22,7 +22,7 @@ const getColor = (status: IDocumentoModel["status"]): ThemeColor => {
   }
 };
 
-const getDescription = (status: IDocumentoModel["status"]) => {
+const getDescription = (status: IProtocoloModel["status"]) => {
   switch (status) {
     case "aberto":
       return "Aberto";
@@ -45,7 +45,7 @@ export const columns = [
     header: "Tipo de solicitação",
   }),
   columnHelper.accessor(
-    (documento) => documento.dataSolicitacao.toLocaleDateString(),
+    (protocolo) => protocolo.dataSolicitacao.toLocaleDateString(),
     {
       id: "dataSolicitacao",
       header: "Data da solicitação",
@@ -61,6 +61,6 @@ export const columns = [
   }),
   columnHelper.display({
     id: ACTIONS_COLUMN_ID,
-    cell: (info) => <ListDocumentosActionsColumn info={info} />,
+    cell: (info) => <ListProtocolosActionsColumn info={info} />,
   }),
 ];
