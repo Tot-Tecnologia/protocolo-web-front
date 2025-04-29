@@ -1,9 +1,13 @@
 import { faker } from "@faker-js/faker";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
-import { mockLoadProtocoloListArgs } from "@/tests/domain/mocks/mockLoadProtocoloList";
+import {
+  mockLoadProtocoloListArgs,
+  mockProtocoloModel,
+} from "@/tests/domain/mocks/mockProtocolo";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { ILoadProtocoloListResponse } from "@/domain/usecases";
 
 const makeSut = () => {
   const url = faker.internet.url();
@@ -48,5 +52,25 @@ describe("RemoteLoadProtocoloList", () => {
     const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
+  });
+
+  test("should return a LoadProtocoloListResponse if HttpClient returns 200", async () => {
+    const { sut, httpClientSpy } = makeSut();
+
+    const data = faker.helpers.multiple(mockProtocoloModel);
+
+    const responseBody: ILoadProtocoloListResponse = {
+      totalPages: faker.number.int(),
+      data: data,
+    };
+
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: responseBody,
+    };
+
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
+
+    await expect(promise).resolves.toEqual(responseBody);
   });
 });
