@@ -14,25 +14,21 @@ export class RemoteLoadProtocoloList implements LoadProtocoloList {
 
   async loadWithFilter(
     args: ILoadProtocoloListArgs,
-  ): Promise<ILoadProtocoloListResponse[]> {
+  ): Promise<ILoadProtocoloListResponse> {
     const queryString = new URLSearchParams(args as never).toString();
     const fullUrl = `${this.url}?${queryString}`;
 
-    const response = await this.httpClient.request<
-      ILoadProtocoloListResponse[]
-    >({
+    const response = await this.httpClient.request<ILoadProtocoloListResponse>({
       url: fullUrl,
       method: "get",
     });
 
     switch (response.statusCode) {
       case HttpStatusCode.ok: {
-        break;
+        return response.body;
       }
       default:
         throw new UnexpectedError();
     }
-
-    return response.body;
   }
 }

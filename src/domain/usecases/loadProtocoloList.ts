@@ -17,5 +17,5 @@ export type ILoadProtocoloListResponse = {
 export interface LoadProtocoloList {
   loadWithFilter: (
     args: ILoadProtocoloListArgs,
-  ) => Promise<ILoadProtocoloListResponse[]>;
+  ) => Promise<ILoadProtocoloListResponse>;
 }
