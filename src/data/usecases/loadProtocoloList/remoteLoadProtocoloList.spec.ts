@@ -16,6 +16,9 @@ describe("RemoteLoadProtocoloList", () => {
     const { sut, url, httpClientSpy } = makeSut();
 
     const loadProtocoloListArgs: ILoadProtocoloListArgs = {
+      pagina: faker.number.int(),
+      itemsPorPagina: faker.number.int(),
+      cpfCnpj: faker.string.uuid(),
       ano: faker.number.int(),
       numeroProtocolo: faker.number.int(),
       tipoSolicitacao: faker.number.int(),
@@ -23,8 +26,13 @@ describe("RemoteLoadProtocoloList", () => {
 
     await sut.loadWithFilter(loadProtocoloListArgs);
 
-    expect(httpClientSpy.url).toBe(url);
+    expect(httpClientSpy.url).toContain(url);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.pagina);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.itemsPorPagina);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.cpfCnpj);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.ano);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.numeroProtocolo);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.tipoSolicitacao);
     expect(httpClientSpy.method).toBe("get");
-    expect(httpClientSpy.body).toBe(loadProtocoloListArgs);
   });
 });
