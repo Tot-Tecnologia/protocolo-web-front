@@ -14,12 +14,14 @@ export class RemoteLoadProtocoloList implements LoadProtocoloList {
   async loadWithFilter(
     args: ILoadProtocoloListArgs,
   ): Promise<ILoadProtocoloListResponse[]> {
+    const queryString = new URLSearchParams(args as never).toString();
+    const fullUrl = `${this.url}?${queryString}`;
+
     const response = await this.httpClient.request<
       ILoadProtocoloListResponse[]
     >({
-      url: this.url,
+      url: fullUrl,
       method: "get",
-      body: args,
     });
 
     return response.body;
