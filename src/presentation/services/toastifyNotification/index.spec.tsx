@@ -8,9 +8,9 @@ type IMakeSutArgs = {
   serviceFn: () => void;
 };
 
-const makeSut = ({ serviceFn }: IMakeSutArgs) => {
-  const toastifyNotification = new ToastifyNotification();
+const toastifyNotification = new ToastifyNotification();
 
+const makeSut = ({ serviceFn }: IMakeSutArgs) => {
   function Component() {
     useEffect(() => serviceFn(), []);
     return null;
@@ -20,7 +20,6 @@ const makeSut = ({ serviceFn }: IMakeSutArgs) => {
 
   return {
     sut: screen,
-    toastifyNotification: toastifyNotification,
   };
 };
 
@@ -28,7 +27,7 @@ describe("ToastifyNotification", () => {
   test("should display correct info message", async () => {
     const messageText = faker.lorem.words();
 
-    const { sut, toastifyNotification } = makeSut({
+    const { sut } = makeSut({
       serviceFn: () => toastifyNotification.info(messageText),
     });
 
@@ -42,7 +41,7 @@ describe("ToastifyNotification", () => {
   test("should display correct error message", async () => {
     const messageText = faker.lorem.words();
 
-    const { sut, toastifyNotification } = makeSut({
+    const { sut } = makeSut({
       serviceFn: () => toastifyNotification.error(messageText),
     });
 
@@ -56,7 +55,7 @@ describe("ToastifyNotification", () => {
   test("should display correct success message", async () => {
     const messageText = faker.lorem.words();
 
-    const { sut, toastifyNotification } = makeSut({
+    const { sut } = makeSut({
       serviceFn: () => toastifyNotification.success(messageText),
     });
 
