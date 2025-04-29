@@ -3,7 +3,8 @@ import {
   ILoadProtocoloListArgs,
   ILoadProtocoloListResponse,
 } from "@/domain/usecases";
-import { HttpClient } from "@/data/protocols/http/httpClient";
+import { UnexpectedError } from "@/domain/errors";
+import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
 
 export class RemoteLoadProtocoloList implements LoadProtocoloList {
   constructor(
@@ -23,6 +24,14 @@ export class RemoteLoadProtocoloList implements LoadProtocoloList {
       url: fullUrl,
       method: "get",
     });
+
+    switch (response.statusCode) {
+      case HttpStatusCode.ok: {
+        break;
+      }
+      default:
+        throw new UnexpectedError();
+    }
 
     return response.body;
   }
