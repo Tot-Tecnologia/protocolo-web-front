@@ -4,7 +4,7 @@ import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
-import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks/changeCpfCnpjEventHandler";
+import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import {
   SignUpDto,
