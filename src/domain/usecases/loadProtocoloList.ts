@@ -3,10 +3,10 @@ import { IProtocoloModel } from "@/domain/models";
 export type ILoadProtocoloListArgs = {
   pagina: number;
   itemsPorPagina: number;
-  cpfCnpj?: string;
-  numeroProtocolo?: number;
-  ano?: number;
-  tipoSolicitacao?: number;
+  cpfCnpj?: string | null;
+  numeroProtocolo?: number | null;
+  ano?: number | null;
+  tipoSolicitacao?: number | null;
 };
 
 export type ILoadProtocoloListResponse = {
