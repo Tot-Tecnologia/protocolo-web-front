@@ -7,6 +7,9 @@ const customErrorMap: z.ZodErrorMap = (error, ctx) => {
       if (["undefined", "null"].includes(error.received)) {
         return { message: "Obrigatório" };
       }
+      if (error.expected === "number" && error.received === "nan") {
+        return { message: "Apenas números" };
+      }
       break;
 
     case z.ZodIssueCode.invalid_string:
