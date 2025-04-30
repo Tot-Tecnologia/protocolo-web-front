@@ -1,15 +1,21 @@
-import { AuthenticationSpy } from "@/tests/domain/mocks/mockAuthentication";
-import { SignIn } from "@/presentation/views/SignIn";
-import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import { faker } from "@faker-js/faker";
 import { screen, waitFor } from "@testing-library/react";
+import { AuthenticationSpy } from "@/tests/domain/mocks";
+import { SignIn } from "@/presentation/views/SignIn";
+import { makeUiNotification } from "@/presentation/main/factories/usecases/uiNotificationFactory";
+import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import userEvent from "@testing-library/user-event";
 
 const makeSut = () => {
   const user = userEvent.setup();
   const authenticationSpy = new AuthenticationSpy();
 
-  renderWithProviders(<SignIn authentication={authenticationSpy} />);
+  renderWithProviders(
+    <SignIn
+      authentication={authenticationSpy}
+      uiNotification={makeUiNotification()}
+    />,
+  );
 
   return {
     sut: screen,

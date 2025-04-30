@@ -3,7 +3,7 @@ import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
 import { UnexpectedError, ValidationError } from "@/domain/errors";
 import { ProtocoloWebErrorResponse } from "@/domain/models";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
-import { mockAddAccountArgs } from "@/tests/domain/mocks/mockAddAccount";
+import { mockAddAccountArgs } from "@/tests/domain/mocks";
 import { faker } from "@faker-js/faker";
 
 const mockProtocoloWebErrorResponse = (

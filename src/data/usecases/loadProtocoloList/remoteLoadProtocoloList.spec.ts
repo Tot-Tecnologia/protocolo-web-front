@@ -4,7 +4,7 @@ import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
 import {
   mockLoadProtocoloListArgs,
   mockProtocoloModel,
-} from "@/tests/domain/mocks/mockProtocolo";
+} from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { ILoadProtocoloListResponse } from "@/domain/usecases";
