@@ -1,20 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ISelectProps, Select } from "@/presentation/components/Select";
 import { faker } from "@faker-js/faker";
-import { render, renderHook, screen } from "@testing-library/react";
+import {
+  act,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, useForm } from "react-hook-form";
 
 const selectName = faker.lorem.word();
 
-const selectOptionsLength = 3;
+const selectOptionsLength = 4;
 
-const selectOptions = faker.helpers.multiple(
-  () => ({
-    value: faker.lorem.word(),
-    label: faker.lorem.sentence({ min: 1, max: 3 }),
-  }),
-  { count: selectOptionsLength },
-);
+const selectOptions = [
+  { value: "", label: "" },
+  ...faker.helpers.multiple(
+    () => ({
+      value: faker.lorem.word(),
+      label: faker.lorem.sentence({ min: 1, max: 3 }),
+    }),
+    { count: selectOptionsLength - 1 },
+  ),
+];
 
 type IMakeSutArgs = {
   selectProps?: Partial<ISelectProps>;
@@ -59,5 +69,23 @@ describe("Select", () => {
 
     expect(select.value).toBe(lastSelectOption);
     expect(fieldStateValue).toBe(lastSelectOption);
+  });
+
+  test("should have an empty string as component value when form value is null", async () => {
+    const { sut, useFormResult } = makeSut();
+
+    act(() => {
+      useFormResult.current.setValue(selectName, null);
+    });
+
+    const select = await sut.findByTestId<HTMLSelectElement>(selectName);
+
+    const fieldStateValue = useFormResult.current.getValues(selectName);
+    const componentValue = select.value;
+
+    await waitFor(() => {
+      expect(fieldStateValue).toBeNull();
+      expect(componentValue).toBe("");
+    });
   });
 });
