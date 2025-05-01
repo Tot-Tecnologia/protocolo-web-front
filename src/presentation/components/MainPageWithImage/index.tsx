@@ -15,7 +15,7 @@ export function MainPageWithImage({
 }: IMainPageWithImageProps) {
   return (
     <div className="flex justify-between gap-4">
-      <div className="mx-auto max-w-90 basis-full px-4 py-6 md:basis-65/100">
+      <div className="mx-auto max-w-95 basis-full px-4 py-6 md:basis-65/100">
         <div className="mb-7.5 flex flex-col items-center gap-8">
           <img
             src="logo.png"

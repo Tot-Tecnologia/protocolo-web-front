@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/presentation/components/Button";
@@ -20,6 +21,8 @@ type ISignUpProps = {
 };
 
 export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
   const form = useFormWithZod({ schema: signUpValidationSchema });
 
   const addAccountMutation = useAddAccountMutation({ addAccount });
@@ -27,6 +30,8 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
   const navigate = useNavigate();
 
   const handleSignUp = form.handleSubmit((data) => {
+    if (!agreedToTerms) return;
+
     addAccountMutation.mutate(data, {
       onSuccess: () => {
         uiNotification.success("Cadastro realizado com sucesso.");
@@ -43,6 +48,8 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
   });
 
   const handleClickBack = () => navigate({ to: SIGN_IN_ROUTE_URL });
+
+  const handleChangeAgreedToTerms = () => setAgreedToTerms((old) => !old);
 
   return (
     <MainPageWithImage title="Cadastrar">
@@ -79,11 +86,41 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
               type="password"
             />
 
+            <div className="my-4 text-sm">
+              <input
+                id="checkbox-termos"
+                type="checkbox"
+                checked={agreedToTerms}
+                onChange={handleChangeAgreedToTerms}
+              />
+
+              <label htmlFor="checkbox-termos" className="ml-3">
+                Aceito os{" "}
+                <a
+                  href="http://www.google.com.br"
+                  className="font-bold"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Termos de Uso
+                </a>{" "}
+                e{" "}
+                <a
+                  href="http://www.google.com.br"
+                  className="font-bold"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Política de Privacidade
+                </a>
+              </label>
+            </div>
+
             <Button
-              className="mt-6"
               type="submit"
               size="large"
               loading={addAccountMutation.isPending}
+              disabled={!agreedToTerms}
             >
               Cadastrar
             </Button>
