@@ -34,6 +34,7 @@ export function BaseInput<
   label,
   helperText,
   error,
+  disabled,
   ...props
 }: IBaseInputProps<THTMLAttributes>) {
   const isLabelVisible = label != null;
@@ -52,13 +53,15 @@ export function BaseInput<
       <Component
         id={finalId}
         className={clsx(
-          "rounded-lg border bg-white px-3 py-1.5 -outline-offset-2 placeholder:text-sm focus:outline-2",
+          "rounded-lg border px-3 py-1.5 -outline-offset-2 placeholder:text-sm focus:outline-2",
           isLabelVisible && "mt-2",
           error ? "text-error" : "text-gray-900",
           error ? "border-error" : "border-gray-300",
           error ? "focus:outline-error" : "focus:outline-primary",
+          disabled ? "bg-gray-100" : "bg-white",
           className,
         )}
+        disabled={disabled}
         {...props}
       />
 
