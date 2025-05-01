@@ -20,7 +20,7 @@ export const signUpValidationSchema: z.Schema<SignUpDto> = z
       .transform((input) => input.replace(/\D/g, "")),
     email: z.string().email(),
     confirmacaoEmail: z.string().email(),
-    senha: z.string().min(6),
+    senha: z.string().min(8),
     confirmacaoSenha: z.string(),
   })
   .refine((data) => data.email === data.confirmacaoEmail, {
@@ -30,4 +30,15 @@ export const signUpValidationSchema: z.Schema<SignUpDto> = z
   .refine((data) => data.senha === data.confirmacaoSenha, {
     message: "A confirmação da senha não bate com a senha",
     path: ["confirmacaoSenha"],
-  });
+  })
+  .refine(
+    (data) => {
+      const senha = data.senha;
+      const digitosSenha = data.senha.replace(/\D/g, "");
+      return digitosSenha.length > 0 && senha.length !== digitosSenha.length;
+    },
+    {
+      message: "A senha deve conter números e letras",
+      path: ["senha"],
+    },
+  );
