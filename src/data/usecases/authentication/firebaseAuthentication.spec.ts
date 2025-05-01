@@ -1,5 +1,9 @@
 import { FirebaseAuthentication } from "@/data/usecases/authentication/firebaseAuthentication";
-import { InvalidCredentialsError, UnexpectedError } from "@/domain/errors";
+import {
+  InvalidCredentialsError,
+  UnauthorizedError,
+  UnexpectedError,
+} from "@/domain/errors";
 import { mockAuthenticationArgs } from "@/tests/domain/mocks";
 import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
@@ -14,6 +18,7 @@ const { mockedSignInWithEmailAndPassword } = vi.hoisted(() => {
     (): DeepPartial<UserCredential> => ({
       user: {
         getIdToken: () => Promise.resolve(accessToken),
+        emailVerified: true,
       },
     }),
   );
@@ -101,5 +106,21 @@ describe("FirebaseAuthentication", () => {
     const promise = sut.signIn(mockAuthenticationArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
+  });
+
+  test("should throw UnauthorizedError when user e-mail isnt verified", async () => {
+    const { sut } = makeSut();
+
+    mockedSignInWithEmailAndPassword.mockResolvedValueOnce({
+      user: { emailVerified: false },
+    });
+
+    const promise = sut.signIn(mockAuthenticationArgs());
+
+    await expect(promise).rejects.toThrowError(
+      new UnauthorizedError(
+        "E-mail não verificado! Acesse o e-mail cadastrado para confirmação",
+      ),
+    );
   });
 });
