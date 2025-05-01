@@ -1,7 +1,9 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { IProtocoloModel } from "@/domain/models";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
+import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { columns } from "./columns";
 
 const fakeData: IProtocoloModel[] = [
@@ -50,10 +52,27 @@ export function ListProtocolosTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });
+
+  const { pagina } = useSearch({ from: LIST_PROTOCOLOS_ROUTE_URL });
+
+  const handleChangePage = (page: number) => {
+    void navigate({
+      search: (oldSearchParams) => ({
+        ...oldSearchParams,
+        pagina: page - 1,
+      }),
+    });
+  };
+
   return (
     <div className="grid gap-y-6 md:gap-y-2">
       <Table table={table} />
-      <TablePagination total={44} />
+      <TablePagination
+        page={(pagina ?? 0) + 1}
+        onChange={handleChangePage}
+        total={12}
+      />
     </div>
   );
 }

@@ -1,14 +1,18 @@
-import { FormProvider } from "react-hook-form";
+import { FormProvider, useWatch } from "react-hook-form";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { Select } from "@/presentation/components/Select";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { onlyDigitsHandler } from "@/presentation/utils/inputMasks";
+import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import {
   listProtocolosFilterDefaultValues,
   ListProtocolosFilterDto,
   listProtocolosFilterValidationSchema,
 } from "../../validations/listProtocolosFilterValidationSchema";
+import { useEffect } from "react";
+import { removeNullish } from "@/presentation/utils/objectUtils/removeNullish";
 
 export function ListProtocolosFilter() {
   const form = useFormWithZod({
@@ -16,11 +20,40 @@ export function ListProtocolosFilter() {
     defaultValues: listProtocolosFilterDefaultValues,
   });
 
-  // TODO: adicionar uma maneira de obter a página selecionada atualmente
-  const handleSubmitForm = form.handleSubmit(
-    (data) => alert(JSON.stringify(data, null, 2)), // TODO: tratar sucesso
-    (errors) => alert(JSON.stringify(errors, null, 2)), // TODO: tratar erro
-  );
+  const { setValue, getValues } = form;
+
+  const numeroProtocolo = useWatch({
+    control: form.control,
+    name: "numeroProtocolo",
+  });
+
+  const isNumeroProtocoloFilled =
+    numeroProtocolo != null && numeroProtocolo.toString().length > 0;
+
+  const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });
+
+  const handleSubmitForm = form.handleSubmit((filter) => {
+    void navigate({
+      search: () => ({
+        pagina: 0,
+        ...removeNullish(filter),
+      }),
+      replace: true,
+    });
+  });
+
+  useEffect(() => {
+    if (isNumeroProtocoloFilled) {
+      const ano = getValues("ano");
+      const tipoSolicitacao = getValues("tipoSolicitacao");
+      if (ano != null && ano.toString().length > 0) {
+        setValue("ano", null);
+      }
+      if (tipoSolicitacao != null && tipoSolicitacao.toString().length > 0) {
+        setValue("tipoSolicitacao", null);
+      }
+    }
+  }, [getValues, isNumeroProtocoloFilled, setValue]);
 
   return (
     <FormProvider {...form}>
@@ -38,12 +71,17 @@ export function ListProtocolosFilter() {
           name="ano"
           label="Ano"
           onChange={onlyDigitsHandler}
+          disabled={isNumeroProtocoloFilled}
         />
 
-        <Select name="tipoSolicitacao" label="Tipo de solicitação">
+        <Select
+          name="tipoSolicitacao"
+          label="Tipo de solicitação"
+          disabled={isNumeroProtocoloFilled}
+        >
           <option value=""></option>
-          <option value="lorem">Lorem</option>
-          <option value="ipsum">Ipsum</option>
+          <option value="1">Lorem</option>
+          <option value="2">Ipsum</option>
         </Select>
 
         <span className="hidden text-[0px] md:block lg:hidden">
@@ -54,7 +92,9 @@ export function ListProtocolosFilter() {
           Consultar
         </Button>
 
-        <Button variant="outlined">Limpar</Button>
+        <Button variant="outlined" onClick={() => form.reset()}>
+          Limpar
+        </Button>
       </form>
     </FormProvider>
   );
