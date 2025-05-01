@@ -27,7 +27,7 @@ export function Select(props: ISelectProps) {
           Component={SelectComponent}
           {...props}
           {...field}
-          value={field.value as never}
+          value={(field.value as never) ?? ""}
           helperText={fieldState.error?.message ?? props.helperText}
           error={!!fieldState.error || props.error}
           onChange={(event) => {
