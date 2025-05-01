@@ -40,7 +40,8 @@ export function Select(props: ISelectProps) {
             // setinha no fim do componente
             "appearance-none bg-[url(/arrowDownIcon.svg)] bg-[calc(100%_-_4_*_var(--spacing))_center] bg-no-repeat",
             // outras estilizações
-            "cursor-pointer text-sm leading-6",
+            "text-sm leading-6",
+            props.disabled ? "cursor-default" : "cursor-pointer",
             props.className,
           )}
         />
