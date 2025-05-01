@@ -1,15 +1,15 @@
 import { Button } from "@/presentation/components/Button";
-import { usePagination } from "@/presentation/hooks/usePagination";
+import {
+  IPaginationProps,
+  usePagination,
+} from "@/presentation/hooks/usePagination";
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
 import { ArrowRightIcon } from "@/presentation/icons/ArrowRightIcon";
 
-type ITablePaginationProps = {
-  /** Número total de páginas. */
-  total: number;
-};
+type ITablePaginationProps = IPaginationProps;
 
-export function TablePagination({ total }: ITablePaginationProps) {
-  const pagination = usePagination({ total });
+export function TablePagination(props: ITablePaginationProps) {
+  const pagination = usePagination(props);
 
   return (
     <ul

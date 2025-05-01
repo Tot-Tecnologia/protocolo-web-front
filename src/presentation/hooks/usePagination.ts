@@ -8,7 +8,7 @@ function range(start: number, end: number) {
 
 const DOTS = "dots";
 
-type IPaginationProps = {
+export type IPaginationProps = {
   /** Página selecionada inicialmente. @default 1 */
   initialPage?: number;
 
