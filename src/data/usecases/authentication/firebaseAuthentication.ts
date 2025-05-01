@@ -1,4 +1,8 @@
-import { InvalidCredentialsError, UnexpectedError } from "@/domain/errors";
+import {
+  InvalidCredentialsError,
+  UnauthorizedError,
+  UnexpectedError,
+} from "@/domain/errors";
 import { AccountModel } from "@/domain/models";
 import { Authentication, AuthenticationArgs } from "@/domain/usecases";
 import { FirebaseError } from "firebase/app";
@@ -14,6 +18,12 @@ export class FirebaseAuthentication implements Authentication {
         email,
         password,
       );
+
+      if (!firebaseResponse.user.emailVerified) {
+        throw new UnauthorizedError(
+          "E-mail não verificado! Acesse o e-mail cadastrado para confirmação.",
+        );
+      }
 
       const accessToken = await firebaseResponse.user.getIdToken();
 
@@ -33,6 +43,10 @@ export class FirebaseAuthentication implements Authentication {
           throw new InvalidCredentialsError();
         }
         console.error(error);
+      }
+
+      if (error instanceof UnauthorizedError) {
+        throw error;
       }
 
       throw new UnexpectedError();
