@@ -1,5 +1,6 @@
 export type ProtocoloWebErrorResponse = {
-  statusCode: number;
-  message: string | string[];
-  error: string;
+  codigo: number;
+  mensagem: string;
+  status: string;
+  dataHora: string;
 };

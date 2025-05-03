@@ -13,7 +13,6 @@ import {
 } from "@/presentation/views/SignUp/common/validation/signUpValidationSchema";
 import { AddAccount, UiNotification } from "@/domain/usecases";
 import { useAddAccountMutation } from "@/presentation/views/SignUp/common/hooks/useAddAccountMutation";
-import { ValidationError } from "@/domain/errors/validationError";
 
 type ISignUpProps = {
   addAccount: AddAccount;
@@ -37,13 +36,7 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
         uiNotification.success("Cadastro realizado com sucesso.");
         void navigate({ to: SIGN_IN_ROUTE_URL });
       },
-      onError: (error) => {
-        if (error instanceof ValidationError) {
-          error.errors.forEach((message) => uiNotification.error(message));
-          return;
-        }
-        uiNotification.error(error.message);
-      },
+      onError: (error) => uiNotification.error(error.message),
     });
   });
 

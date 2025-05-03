@@ -119,7 +119,7 @@ describe("FirebaseAuthentication", () => {
 
     await expect(promise).rejects.toThrowError(
       new UnauthorizedError(
-        "E-mail não verificado! Acesse o e-mail cadastrado para confirmação",
+        "E-mail não verificado! Acesse o e-mail cadastrado para confirmação.",
       ),
     );
   });

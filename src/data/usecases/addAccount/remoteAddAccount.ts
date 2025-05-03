@@ -3,11 +3,17 @@ import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
 import { ProtocoloWebErrorResponse } from "@/domain/models";
 import { AddAccount, AddAccountArgs } from "@/domain/usecases";
+import {
+  Auth,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 export class RemoteAddAccount implements AddAccount {
   constructor(
     private readonly url: string,
     private readonly httpClient: HttpClient,
+    private readonly auth: Auth,
   ) {}
 
   async signUp(args: AddAccountArgs): Promise<void> {
@@ -19,21 +25,26 @@ export class RemoteAddAccount implements AddAccount {
       });
 
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok:
+      case HttpStatusCode.created: {
+        const userCredentials = await signInWithEmailAndPassword(
+          this.auth,
+          args.email,
+          args.senha,
+        );
+        await sendEmailVerification(userCredentials.user);
         return httpResponse.body as void;
-      case HttpStatusCode.unprocessableEntity: {
-        const errorResponse = httpResponse.body as ProtocoloWebErrorResponse;
-        const errors = (errorResponse.message as string[]) ?? [];
-        throw new ValidationError({ errors });
       }
-      default: {
+
+      case HttpStatusCode.badRequest: {
         const errorResponse = httpResponse.body as ProtocoloWebErrorResponse;
-        const errors = errorResponse.message;
-        if (errors != null) {
-          throw new ValidationError({
-            errors: Array.isArray(errors) ? errors : [errors],
-          });
+        const message = errorResponse?.mensagem;
+        if (message != null) {
+          throw new ValidationError({ message: message });
         }
+        throw new UnexpectedError();
+      }
+
+      default: {
         throw new UnexpectedError();
       }
     }
