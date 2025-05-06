@@ -9,36 +9,37 @@ import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProt
 import { FormProvider, useForm } from "react-hook-form";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface ICriarProcessoDto {
-  /** CPF ou CNPJ do solicitante */
-  cpfCnpj: string;
-  /** Nome do solicitante */
-  nomeSolicitante: string;
-  /** Tipo do endereço */
-  logradouro: string;
-  /** Endereço completo */
-  endereco: string;
-  /** Código de identificação do endereço*/
-  numero: string;
-  /** Bairro do endereço */
-  bairro: string;
-  /** CEP do endereço */
-  cep: string;
-  /** Cidade do endereço */
-  cidade: string;
-  /** Estado do endereço */
-  estado: string;
-  /** E-mail do solicitante */
-  email: string;
-  /** Complemento do endereço */
-  complemento: string;
-  /** ID do tipo de solicitação */
-  tipoSolicitacaoId: number;
-  /** Descrição da solicitação */
-  descricao: string;
-  /** Telefone do solicitante */
-  telefone: string;
-}
+
+// interface ICriarProcessoDto {
+//   /** CPF ou CNPJ do solicitante */
+//   cpfCnpj: string;
+//   /** Nome do solicitante */
+//   nomeSolicitante: string;
+//   /** Tipo do endereço */
+//   logradouro: string;
+//   /** Endereço completo */
+//   endereco: string;
+//   /** Código de identificação do endereço*/
+//   numero: string;
+//   /** Bairro do endereço */
+//   bairro: string;
+//   /** CEP do endereço */
+//   cep: string;
+//   /** Cidade do endereço */
+//   cidade: string;
+//   /** Estado do endereço */
+//   estado: string;
+//   /** E-mail do solicitante */
+//   email: string;
+//   /** Complemento do endereço */
+//   complemento: string;
+//   /** ID do tipo de solicitação */
+//   tipoSolicitacaoId: number;
+//   /** Descrição da solicitação */
+//   descricao: string;
+//   /** Telefone do solicitante */
+//   telefone: string;
+// }
 
 export function CreateProtocolo() {
   const form = useForm();
