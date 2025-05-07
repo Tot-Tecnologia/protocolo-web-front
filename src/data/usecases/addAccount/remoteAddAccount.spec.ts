@@ -1,7 +1,7 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
 import { UnexpectedError, ValidationError } from "@/domain/errors";
-import { ProtocoloWebErrorResponse } from "@/domain/models";
+import { ProtocoloWebDefaultResponse } from "@/domain/models";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockAddAccountArgs } from "@/tests/domain/mocks";
 import { DeepPartial } from "@/types/utils";
@@ -26,7 +26,7 @@ const { mockedSignInWithEmailAndPassword, mockedSendEmailVerification } =
 
 const mockProtocoloWebErrorResponse = (
   statusCode: HttpStatusCode,
-): ProtocoloWebErrorResponse => ({
+): ProtocoloWebDefaultResponse => ({
   codigo: statusCode,
   mensagem: faker.lorem.sentence(),
   dataHora: faker.date.anytime().toISOString(),

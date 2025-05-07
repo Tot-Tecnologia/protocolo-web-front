@@ -19,7 +19,7 @@ beforeAll(async () => {
 });
 
 describe("NavBar", () => {
-  test("should be able to navigate to CreateProtocolo view", async () => {
+  test("should be able to navigate to AddProtocolo view", async () => {
     const { sut, user } = makeSut();
 
     const link = sut.getByTestId(`NavLink-to-${CREATE_PROTOCOLO_ROUTE_URL}`);
