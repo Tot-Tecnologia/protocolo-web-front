@@ -17,5 +17,6 @@ export type AddProtocoloArgs = {
 };
 
 export interface AddProtocolo {
-  save(args: AddProtocoloArgs, token: string): Promise<void>; // TODO: remover token daqui
+  save(args: AddProtocoloArgs | FormData, token: string): Promise<void>;
 }
+

@@ -2,6 +2,7 @@ import {
   BaseInput,
   IBaseInputProps,
 } from "@/presentation/components/BaseInput";
+import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
 
 type IFileUploadProps = Omit<
@@ -13,9 +14,12 @@ type IFileUploadProps = Omit<
     "Component"
   >;
 
-function FileUploadComponent(
-  props: React.InputHTMLAttributes<HTMLInputElement>,
-) {
+function FileUploadComponent({
+  name,
+  ...props
+}: React.InputHTMLAttributes<HTMLInputElement>) {
+  const { setValue } = useFormContext();
+
   return (
     <label className="flex w-full md:mt-2 md:cursor-pointer md:flex-col md:items-center md:justify-center md:gap-y-4 md:rounded-lg md:border md:border-dashed md:border-gray-300 md:bg-gray-50 md:py-15">
       <img
@@ -26,7 +30,18 @@ function FileUploadComponent(
       <span className="hidden px-3 py-1 font-semibold md:block">
         Escolher arquivo
       </span>
-      <input {...props} type="file" />
+
+      <input
+        {...props}
+        name={name}
+        type="file"
+        multiple
+        accept="*/*"
+        onChange={(e) => {
+          const files = Array.from(e.target.files ?? []);
+          setValue(name!, files); 
+        }}
+      />
     </label>
   );
 }

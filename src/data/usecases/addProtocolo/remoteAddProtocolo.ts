@@ -10,13 +10,19 @@ export class RemoteAddProtocolo implements AddProtocolo {
     private readonly httpClient: HttpClient,
   ) {}
 
-  async save(args: AddProtocoloArgs, token: string): Promise<void> {
+  async save(args: AddProtocoloArgs | FormData, token: string): Promise<void> {
+    const isFormData = args instanceof FormData;
+
     const httpResponse =
       await this.httpClient.request<ProtocoloWebDefaultResponse | void>({
         url: this.url,
         method: "post",
         body: args,
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // ✅ Não defina Content-Type se for FormData
+          ...(isFormData ? {} : { "Content-Type": "application/json" }),
+        },
       });
 
     switch (httpResponse.statusCode) {

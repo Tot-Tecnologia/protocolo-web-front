@@ -12,7 +12,7 @@ export type HttpRequest<TBody = any> = {
   url: string;
   method: HttpMethod;
   body?: TBody;
-  headers?: unknown;
+  headers?: Record<string, string>;
 };
 
 export type HttpResponse<TBody = any> = {
