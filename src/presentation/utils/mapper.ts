@@ -1,4 +1,4 @@
-// src/utils/mapper.ts
+import { IProtocoloModel } from "@/domain/models";
 
 export const mapTipoDocumento = (tipo: number): string => {
     const map: Record<number, string> = {
@@ -24,10 +24,15 @@ export const mapTipoDocumento = (tipo: number): string => {
     }
   };
   
-  export const mapProtocolo = (item: any) => ({
-    numero: Number(item.numeroProtocolo.replace(/[^\d]/g, "")), // ou algum mapeamento coerente
-    tipoSolicitacao: mapTipoDocumento(item.tipoDocumento),
-    dataSolicitacao: new Date(item.dataSolicitacao),
-    status: normalizarStatus(item.status),
+  export const mapProtocolo = (item: any): IProtocoloModel => ({
+    id: item.id,  
+    numeroProtocolo: item.numeroProtocolo,  
+    tipoDocumento: item.tipoDocumento,  
+    numero: Number(item.numeroProtocolo.replace(/[^\d]/g, "")), 
+    tipoSolicitacao: mapTipoDocumento(item.tipoDocumento),  
+    dataSolicitacao: new Date(item.dataSolicitacao).toISOString(),  
+    status: normalizarStatus(item.status),  
+    orgaoResponsavel: item.orgaoResponsavel,  
+    observacao: item.observacao,  
   });
   

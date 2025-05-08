@@ -13,9 +13,9 @@ export function DetailsProtocolo() {
     >
       <div className="space-y-10">
         <InformacoesCard />
-        <HistoricoAtualizacoesTable />
+        {/* <HistoricoAtualizacoesTable />
         <GuiasPagamentoTable />
-        <ComplementarCard />
+        <ComplementarCard /> */}
       </div>
     </PageContainer>
   );

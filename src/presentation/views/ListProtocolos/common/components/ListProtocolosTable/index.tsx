@@ -36,7 +36,7 @@ export function ListProtocolosTable() {
     const httpClient = makeAxiosHttpClient();
 
     const protocoloService = new RemoteLoadProtocoloList(
-      `${baseUrl}/cidadao/protocolos`,
+      `${baseUrl}/portal-cidadao/protocolos`,
       {
         request: async (options) => {
           options.headers = {
