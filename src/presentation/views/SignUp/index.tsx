@@ -6,6 +6,7 @@ import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks";
+import { phoneMask } from "@/presentation/utils/inputMasks"; 
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import {
   SignUpDto,
@@ -52,12 +53,16 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
             <Input<SignUpDto>
               name="cpfCnpj"
               placeholder="CPF/CNPJ"
-              onChange={changeCpfCnpjEventHandler}
+              onChange={changeCpfCnpjEventHandler} // Certifique-se de que o handler está correto
             />
 
             <Input<SignUpDto> name="nome" placeholder="Nome" />
 
-            <Input<SignUpDto> name="telefone" placeholder="Celular" />
+            <Input<SignUpDto>
+              name="telefone"
+              placeholder="Celular"
+              onChange={phoneMask} 
+            />
 
             <Input<SignUpDto> name="email" placeholder="E-mail" type="email" />
 
