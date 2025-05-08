@@ -17,6 +17,11 @@ export function Table<TData = unknown>({ table, title }: ITableProps<TData>) {
     [table],
   );
 
+  // Verifique se `table` e `getRowModel()` são válidos
+  if (!table || !table.getRowModel) {
+    return <p>Erro: Dados da tabela não estão disponíveis</p>; // Mensagem de erro se os dados não forem válidos
+  }
+
   return (
     <>
       <div className="hidden overflow-x-auto rounded-md border border-neutral-200 bg-white md:block">
@@ -131,3 +136,4 @@ export function Table<TData = unknown>({ table, title }: ITableProps<TData>) {
     </>
   );
 }
+

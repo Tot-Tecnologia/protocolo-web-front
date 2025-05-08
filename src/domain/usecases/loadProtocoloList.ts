@@ -12,6 +12,9 @@ export type ILoadProtocoloListArgs = {
 export type ILoadProtocoloListResponse = {
   totalPages: number;
   data: IProtocoloModel[];
+  paginaAtual: number;
+  itensPagina: number;
+  totalItems: number;
 };
 
 export interface LoadProtocoloList {
