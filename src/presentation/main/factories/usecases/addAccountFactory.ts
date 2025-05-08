@@ -4,6 +4,6 @@ import { firebaseAuth } from "@/infra/frameworks/firebase";
 
 export function makeAddAccount() {
   const baseUrl = import.meta.env.VITE_PROTOCOLO_WEB_API_URL;
-  const fullUrl = baseUrl + "/cidadao/auth/registrar";
+  const fullUrl = baseUrl + "/portal-cidadao/auth/registrar";
   return new RemoteAddAccount(fullUrl, makeAxiosHttpClient(), firebaseAuth);
 }

@@ -33,7 +33,7 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
 
     addAccountMutation.mutate(data, {
       onSuccess: () => {
-        uiNotification.success("Cadastro realizado com sucesso.");
+        uiNotification.success("Cadastro realizado! Acesse seu e-mail para validar sua conta e concluir o processo.");
         void navigate({ to: SIGN_IN_ROUTE_URL });
       },
       onError: (error) => uiNotification.error(error.message),
