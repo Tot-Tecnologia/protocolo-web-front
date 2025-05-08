@@ -32,7 +32,7 @@ export function useAddProtocoloMutation({
 
   const mutationFn = (args: AddProtocoloArgs) => {
     const formData = convertToFormData(args);
-    return addProtocolo.save(formData, token); // ⬅️ agora enviando como multipart
+    return addProtocolo.save(formData, token);
   };
 
   return useMutation({ mutationFn });
