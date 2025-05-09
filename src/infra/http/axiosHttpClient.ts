@@ -26,8 +26,10 @@ export class AxiosHttpClient implements HttpClient {
         data: data.body,
         headers: {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...(data.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
           ...data.headers ?? {},
         },
+        
       });
 
       return {
