@@ -3,12 +3,12 @@ import { ILoadProtocoloListArgs } from "@/domain/usecases";
 import { IProtocoloModel } from "@/domain/models";
 
 export const mockLoadProtocoloListArgs = (): ILoadProtocoloListArgs => ({
-  pagina: faker.number.int(),
-  itemsPorPagina: faker.number.int(),
+  paginaAtual: faker.number.int(),
+  itensPagina: faker.number.int(),
   cpfCnpj: faker.string.uuid(),
   ano: faker.number.int(),
   numeroProtocolo: faker.number.int(),
-  tipoSolicitacao: faker.number.int(),
+  tipoDocumento: faker.number.int(),
 });
 
 export const mockProtocoloModel = (): IProtocoloModel => ({

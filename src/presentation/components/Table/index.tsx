@@ -136,4 +136,3 @@ export function Table<TData = unknown>({ table, title }: ITableProps<TData>) {
     </>
   );
 }
-

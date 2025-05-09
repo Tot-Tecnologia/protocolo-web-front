@@ -1,12 +1,12 @@
 import { IProtocoloModel } from "@/domain/models";
 
 export type ILoadProtocoloListArgs = {
-  pagina: number;
-  itemsPorPagina: number;
+  paginaAtual: number;
+  itensPagina: number;
   cpfCnpj?: string | null;
   numeroProtocolo?: number | null;
   ano?: number | null;
-  tipoSolicitacao?: number | null;
+  tipoDocumento?: number | null;
 };
 
 export type ILoadProtocoloListResponse = {
@@ -20,5 +20,6 @@ export type ILoadProtocoloListResponse = {
 export interface LoadProtocoloList {
   loadWithFilter: (
     args: ILoadProtocoloListArgs,
+    token: string, // TODO: remover token daqui
   ) => Promise<ILoadProtocoloListResponse>;
 }

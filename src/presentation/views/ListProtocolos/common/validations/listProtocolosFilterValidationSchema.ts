@@ -13,5 +13,5 @@ export const listProtocolosFilterValidationSchema: z.Schema<ListProtocolosFilter
 export const listProtocolosFilterDefaultValues: ListProtocolosFilterDto = {
   ano: null,
   numeroProtocolo: null,
-  tipoSolicitacao: null,
+  tipoDocumento: null,
 };

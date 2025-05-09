@@ -13,10 +13,16 @@ export type AddProtocoloArgs = {
   descricao: string;
   cidade: string;
   tipoDocumento: number;
-  arquivos: unknown[]; // TODO
+  arquivos: File[];
+};
+
+export type AddProtocoloResponse = AddProtocoloArgs & {
+  arquivos: Array<{
+    id: number;
+    nome: string;
+  }>;
 };
 
 export interface AddProtocolo {
-  save(args: AddProtocoloArgs | FormData, token: string): Promise<void>;
+  save(args: AddProtocoloArgs, token: string): Promise<AddProtocoloResponse>;
 }
-

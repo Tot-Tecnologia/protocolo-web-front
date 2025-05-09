@@ -27,8 +27,6 @@ export class FirebaseAuthentication implements Authentication {
 
       const accessToken = await firebaseResponse.user.getIdToken();
 
-      localStorage.setItem("@ProtocoloWeb__Key=authToken", JSON.stringify(accessToken));
-
       return {
         accessToken,
       };

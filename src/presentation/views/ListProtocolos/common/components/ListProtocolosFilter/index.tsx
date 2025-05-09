@@ -35,7 +35,7 @@ export function ListProtocolosFilter() {
   const handleSubmitForm = form.handleSubmit((filter) => {
     void navigate({
       search: () => ({
-        pagina: 0,
+        paginaAtual: 0,
         ...removeNullish(filter),
       }),
       replace: true,
@@ -45,12 +45,12 @@ export function ListProtocolosFilter() {
   useEffect(() => {
     if (isNumeroProtocoloFilled) {
       const ano = getValues("ano");
-      const tipoSolicitacao = getValues("tipoSolicitacao");
+      const tipoDocumento = getValues("tipoDocumento");
       if (ano != null && ano.toString().length > 0) {
         setValue("ano", null);
       }
-      if (tipoSolicitacao != null && tipoSolicitacao.toString().length > 0) {
-        setValue("tipoSolicitacao", null);
+      if (tipoDocumento != null && tipoDocumento.toString().length > 0) {
+        setValue("tipoDocumento", null);
       }
     }
   }, [getValues, isNumeroProtocoloFilled, setValue]);

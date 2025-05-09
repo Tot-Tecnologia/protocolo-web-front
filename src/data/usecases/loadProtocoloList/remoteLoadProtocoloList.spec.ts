@@ -23,15 +23,15 @@ describe("RemoteLoadProtocoloList", () => {
 
     const loadProtocoloListArgs = mockLoadProtocoloListArgs();
 
-    await sut.loadWithFilter(loadProtocoloListArgs);
+    await sut.loadWithFilter(loadProtocoloListArgs, "");
 
     expect(httpClientSpy.url).toContain(url);
-    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.pagina);
-    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.itemsPorPagina);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.paginaAtual);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.itensPagina);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.cpfCnpj);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.ano);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.numeroProtocolo);
-    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.tipoSolicitacao);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.tipoDocumento);
     expect(httpClientSpy.method).toBe("get");
   });
 
@@ -49,7 +49,7 @@ describe("RemoteLoadProtocoloList", () => {
       body: null,
     };
 
-    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs(), "");
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -60,8 +60,11 @@ describe("RemoteLoadProtocoloList", () => {
     const data = faker.helpers.multiple(mockProtocoloModel);
 
     const responseBody: ILoadProtocoloListResponse = {
-      totalPages: faker.number.int(),
       data: data,
+      totalPages: faker.number.int(),
+      itensPagina: faker.number.int(),
+      paginaAtual: faker.number.int(),
+      totalItems: faker.number.int(),
     };
 
     httpClientSpy.response = {
@@ -69,7 +72,7 @@ describe("RemoteLoadProtocoloList", () => {
       body: responseBody,
     };
 
-    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs(), "");
 
     await expect(promise).resolves.toEqual(responseBody);
   });

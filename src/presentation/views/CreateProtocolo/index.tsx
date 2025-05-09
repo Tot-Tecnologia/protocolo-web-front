@@ -32,10 +32,12 @@ export function CreateProtocolo({
 
   const addProtocoloMutation = useAddProtocoloMutation({ addProtocolo });
 
-  const handleSubmitForm = form.handleSubmit((data) => {
-    addProtocoloMutation.mutate(data, {
-      onSuccess: () => {
-        uiNotification.success("Solicitação realizada com sucesso.");
+  const handleSubmitForm = form.handleSubmit((args) => {
+    addProtocoloMutation.mutate(args, {
+      onSuccess: (response) => {
+        uiNotification.success(
+          `Solicitação realizada com sucesso. Número ${response.numero}.`,
+        );
         form.reset();
       },
       onError: (error) => uiNotification.error(error.message),
