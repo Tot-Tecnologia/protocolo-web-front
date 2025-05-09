@@ -31,6 +31,7 @@ export function useAddProtocoloMutation({
   const [token] = useAccessToken();
 
   const mutationFn = (args: AddProtocoloArgs) => {
+    console.log("Chamando mutationFn com args:", args);
     const formData = convertToFormData(args);
     return addProtocolo.save(formData, token);
   };

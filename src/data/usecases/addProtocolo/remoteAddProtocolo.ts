@@ -11,7 +11,8 @@ export class RemoteAddProtocolo implements AddProtocolo {
   ) {}
 
   async save(args: AddProtocoloArgs | FormData, token: string): Promise<void> {
-    const isFormData = args instanceof FormData;
+    const isFormData = typeof FormData !== "undefined" && args instanceof FormData;
+    console.log("É FormData?", isFormData);
 
     const httpResponse =
       await this.httpClient.request<ProtocoloWebDefaultResponse | void>({
