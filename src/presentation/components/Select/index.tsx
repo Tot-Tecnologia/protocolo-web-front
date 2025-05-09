@@ -18,7 +18,9 @@ function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return <select {...props} />;
 }
 
-export function Select(props: ISelectProps) {
+export function Select<TFieldValues extends FieldValues = FieldValues>(
+  props: ISelectProps<TFieldValues>,
+) {
   return (
     <Controller
       name={props.name}

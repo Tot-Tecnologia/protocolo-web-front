@@ -1,3 +1,4 @@
+import { AddProtocolo, UiNotification } from "@/domain/usecases";
 import { Button } from "@/presentation/components/Button";
 import { Card } from "@/presentation/components/Card";
 import { FileUpload } from "@/presentation/components/FileUpload";
@@ -5,93 +6,88 @@ import { Input } from "@/presentation/components/Input";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
-import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProtocolo/OneLargeOneSmallInputsContainer";
-import { FormProvider, useForm } from "react-hook-form";
+import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
+import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProtocolo/common/components/OneLargeOneSmallInputsContainer";
+import { useAddProtocoloMutation } from "@/presentation/views/CreateProtocolo/common/hooks/useAddProtocoloMutation";
+import {
+  ProtocoloRequest,
+  protocoloRequestDefaultValues,
+  protocoloRequestValidationSchema,
+} from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
+import { FormProvider } from "react-hook-form";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type ICreateProtocoloProps = {
+  addProtocolo: AddProtocolo;
+  uiNotification: UiNotification;
+};
 
-// interface ICriarProcessoDto {
-//   /** CPF ou CNPJ do solicitante */
-//   cpfCnpj: string;
-//   /** Nome do solicitante */
-//   nomeSolicitante: string;
-//   /** Tipo do endereço */
-//   logradouro: string;
-//   /** Endereço completo */
-//   endereco: string;
-//   /** Código de identificação do endereço*/
-//   numero: string;
-//   /** Bairro do endereço */
-//   bairro: string;
-//   /** CEP do endereço */
-//   cep: string;
-//   /** Cidade do endereço */
-//   cidade: string;
-//   /** Estado do endereço */
-//   estado: string;
-//   /** E-mail do solicitante */
-//   email: string;
-//   /** Complemento do endereço */
-//   complemento: string;
-//   /** ID do tipo de solicitação */
-//   tipoSolicitacaoId: number;
-//   /** Descrição da solicitação */
-//   descricao: string;
-//   /** Telefone do solicitante */
-//   telefone: string;
-// }
+export function CreateProtocolo({
+  addProtocolo,
+  uiNotification,
+}: ICreateProtocoloProps) {
+  const form = useFormWithZod({
+    schema: protocoloRequestValidationSchema,
+    defaultValues: protocoloRequestDefaultValues,
+  });
 
-export function CreateProtocolo() {
-  const form = useForm();
+  const addProtocoloMutation = useAddProtocoloMutation({ addProtocolo });
 
-  const { handleSubmit } = form;
-
-  const handleSignUp = handleSubmit((data) => {
-    alert(JSON.stringify(data, null, 2));
+  const handleSubmitForm = form.handleSubmit((data) => {
+    addProtocoloMutation.mutate(data, {
+      onSuccess: () => {
+        uiNotification.success("Solicitação realizada com sucesso.");
+        form.reset();
+      },
+      onError: (error) => uiNotification.error(error.message),
+    });
   });
 
   return (
     <PageContainer title="Solicitar Protocolo">
       <FormProvider {...form}>
-        <form onSubmit={handleSignUp} className="flex flex-col gap-y-6">
+        <form onSubmit={handleSubmitForm} className="flex flex-col gap-y-6">
           <Card title="Informações do solicitante">
             <div className="flex flex-wrap gap-y-6">
-              <Input
+              <Input<ProtocoloRequest>
                 name="cpfCnpj"
                 label="Número CPF/CNPJ"
                 containerClassName="w-full"
               />
 
-              <Input
+              <Input<ProtocoloRequest>
                 name="nomeSolicitante"
                 label="Nome do solicitante"
                 containerClassName="w-full"
               />
 
               <OneLargeOneSmallInputsContainer>
-                <Input name="logradouro" label="Logradouro ???" />
-                <Input name="numero" label="Número" />
+                <Input<ProtocoloRequest> name="endereco" label="Endereço" />
+                <Input<ProtocoloRequest> name="numero" label="Número" />
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>
-                <Input name="bairro" label="Nome do bairro" />
-                <Input name="cep" label="CEP" placeholder="Ex: 38740-000" />
+                <Input<ProtocoloRequest> name="bairro" label="Nome do bairro" />
+                <Input<ProtocoloRequest>
+                  name="cep"
+                  label="CEP"
+                  placeholder="Ex: 38740-000"
+                />
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>
-                <Input name="cidade" label="Cidade" />
-                <Input name="estado" label="Estado" />
+                <Input<ProtocoloRequest> name="cidade" label="Cidade" />
+                <Input<ProtocoloRequest> name="estado" label="Estado" />
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>
-                <Input
+                <Input<ProtocoloRequest>
                   name="email"
                   label="E-mail"
                   containerClassName="w-full"
                   placeholder="exemplo@gmail.com"
                   type="email"
                 />
-                <Input
+                <Input<ProtocoloRequest>
                   name="telefone"
                   label="Telefone"
                   containerClassName="w-full"
@@ -100,7 +96,7 @@ export function CreateProtocolo() {
                 />
               </OneLargeOneSmallInputsContainer>
 
-              <Input
+              <Input<ProtocoloRequest>
                 name="complemento"
                 label="Complemento"
                 containerClassName="w-full"
@@ -111,14 +107,23 @@ export function CreateProtocolo() {
 
           <Card title="Solicitação">
             <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
-              <Select name="ProtocoloTypeId" label="Tipo de solicitação">
-                <option value="0">Selecione uma opção</option>
-                <option value="1">Lorem ipsum dolor</option>
-                <option value="2">Ipsum dolor sit</option>
-                <option value="3">Dolor sit amet</option>
+              <Select<ProtocoloRequest>
+                name="tipoDocumento"
+                label="Tipo de solicitação"
+              >
+                <option value="">Selecione uma opção</option>
+                <option value="1">
+                  Emissão de Certidão Negativa de Débitos (CND)
+                </option>
+                <option value="2">Atualização Cadastral de Imóvel</option>
+                <option value="3">
+                  Solicitação de Alvará de Funcionamento
+                </option>
+                <option value="4">Isenção de IPTU</option>
+                <option value="5">Protocolo de Recurso Administrativo</option>
               </Select>
 
-              <TextArea
+              <TextArea<ProtocoloRequest>
                 name="descricao"
                 label="Descrição"
                 rows={6}

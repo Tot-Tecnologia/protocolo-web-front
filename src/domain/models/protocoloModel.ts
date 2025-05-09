@@ -1,6 +1,11 @@
-export type IProtocoloModel = {
+export interface IProtocoloModel {
+  id: number;
+  numeroProtocolo: string; 
+  tipoDocumento: number;
   numero: number;
   tipoSolicitacao: string;
-  dataSolicitacao: Date;
+  dataSolicitacao: string; 
   status: "aberto" | "emAnalise" | "aprovado" | "rejeitado";
-};
+  orgaoResponsavel: string; 
+  observacao?: string;
+}

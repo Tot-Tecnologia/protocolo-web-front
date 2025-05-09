@@ -45,7 +45,12 @@ export const columns = [
     header: "Tipo de solicitação",
   }),
   columnHelper.accessor(
-    (protocolo) => protocolo.dataSolicitacao.toLocaleDateString(),
+    (protocolo) => {
+      const raw = protocolo.dataSolicitacao;
+      if (!raw) return "-";
+      const date = new Date(raw);
+      return isNaN(date.getTime()) ? "-" : date.toLocaleDateString("pt-BR");
+    },
     {
       id: "dataSolicitacao",
       header: "Data da solicitação",

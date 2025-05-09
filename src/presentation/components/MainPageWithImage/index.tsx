@@ -18,7 +18,7 @@ export function MainPageWithImage({
       <div className="mx-auto max-w-95 basis-full px-4 py-6 md:basis-65/100">
         <div className="mb-7.5 flex flex-col items-center gap-8">
           <img
-            src="logo.png"
+            src="/logo.png"
             alt="Logo da prefeitura de Patrocínio"
             className="h-18 md:h-24"
           />
@@ -40,7 +40,7 @@ export function MainPageWithImage({
         }
       >
         <img
-          src="paisagem.png"
+          src="/paisagem.png"
           alt="Paisagem com uma igreja"
           className="size-full object-cover"
         />
