@@ -60,7 +60,10 @@ describe("RemoteLoadProtocoloList", () => {
     const data = faker.helpers.multiple(mockProtocoloModel);
 
     const responseBody: ILoadProtocoloListResponse = {
-      totalPages: faker.number.int(),
+      paginaAtual: 1,
+      itensPagina: 10,
+      totalItems: 100,
+      totalPages: 10,
       data: data,
     };
 
