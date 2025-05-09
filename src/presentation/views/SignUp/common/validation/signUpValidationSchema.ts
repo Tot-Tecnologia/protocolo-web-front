@@ -16,7 +16,7 @@ export const signUpValidationSchema: z.Schema<SignUpDto> = z
     nome: z.string().min(1, "Obrigatório"),
     telefone: z
       .string()
-      .regex(/^\d{2}\d{8,9}$/, "Deve conter DDD e 8 ou 9 dígitos")
+      .min(1, "Obrigatório")
       .transform((input) => input.replace(/\D/g, "")),
     email: z.string().email(),
     confirmacaoEmail: z.string().email(),
