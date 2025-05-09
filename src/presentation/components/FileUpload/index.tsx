@@ -19,7 +19,7 @@ function FileUploadComponent({
   name,
   ...props
 }: React.InputHTMLAttributes<HTMLInputElement>) {
-  const { setValue, getValues } = useFormContext();
+  const { setValue } = useFormContext();
   const [files, setFiles] = useState<File[]>([]); // State to store uploaded files
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
