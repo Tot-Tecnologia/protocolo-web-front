@@ -1,9 +1,9 @@
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
-import { HistoricoAtualizacoesTable } from "./common/HistoricoAtualizacoesTable";
+// import { HistoricoAtualizacoesTable } from "./common/HistoricoAtualizacoesTable";
 import { InformacoesCard } from "./common/InformacoesCard";
-import { GuiasPagamentoTable } from "./common/GuiasPagamentoTable";
-import { ComplementarCard } from "./common/ComplementarCard";
+// import { GuiasPagamentoTable } from "./common/GuiasPagamentoTable";
+// import { ComplementarCard } from "./common/ComplementarCard";
 
 export function DetailsProtocolo() {
   return (

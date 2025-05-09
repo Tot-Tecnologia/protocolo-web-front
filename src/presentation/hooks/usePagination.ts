@@ -40,7 +40,7 @@ export function usePagination({
   initialPage = 1,
   onChange,
 }: IPaginationProps) {
-  const _total = Math.max(Math.trunc(total), 0);
+  // const _total = Math.max(Math.trunc(total), 0);
   const _totalPages = totalPages;
 
   // A página ativa agora é controlada pela variável `activePage`

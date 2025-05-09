@@ -12,13 +12,13 @@ export const mockLoadProtocoloListArgs = (): ILoadProtocoloListArgs => ({
 });
 
 export const mockProtocoloModel = (): IProtocoloModel => ({
-  dataSolicitacao: faker.date.anytime(),
-  numero: faker.number.int(),
-  status: faker.helpers.arrayElement([
-    "aberto",
-    "emAnalise",
-    "aprovado",
-    "rejeitado",
-  ]),
-  tipoSolicitacao: faker.lorem.sentence(),
+  id: faker.number.int({ min: 1, max: 1000 }),
+  numeroProtocolo: faker.string.numeric(8),
+  tipoDocumento: faker.number.int({ min: 1, max: 5 }),
+  numero: faker.number.int({ min: 1, max: 9999 }),
+  tipoSolicitacao: faker.lorem.words(2),
+  dataSolicitacao: faker.date.anytime().toISOString(),
+  status: faker.helpers.arrayElement(["aberto", "emAnalise", "aprovado", "rejeitado"]),
+  orgaoResponsavel: faker.company.name(),
+  observacao: faker.lorem.sentence(),
 });
