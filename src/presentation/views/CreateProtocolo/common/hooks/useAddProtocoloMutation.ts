@@ -2,7 +2,7 @@ import { AddProtocolo, AddProtocoloArgs } from "@/domain/usecases";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useMutation } from "@tanstack/react-query";
 
-// ✅ Função para transformar os dados do formulário em FormData
+// Função para transformar os dados do formulário em FormData
 function convertToFormData(data: any): FormData {
   const formData = new FormData();
 
