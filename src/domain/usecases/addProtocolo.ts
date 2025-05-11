@@ -1,4 +1,5 @@
 export type AddProtocoloArgs = {
+  id: number;
   cpfCnpj: string;
   telefone: string;
   nomeSolicitante: string;
@@ -13,10 +14,11 @@ export type AddProtocoloArgs = {
   descricao: string;
   cidade: string;
   tipoDocumento: number;
+  status: string;
   arquivos: File[];
 };
 
-export type AddProtocoloResponse = AddProtocoloArgs & {
+export type AddProtocoloResponse = Omit<AddProtocoloArgs, "arquivos"> & {
   arquivos: Array<{
     id: number;
     nome: string;

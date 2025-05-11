@@ -1,5 +1,3 @@
-import { IProtocoloModel } from "@/domain/models";
-
 export type ILoadProtocoloListArgs = {
   paginaAtual: number;
   itensPagina: number;
@@ -9,9 +7,17 @@ export type ILoadProtocoloListArgs = {
   tipoDocumento?: number | null;
 };
 
+export type ILoadProtocoloListResponseData = {
+  id: number;
+  numeroProtocolo: string;
+  tipoDocumento: number;
+  dataSolicitacao: string;
+  status: string;
+};
+
 export type ILoadProtocoloListResponse = {
   totalPages: number;
-  data: IProtocoloModel[];
+  data: ILoadProtocoloListResponseData[];
   paginaAtual: number;
   itensPagina: number;
   totalItems: number;

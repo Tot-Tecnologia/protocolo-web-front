@@ -15,9 +15,9 @@ export function ListProtocolosActionsColumn({
     <span className="flex justify-end">
       <Link
         to={DETAILS_PROTOCOLO_ROUTE_URL}
-        title={`Acessar detalhes da solicitação de número ${info.row.original.numero}`}
+        title={`Acessar detalhes da solicitação de número ${info.row.original.numeroProtocolo}`}
         params={{
-          numeroProtocolo: `${info.row.original.numero}`,
+          numeroProtocolo: `${info.row.original.id}`,
         }}
       >
         <SearchIcon className="size-5" />
