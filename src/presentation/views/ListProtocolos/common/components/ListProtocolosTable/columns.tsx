@@ -4,55 +4,69 @@ import { Badge } from "@/presentation/components/Badge";
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { ListProtocolosActionsColumn } from "../ListProtocolosActionsColumn";
 import { LoadProtocoloListResponseData } from "@/domain/usecases";
+import { TipoDocumentoModel } from "@/domain/models";
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
+
+type IUseListProtocolosTableColumnsProps = {
+  tipoDocumentoList: TipoDocumentoModel[] | undefined;
+};
 
 const columnHelper = createColumnHelper<LoadProtocoloListResponseData>();
 
-const getColor = (
-  status: LoadProtocoloListResponseData["status"],
-): ThemeColor => {
+const getColor = (status: ProtocoloStatus): ThemeColor => {
   switch (status) {
-    case "#TODO1":
+    case ProtocoloStatus.ABERTO:
       return "info";
-    case "#TODO2":
+    case ProtocoloStatus.APROVADO:
       return "success";
-    case "Em Análise":
+    case ProtocoloStatus.EM_ANALISE:
       return "warning";
-    case "#TODO3":
+    case ProtocoloStatus.REJEITADO:
       return "error";
     default:
       return "error";
   }
 };
 
-export const columns = [
-  columnHelper.accessor("numeroProtocolo", {
-    header: "Número",
-  }),
-  columnHelper.display({
-    id: "tipoSolicitacao",
-    header: "Tipo de solicitação",
-    cell: () => "#TODO",
-  }),
-  columnHelper.accessor(
-    (protocolo) => {
-      const raw = protocolo.dataSolicitacao;
-      if (!raw) return "-";
-      const date = new Date(raw);
-      return isNaN(date.getTime()) ? "-" : date.toLocaleDateString("pt-BR");
-    },
-    {
-      id: "dataSolicitacao",
-      header: "Data da solicitação",
-    },
-  ),
-  columnHelper.accessor("status", {
-    header: "Status",
-    cell: ({ row }) => (
-      <Badge color={getColor(row.original.status)}>{row.original.status}</Badge>
+export function useListProtocolosTableColumns({
+  tipoDocumentoList,
+}: IUseListProtocolosTableColumnsProps) {
+  return [
+    columnHelper.accessor("numeroProtocolo", {
+      header: "Número",
+    }),
+    columnHelper.display({
+      id: "tipoSolicitacao",
+      header: "Tipo de solicitação",
+      cell: (info) =>
+        tipoDocumentoList?.find(
+          (tipoDocumento) =>
+            tipoDocumento.id === info.row.original.tipoDocumento,
+        )?.nome ?? "Carregando...",
+    }),
+    columnHelper.accessor(
+      (protocolo) => {
+        const raw = protocolo.dataSolicitacao;
+        if (!raw) return "-";
+        const date = new Date(raw);
+        return isNaN(date.getTime()) ? "-" : date.toLocaleDateString("pt-BR");
+      },
+      {
+        id: "dataSolicitacao",
+        header: "Data da solicitação",
+      },
     ),
-  }),
-  columnHelper.display({
-    id: ACTIONS_COLUMN_ID,
-    cell: (info) => <ListProtocolosActionsColumn info={info} />,
-  }),
-];
+    columnHelper.accessor("statusEnum", {
+      header: "Status",
+      cell: ({ row }) => (
+        <Badge color={getColor(row.original.statusEnum)}>
+          {row.original.statusTexto}
+        </Badge>
+      ),
+    }),
+    columnHelper.display({
+      id: ACTIONS_COLUMN_ID,
+      cell: (info) => <ListProtocolosActionsColumn info={info} />,
+    }),
+  ];
+}

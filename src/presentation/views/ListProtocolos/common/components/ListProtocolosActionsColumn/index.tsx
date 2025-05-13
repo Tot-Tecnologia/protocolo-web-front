@@ -17,7 +17,7 @@ export function ListProtocolosActionsColumn({
         to={DETAILS_PROTOCOLO_ROUTE_URL}
         title={`Acessar detalhes da solicitação de número ${info.row.original.numeroProtocolo}`}
         params={{
-          numeroProtocolo: `${info.row.original.id}`,
+          numeroProtocolo: `${info.row.original.numeroProtocolo}`,
         }}
       >
         <SearchIcon className="size-5" />

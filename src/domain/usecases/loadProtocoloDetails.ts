@@ -1,7 +1,7 @@
 import { AddProtocoloResponse } from "@/domain/usecases/addProtocolo";
 
 export type LoadProtocoloDetailsArgs = {
-  id: number;
+  numeroProtocolo: string;
 };
 
 export type LoadProtocoloDetailsResponse = AddProtocoloResponse;

@@ -15,7 +15,7 @@ export type PaginationProps = {
   /** Estado controlado da página selecionada. */
   page?: number;
 
-  /** Quantidade total de itens. */
+  /** Quantidade total de páginas. */
   total: number;
 
   /** Quantidade de irmãos na direita e esquerda da página selecionada. @default 1 */

@@ -16,7 +16,7 @@ export class RemoteLoadProtocoloDetails implements LoadProtocoloDetails {
     args: LoadProtocoloDetailsArgs,
     token: string,
   ): Promise<LoadProtocoloDetailsResponse> {
-    const fullUrl = `${this.url}/${args.id}`;
+    const fullUrl = `${this.url}/${args.numeroProtocolo}`;
 
     const response =
       await this.httpClient.request<LoadProtocoloDetailsResponse>({

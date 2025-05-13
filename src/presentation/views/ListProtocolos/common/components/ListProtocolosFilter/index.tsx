@@ -13,12 +13,23 @@ import {
 } from "../../validations/listProtocolosFilterValidationSchema";
 import { useEffect } from "react";
 import { removeNullish } from "@/presentation/utils/objectUtils/removeNullish";
+import { useAccessToken } from "@/presentation/hooks/useAccessToken";
+import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
+import { LoadTiposDocumentoList } from "@/domain/usecases";
 
-export function ListProtocolosFilter() {
+type ListProtocolosFilterProps = {
+  loadTiposDocumentoList: LoadTiposDocumentoList;
+};
+
+export function ListProtocolosFilter({
+  loadTiposDocumentoList,
+}: ListProtocolosFilterProps) {
   const form = useFormWithZod({
     schema: listProtocolosFilterValidationSchema,
     defaultValues: listProtocolosFilterDefaultValues,
   });
+
+  const [token] = useAccessToken();
 
   const { setValue, getValues } = form;
 
@@ -29,6 +40,11 @@ export function ListProtocolosFilter() {
 
   const isNumeroProtocoloFilled =
     numeroProtocolo != null && numeroProtocolo.toString().length > 0;
+
+  const tiposDocumentoListQuery = useTiposDocumentoListQuery({
+    loadTiposDocumentoList: loadTiposDocumentoList,
+    token: token,
+  });
 
   const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });
 
@@ -64,7 +80,6 @@ export function ListProtocolosFilter() {
         <Input<ListProtocolosFilterDto>
           name="numeroProtocolo"
           label="Número Protocolo"
-          onChange={onlyDigitsHandler}
         />
 
         <Input<ListProtocolosFilterDto>
@@ -74,14 +89,18 @@ export function ListProtocolosFilter() {
           disabled={isNumeroProtocoloFilled}
         />
 
-        <Select
-          name="tipoSolicitacao"
+        <Select<ListProtocolosFilterDto>
+          name="tipoDocumento"
           label="Tipo de solicitação"
           disabled={isNumeroProtocoloFilled}
+          valueAsNumber
         >
           <option value=""></option>
-          <option value="1">Lorem</option>
-          <option value="2">Ipsum</option>
+          {tiposDocumentoListQuery.data?.map((tipoDocumento) => (
+            <option key={tipoDocumento.id} value={tipoDocumento.id}>
+              {tipoDocumento.nome}
+            </option>
+          ))}
         </Select>
 
         <span className="hidden text-[0px] md:block lg:hidden">

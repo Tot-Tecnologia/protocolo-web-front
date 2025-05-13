@@ -23,7 +23,6 @@ export class AxiosHttpClient implements HttpClient {
         body: axiosResponse.data,
       };
     } catch (error) {
-      console.error(error);
       if (axios.isAxiosError<TResponseBody>(error)) {
         if (error.response) {
           return {
@@ -32,6 +31,7 @@ export class AxiosHttpClient implements HttpClient {
           };
         }
       }
+      console.error(error);
     }
 
     return {

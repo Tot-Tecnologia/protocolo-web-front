@@ -9,6 +9,7 @@ export type SelectProps<TFieldValues extends FieldValues = FieldValues> =
       "Component"
     > & {
       name: Path<TFieldValues>;
+      valueAsNumber?: boolean;
     };
 
 function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
@@ -33,7 +34,12 @@ export function Select<TFieldValues extends FieldValues = FieldValues>(
             if (props.onChange) {
               props.onChange(event);
             }
-            field.onChange(event);
+            if (props.valueAsNumber) {
+              const value = event.target.value;
+              field.onChange(value?.length ? Number(value) : null);
+            } else {
+              field.onChange(event);
+            }
           }}
           className={clsx(
             // setinha no fim do componente

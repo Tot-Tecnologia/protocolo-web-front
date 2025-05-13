@@ -19,6 +19,7 @@ export const mockProtocoloWebPaginationResponse = <TData = unknown>(
 ): ProtocoloWebPaginationResponse<TData> => ({
   data: data,
   itensPagina: faker.number.int(),
+  totalPaginas: faker.number.int(),
   paginaAnterior: faker.datatype.boolean(),
   paginaAtual: faker.number.int(),
   primeiraPagina: faker.datatype.boolean(),

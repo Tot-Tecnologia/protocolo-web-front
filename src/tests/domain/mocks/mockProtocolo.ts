@@ -12,12 +12,12 @@ export const mockLoadProtocoloListArgs = (): LoadProtocoloListArgs => ({
   itensPagina: faker.number.int(),
   cpfCnpj: faker.string.uuid(),
   ano: faker.number.int(),
-  numeroProtocolo: faker.number.int(),
+  numeroProtocolo: faker.lorem.word(),
   tipoDocumento: faker.number.int(),
 });
 
 export const mockLoadProtocoloDetailsArgs = (): LoadProtocoloDetailsArgs => ({
-  id: faker.number.int(),
+  numeroProtocolo: faker.lorem.word(),
 });
 
 export const mockLoadProtocoloDetailsResponse =
@@ -31,14 +31,16 @@ export const mockLoadProtocoloDetailsResponse =
     arquivos: [{ id: faker.number.int(), nome: faker.lorem.words() }],
     descricao: faker.lorem.paragraph(),
     email: faker.internet.email(),
-    endereco: faker.lorem.paragraph(),
     estado: faker.helpers.arrayElement(estadosBR),
     logradouro: faker.lorem.word(),
     nomeSolicitante: faker.person.fullName(),
     numero: faker.string.alphanumeric(),
     telefone: faker.string.numeric({ length: 11 }),
-    tipoDocumento: faker.number.int(),
-    status: faker.lorem.word(),
+    tipoDocumentoId: faker.number.int(),
+    tipoDocumentoTexto: faker.person.fullName(),
+    statusEnum: faker.lorem.word(),
+    statusTexto: faker.person.fullName(),
+    numeroProtocolo: faker.lorem.word(),
   });
 
 export const mockProtocoloModel = (): IProtocoloModel => ({

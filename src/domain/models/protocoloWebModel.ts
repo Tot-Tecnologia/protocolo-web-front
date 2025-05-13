@@ -8,7 +8,7 @@ export type ProtocoloWebDefaultResponse = {
 export type ProtocoloWebPaginationResponse<TData> = {
   data: TData[];
   itensPagina: number;
-  totalItens: number;
+  totalPaginas: number;
   paginaAtual: number;
   paginaAnterior: boolean;
   primeiraPagina: boolean;

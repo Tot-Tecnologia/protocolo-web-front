@@ -5,9 +5,9 @@ export type ListProtocolosFilterDto = Partial<LoadProtocoloListArgs>;
 
 export const listProtocolosFilterValidationSchema: z.Schema<ListProtocolosFilterDto> =
   z.object({
-    numeroProtocolo: z.coerce.number().nullish(),
+    numeroProtocolo: z.string().nullish(),
     ano: z.coerce.number().nullish(),
-    tipoSolicitacao: z.coerce.number().nullish(),
+    tipoDocumento: z.number().nullish(),
   });
 
 export const listProtocolosFilterDefaultValues: ListProtocolosFilterDto = {

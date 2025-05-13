@@ -14,15 +14,19 @@ const fakeData: GuiaPagamento[] = [
 
 export function GuiasPagamentoTable() {
   const table = useReactTable({
-    data: fakeData,
+    data: [],
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  if (fakeData) {
+    // não faz nada
+  }
+
   return (
     <div className="grid gap-y-6 md:gap-y-2">
       <Table table={table} title="Guias de pagamento" />
-      <TablePagination total={1} />
+      <TablePagination total={0} />
     </div>
   );
 }

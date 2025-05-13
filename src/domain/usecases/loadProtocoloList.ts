@@ -1,10 +1,11 @@
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
 import { ProtocoloWebPaginationResponse } from "@/domain/models";
 
 export type LoadProtocoloListArgs = {
   paginaAtual: number;
   itensPagina: number;
   cpfCnpj?: string | null;
-  numeroProtocolo?: number | null;
+  numeroProtocolo?: string | null;
   ano?: number | null;
   tipoDocumento?: number | null;
 };
@@ -14,7 +15,8 @@ export type LoadProtocoloListResponseData = {
   numeroProtocolo: string;
   tipoDocumento: number;
   dataSolicitacao: string;
-  status: string;
+  statusEnum: ProtocoloStatus;
+  statusTexto: string;
 };
 
 export type LoadProtocoloListResponse =

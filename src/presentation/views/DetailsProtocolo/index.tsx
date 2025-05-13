@@ -1,13 +1,15 @@
+import { useParams } from "@tanstack/react-router";
 import { LoadProtocoloDetails } from "@/domain/usecases";
 import { PageContainer } from "@/presentation/components/PageContainer";
+import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import {
   DETAILS_PROTOCOLO_ROUTE_URL,
   LIST_PROTOCOLOS_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 import { InformacoesCard } from "./common/components/InformacoesCard";
-import { useProtocoloDetailsQuery } from "@/presentation/views/DetailsProtocolo/common/hooks/useProtocoloDetailsQuery";
-import { useAccessToken } from "@/presentation/hooks/useAccessToken";
-import { useParams } from "@tanstack/react-router";
+import { HistoricoAtualizacoesTable } from "./common/components/HistoricoAtualizacoesTable";
+import { GuiasPagamentoTable } from "./common/components/GuiasPagamentoTable";
+import { useProtocoloDetailsQuery } from "./common/hooks/useProtocoloDetailsQuery";
 
 type DetailsProtocoloProps = {
   loadProtocoloDetails: LoadProtocoloDetails;
@@ -20,10 +22,8 @@ export function DetailsProtocolo({
 
   const { numeroProtocolo } = useParams({ from: DETAILS_PROTOCOLO_ROUTE_URL });
 
-  const idProtocolo = Number(numeroProtocolo);
-
   const { data, isLoading, isError } = useProtocoloDetailsQuery({
-    idProtocolo: idProtocolo,
+    numeroProtocolo: numeroProtocolo,
     loadProtocoloDetails: loadProtocoloDetails,
     token: token,
   });
@@ -37,9 +37,9 @@ export function DetailsProtocolo({
         {data != null && !isLoading && !isError && (
           <>
             <InformacoesCard protocolo={data} />
-            {/*
             <HistoricoAtualizacoesTable />
             <GuiasPagamentoTable />
+            {/*
             <ComplementarCard />
             */}
           </>

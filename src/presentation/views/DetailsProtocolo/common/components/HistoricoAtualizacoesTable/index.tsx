@@ -33,15 +33,19 @@ const fakeData: HistoricoAtualizacao[] = [
 
 export function HistoricoAtualizacoesTable() {
   const table = useReactTable({
-    data: fakeData,
+    data: [],
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  if (fakeData) {
+    // não faz nada
+  }
+
   return (
     <div className="grid gap-y-6 md:gap-y-2">
       <Table table={table} title="Histórico de atualizações da solicitação" />
-      <TablePagination total={44} />
+      <TablePagination total={0} />
     </div>
   );
 }
