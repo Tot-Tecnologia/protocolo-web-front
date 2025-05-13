@@ -2,9 +2,9 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
 import { columns } from "./columns";
-import { IHistoricoAtualizacao } from "./types";
+import { HistoricoAtualizacao } from "./types";
 
-const fakeData: IHistoricoAtualizacao[] = [
+const fakeData: HistoricoAtualizacao[] = [
   {
     etapa: 1,
     local: "Secretaria de Finanças",

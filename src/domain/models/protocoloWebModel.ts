@@ -4,3 +4,15 @@ export type ProtocoloWebDefaultResponse = {
   status: string;
   dataHora: string;
 };
+
+export type ProtocoloWebPaginationResponse<TData> = {
+  data: TData[];
+  itensPagina: number;
+  totalItens: number;
+  paginaAtual: number;
+  paginaAnterior: boolean;
+  primeiraPagina: boolean;
+  proximaPagina: boolean;
+  ultimaPagina: boolean;
+  vazio: boolean;
+};

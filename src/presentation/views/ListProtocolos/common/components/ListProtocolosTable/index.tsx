@@ -9,13 +9,13 @@ import { LoadProtocoloList } from "@/domain/usecases";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useProtocolosListQuery } from "@/presentation/views/ListProtocolos/common/hooks/useProtocolosListQuery";
 
-type IListProtocolosTableProps = {
+type ListProtocolosTableProps = {
   loadProtocoloList: LoadProtocoloList;
 };
 
 export function ListProtocolosTable({
   loadProtocoloList,
-}: IListProtocolosTableProps) {
+}: ListProtocolosTableProps) {
   const { paginaAtual } = useSearch({
     from: LIST_PROTOCOLOS_ROUTE_URL,
   });
@@ -53,7 +53,7 @@ export function ListProtocolosTable({
           <TablePagination
             page={(paginaAtual ?? 0) + 1}
             onChange={handleChangePage}
-            total={data?.totalItems ?? 0}
+            total={data?.totalItens ?? 0}
           />
         </>
       )}

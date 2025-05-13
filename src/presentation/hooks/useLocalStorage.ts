@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-type IUseLocalStorage<T> = [
+type UseLocalStorage<T> = [
   storedValue: T,
   setValue: (value: T | ((value: T) => T)) => void,
 ];
@@ -13,7 +13,7 @@ type IUseLocalStorage<T> = [
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-): IUseLocalStorage<T> {
+): UseLocalStorage<T> {
   const getLocalStorageKey = () => {
     return `@ProtocoloWeb__Key=${key}`;
   };

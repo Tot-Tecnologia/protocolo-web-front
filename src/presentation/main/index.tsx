@@ -16,7 +16,11 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ToastContainer transition={Zoom} />
+      <ToastContainer
+        transition={Zoom}
+        position="top-center"
+        autoClose={8000}
+      />
       {/* <TanStackRouterDevtools router={router} /> */}
       {/* <ReactQueryDevtools client={queryClient} /> */}
     </QueryClientProvider>

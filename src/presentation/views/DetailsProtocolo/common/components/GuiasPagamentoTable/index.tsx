@@ -2,9 +2,9 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
 import { columns } from "./columns";
-import { IGuiaPagamento } from "./types";
+import { GuiaPagamento } from "./types";
 
-const fakeData: IGuiaPagamento[] = [
+const fakeData: GuiaPagamento[] = [
   {
     numero: 1,
     status: "pago",

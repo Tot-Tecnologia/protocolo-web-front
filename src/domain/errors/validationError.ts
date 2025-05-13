@@ -1,9 +1,9 @@
-type IValidationErrorArgs = {
+type ValidationErrorArgs = {
   message?: string;
 };
 
 export class ValidationError extends Error {
-  constructor({ message = "" }: IValidationErrorArgs = {}) {
+  constructor({ message = "" }: ValidationErrorArgs = {}) {
     if (message.length) {
       super(message);
     } else {

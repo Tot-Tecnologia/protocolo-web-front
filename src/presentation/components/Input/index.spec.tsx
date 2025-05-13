@@ -3,16 +3,16 @@ import { render, renderHook, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { faker } from "@faker-js/faker";
 import { FormProvider, useForm } from "react-hook-form";
-import { IInputProps, Input } from "@/presentation/components/Input";
+import { InputProps, Input } from "@/presentation/components/Input";
 import "@testing-library/jest-dom";
 
 const inputName = faker.lorem.word();
 
-type IMakeSutArgs = {
-  inputProps?: Partial<IInputProps>;
+type MakeSutArgs = {
+  inputProps?: Partial<InputProps>;
 };
 
-const makeSut = (args?: IMakeSutArgs) => {
+const makeSut = (args?: MakeSutArgs) => {
   const user = userEvent.setup();
 
   const { result } = renderHook(() => useForm());

@@ -1,6 +1,6 @@
-type IEyeIconProps = React.SVGProps<SVGSVGElement>;
+type EyeIconProps = React.SVGProps<SVGSVGElement>;
 
-export function EyeIcon(props: IEyeIconProps) {
+export function EyeIcon(props: EyeIconProps) {
   return (
     <svg
       width="23"

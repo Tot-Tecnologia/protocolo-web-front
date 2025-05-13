@@ -1,7 +1,7 @@
-import { ILoadProtocoloListArgs } from "@/domain/usecases";
+import { LoadProtocoloListArgs } from "@/domain/usecases";
 import { z } from "zod";
 
-export type ListProtocolosFilterDto = Partial<ILoadProtocoloListArgs>;
+export type ListProtocolosFilterDto = Partial<LoadProtocoloListArgs>;
 
 export const listProtocolosFilterValidationSchema: z.Schema<ListProtocolosFilterDto> =
   z.object({

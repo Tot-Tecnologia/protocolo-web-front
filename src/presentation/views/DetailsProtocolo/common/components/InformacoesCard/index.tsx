@@ -1,11 +1,11 @@
 import { Card } from "@/presentation/components/Card";
 import { LoadProtocoloDetailsResponse } from "@/domain/usecases";
 
-type IInformacoesCardProps = {
+type InformacoesCardProps = {
   protocolo: LoadProtocoloDetailsResponse | undefined;
 };
 
-export function InformacoesCard({ protocolo }: IInformacoesCardProps) {
+export function InformacoesCard({ protocolo }: InformacoesCardProps) {
   if (!protocolo) {
     return null;
   }

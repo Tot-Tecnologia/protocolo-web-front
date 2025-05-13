@@ -8,7 +8,7 @@ function range(start: number, end: number) {
 
 const DOTS = "dots";
 
-export type IPaginationProps = {
+export type PaginationProps = {
   /** Página selecionada inicialmente. @default 1 */
   initialPage?: number;
 
@@ -35,7 +35,7 @@ export function usePagination({
   page,
   initialPage = 1,
   onChange,
-}: IPaginationProps) {
+}: PaginationProps) {
   const _total = Math.max(Math.trunc(total), 0);
 
   // A página ativa agora é controlada pela variável `activePage`

@@ -2,12 +2,12 @@ import { faker } from "@faker-js/faker";
 import { estadosBR } from "@/data/constants/estadosBR";
 import { IProtocoloModel } from "@/domain/models";
 import {
-  ILoadProtocoloListArgs,
+  LoadProtocoloListArgs,
   LoadProtocoloDetailsArgs,
   LoadProtocoloDetailsResponse,
 } from "@/domain/usecases";
 
-export const mockLoadProtocoloListArgs = (): ILoadProtocoloListArgs => ({
+export const mockLoadProtocoloListArgs = (): LoadProtocoloListArgs => ({
   paginaAtual: faker.number.int(),
   itensPagina: faker.number.int(),
   cpfCnpj: faker.string.uuid(),

@@ -5,11 +5,11 @@ import {
   LIST_PROTOCOLOS_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 
-type INavBarProps = {
+type NavBarProps = {
   className?: string;
 };
 
-export function NavBar({ className }: INavBarProps) {
+export function NavBar({ className }: NavBarProps) {
   return (
     <nav
       className={clsx(

@@ -3,11 +3,11 @@ import { ListProtocolosFilter } from "./common/components/ListProtocolosFilter";
 import { ListProtocolosTable } from "./common/components/ListProtocolosTable";
 import { LoadProtocoloList } from "@/domain/usecases";
 
-type IListProtocolosProps = {
+type ListProtocolosProps = {
   loadProtocoloList: LoadProtocoloList;
 };
 
-export function ListProtocolos({ loadProtocoloList }: IListProtocolosProps) {
+export function ListProtocolos({ loadProtocoloList }: ListProtocolosProps) {
   return (
     <PageContainer title="Consultar Solicitação">
       <div className="grid gap-y-10">

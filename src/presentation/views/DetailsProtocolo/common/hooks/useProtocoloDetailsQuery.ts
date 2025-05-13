@@ -1,7 +1,7 @@
 import { LoadProtocoloDetails } from "@/domain/usecases";
 import { useQuery } from "@tanstack/react-query";
 
-type IUseProtocoloDetailsQueryProps = {
+type UseProtocoloDetailsQueryProps = {
   idProtocolo: number;
   loadProtocoloDetails: LoadProtocoloDetails;
   token: string;
@@ -11,7 +11,7 @@ export function useProtocoloDetailsQuery({
   idProtocolo,
   loadProtocoloDetails,
   token,
-}: IUseProtocoloDetailsQueryProps) {
+}: UseProtocoloDetailsQueryProps) {
   return useQuery({
     queryFn: () => loadProtocoloDetails.load({ id: idProtocolo }, token),
     queryKey: ["loadProtocoloDetails", idProtocolo],

@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import { ISpinnerProps } from "@/presentation/components/Spinner/types/spinnerTypes";
+import { SpinnerProps } from "@/presentation/components/Spinner/types/spinnerTypes";
 import {
   colorVariants,
   sizeVariants,
 } from "@/presentation/components/Spinner/style/spinnerVariants";
 
-export function Spinner({ color = "primary", size = "medium" }: ISpinnerProps) {
+export function Spinner({ color = "primary", size = "medium" }: SpinnerProps) {
   return (
     <div
       className={clsx(

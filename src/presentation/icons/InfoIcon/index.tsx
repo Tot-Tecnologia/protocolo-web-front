@@ -1,6 +1,6 @@
-type IInfoIconProps = React.SVGProps<SVGSVGElement>;
+type InfoIconProps = React.SVGProps<SVGSVGElement>;
 
-export function InfoIcon(props: IInfoIconProps) {
+export function InfoIcon(props: InfoIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

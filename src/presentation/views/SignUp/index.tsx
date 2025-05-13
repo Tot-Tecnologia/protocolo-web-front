@@ -15,12 +15,12 @@ import {
 import { AddAccount, UiNotification } from "@/domain/usecases";
 import { useAddAccountMutation } from "@/presentation/views/SignUp/common/hooks/useAddAccountMutation";
 
-type ISignUpProps = {
+type SignUpProps = {
   addAccount: AddAccount;
   uiNotification: UiNotification;
 };
 
-export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
+export function SignUp({ addAccount, uiNotification }: SignUpProps) {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const form = useFormWithZod({ schema: signUpValidationSchema });

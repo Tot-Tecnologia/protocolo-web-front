@@ -3,12 +3,12 @@ import { flexRender, Table as TableType } from "@tanstack/react-table";
 import clsx from "clsx";
 import { useMemo, Fragment } from "react";
 
-type ITableProps<TData = unknown> = {
+type TableProps<TData = unknown> = {
   table: TableType<TData>;
   title?: React.ReactNode;
 };
 
-export function Table<TData = unknown>({ table, title }: ITableProps<TData>) {
+export function Table<TData = unknown>({ table, title }: TableProps<TData>) {
   const isHeaderVisible = title != null;
 
   const mustRenderActionsColumn = useMemo(

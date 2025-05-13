@@ -1,16 +1,16 @@
 import { CellContext } from "@tanstack/react-table";
 import { Link } from "@tanstack/react-router";
-import { IProtocoloModel } from "@/domain/models";
+import { LoadProtocoloListResponseData } from "@/domain/usecases";
 import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { SearchIcon } from "@/presentation/icons/SearchIcon";
 
-type IListProtocolosActionsColumnProps = {
-  info: CellContext<IProtocoloModel, unknown>;
+type ListProtocolosActionsColumnProps = {
+  info: CellContext<LoadProtocoloListResponseData, unknown>;
 };
 
 export function ListProtocolosActionsColumn({
   info,
-}: IListProtocolosActionsColumnProps) {
+}: ListProtocolosActionsColumnProps) {
   return (
     <span className="flex justify-end">
       <Link

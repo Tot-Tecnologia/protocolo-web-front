@@ -1,13 +1,14 @@
 import { faker } from "@faker-js/faker";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
-import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
+import { mockProtocoloWebPaginationResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
 import {
   mockLoadProtocoloListArgs,
   mockProtocoloModel,
 } from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
-import { ILoadProtocoloListResponse } from "@/domain/usecases";
+import { LoadProtocoloListResponse } from "@/domain/usecases";
+import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
 
 const makeSut = () => {
   const url = faker.internet.url();
@@ -59,13 +60,8 @@ describe("RemoteLoadProtocoloList", () => {
 
     const data = faker.helpers.multiple(mockProtocoloModel);
 
-    const responseBody: ILoadProtocoloListResponse = {
-      data: data,
-      totalPages: faker.number.int(),
-      itensPagina: faker.number.int(),
-      paginaAtual: faker.number.int(),
-      totalItems: faker.number.int(),
-    };
+    const responseBody: LoadProtocoloListResponse =
+      mockProtocoloWebPaginationResponse(data);
 
     httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,

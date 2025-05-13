@@ -3,12 +3,12 @@ import { ThemeColor } from "@/types/utils";
 import { Badge } from "@/presentation/components/Badge";
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { ListProtocolosActionsColumn } from "../ListProtocolosActionsColumn";
-import { ILoadProtocoloListResponseData } from "@/domain/usecases";
+import { LoadProtocoloListResponseData } from "@/domain/usecases";
 
-const columnHelper = createColumnHelper<ILoadProtocoloListResponseData>();
+const columnHelper = createColumnHelper<LoadProtocoloListResponseData>();
 
 const getColor = (
-  status: ILoadProtocoloListResponseData["status"],
+  status: LoadProtocoloListResponseData["status"],
 ): ThemeColor => {
   switch (status) {
     case "#TODO1":

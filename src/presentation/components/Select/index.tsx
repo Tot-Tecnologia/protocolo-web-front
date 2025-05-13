@@ -1,14 +1,11 @@
-import {
-  BaseInput,
-  IBaseInputProps,
-} from "@/presentation/components/BaseInput";
+import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
 import clsx from "clsx";
 import { Controller, FieldValues, Path } from "react-hook-form";
 
-export type ISelectProps<TFieldValues extends FieldValues = FieldValues> =
+export type SelectProps<TFieldValues extends FieldValues = FieldValues> =
   React.SelectHTMLAttributes<HTMLSelectElement> &
     Omit<
-      IBaseInputProps<React.SelectHTMLAttributes<HTMLSelectElement>>,
+      BaseInputProps<React.SelectHTMLAttributes<HTMLSelectElement>>,
       "Component"
     > & {
       name: Path<TFieldValues>;
@@ -19,7 +16,7 @@ function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
 }
 
 export function Select<TFieldValues extends FieldValues = FieldValues>(
-  props: ISelectProps<TFieldValues>,
+  props: SelectProps<TFieldValues>,
 ) {
   return (
     <Controller

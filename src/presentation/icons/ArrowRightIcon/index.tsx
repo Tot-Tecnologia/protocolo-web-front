@@ -1,6 +1,6 @@
-type IArrowRightIconProps = React.SVGProps<SVGSVGElement>;
+type ArrowRightIconProps = React.SVGProps<SVGSVGElement>;
 
-export function ArrowRightIcon(props: IArrowRightIconProps) {
+export function ArrowRightIcon(props: ArrowRightIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

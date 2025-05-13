@@ -1,4 +1,4 @@
-import { ISize } from "@/presentation/components/Spinner/types/spinnerTypes";
+import { Size } from "@/presentation/components/Spinner/types/spinnerTypes";
 import { ThemeColor } from "@/types/utils";
 
 export const colorVariants: Record<ThemeColor, string> = {
@@ -10,7 +10,7 @@ export const colorVariants: Record<ThemeColor, string> = {
   warning: "border-t-warning-light",
 };
 
-export const sizeVariants: Record<ISize, string> = {
+export const sizeVariants: Record<Size, string> = {
   small: "size-4",
   medium: "size-5",
   large: "size-6",

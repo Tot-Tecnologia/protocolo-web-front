@@ -1,13 +1,10 @@
-import {
-  BaseInput,
-  IBaseInputProps,
-} from "@/presentation/components/BaseInput";
+import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
 import { Controller, FieldValues, Path } from "react-hook-form";
 
-export type ITextAreaProps<TFieldValues extends FieldValues = FieldValues> =
+export type TextAreaProps<TFieldValues extends FieldValues = FieldValues> =
   React.TextareaHTMLAttributes<HTMLTextAreaElement> &
     Omit<
-      IBaseInputProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>>,
+      BaseInputProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>>,
       "Component"
     > & {
       name: Path<TFieldValues>;
@@ -20,7 +17,7 @@ function TextAreaComponent(
 }
 
 export function TextArea<TFieldValues extends FieldValues = FieldValues>(
-  props: ITextAreaProps<TFieldValues>,
+  props: TextAreaProps<TFieldValues>,
 ) {
   return (
     <Controller

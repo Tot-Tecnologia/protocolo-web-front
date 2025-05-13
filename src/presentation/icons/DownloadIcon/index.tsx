@@ -1,6 +1,6 @@
-type IDownloadIconProps = React.SVGProps<SVGSVGElement>;
+type DownloadIconProps = React.SVGProps<SVGSVGElement>;
 
-export function DownloadIcon(props: IDownloadIconProps) {
+export function DownloadIcon(props: DownloadIconProps) {
   return (
     <svg
       width="16"

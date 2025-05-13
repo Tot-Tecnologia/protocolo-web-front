@@ -16,7 +16,7 @@ import {
 } from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
 import { FormProvider } from "react-hook-form";
 
-type ICreateProtocoloProps = {
+type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
   uiNotification: UiNotification;
 };
@@ -24,7 +24,7 @@ type ICreateProtocoloProps = {
 export function CreateProtocolo({
   addProtocolo,
   uiNotification,
-}: ICreateProtocoloProps) {
+}: CreateProtocoloProps) {
   const form = useFormWithZod({
     schema: protocoloRequestValidationSchema,
     defaultValues: protocoloRequestDefaultValues,

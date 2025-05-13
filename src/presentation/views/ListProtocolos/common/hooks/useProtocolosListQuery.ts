@@ -1,9 +1,9 @@
-import { ILoadProtocoloListArgs, LoadProtocoloList } from "@/domain/usecases";
+import { LoadProtocoloListArgs, LoadProtocoloList } from "@/domain/usecases";
 import { useQuery } from "@tanstack/react-query";
 
-type IUseProtocolosListQueryProps = {
+type UseProtocolosListQueryProps = {
   loadProtocoloList: LoadProtocoloList;
-  args: ILoadProtocoloListArgs;
+  args: LoadProtocoloListArgs;
   token: string;
 };
 
@@ -11,7 +11,7 @@ export function useProtocolosListQuery({
   loadProtocoloList,
   args,
   token,
-}: IUseProtocolosListQueryProps) {
+}: UseProtocolosListQueryProps) {
   return useQuery({
     queryFn: () => loadProtocoloList.loadWithFilter(args, token),
     queryKey: ["loadProtocoloList", args],

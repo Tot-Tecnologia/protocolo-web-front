@@ -1,12 +1,12 @@
 import clsx from "clsx";
 
-type ICardProps = {
+type CardProps = {
   title?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
 };
 
-export function Card({ title, children, className }: ICardProps) {
+export function Card({ title, children, className }: CardProps) {
   const isHeaderVisible = title != null;
 
   return (

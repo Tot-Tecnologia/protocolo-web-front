@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
-type IInputLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
+type InputLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
-export function InputLabel(props: IInputLabelProps) {
+export function InputLabel(props: InputLabelProps) {
   return (
     <>
       <label

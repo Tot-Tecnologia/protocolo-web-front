@@ -1,7 +1,7 @@
 import { ThemeColor } from "@/types/utils";
 import clsx from "clsx";
 
-type IBadgeProps = {
+type BadgeProps = {
   children: React.ReactNode;
   color?: ThemeColor;
 };
@@ -15,7 +15,7 @@ const colorVariants: Record<ThemeColor, string> = {
   warning: "text-warning-dark bg-amber-100",
 };
 
-export function Badge({ color = "info", children }: IBadgeProps) {
+export function Badge({ color = "info", children }: BadgeProps) {
   return (
     <span
       className={clsx(
