@@ -1,11 +1,11 @@
 export interface IProtocoloModel {
   id: number;
-  numeroProtocolo: string; 
+  numeroProtocolo: string;
   tipoDocumento: number;
   numero: number;
   tipoSolicitacao: string;
-  dataSolicitacao: string; 
+  dataSolicitacao: string;
   status: "aberto" | "emAnalise" | "aprovado" | "rejeitado";
-  orgaoResponsavel: string; 
+  orgaoResponsavel: string;
   observacao?: string;
 }

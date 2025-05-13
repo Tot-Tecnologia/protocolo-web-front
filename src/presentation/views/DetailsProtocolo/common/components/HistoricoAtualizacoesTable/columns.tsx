@@ -1,10 +1,10 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { IHistoricoAtualizacao } from "./types";
+import { HistoricoAtualizacao } from "./types";
 import { Badge } from "@/presentation/components/Badge";
 import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { InfoIcon } from "@/presentation/icons/InfoIcon";
 
-const columnHelper = createColumnHelper<IHistoricoAtualizacao>();
+const columnHelper = createColumnHelper<HistoricoAtualizacao>();
 
 export const columns = [
   columnHelper.accessor(({ etapa }) => etapa.toString().padStart(3, "0"), {

@@ -1,13 +1,13 @@
 import { AddAccount, AddAccountArgs } from "@/domain/usecases";
 import { useMutation } from "@tanstack/react-query";
 
-type IUseAddAccountMutationProps = {
+type UseAddAccountMutationProps = {
   addAccount: AddAccount;
 };
 
 export function useAddAccountMutation({
   addAccount,
-}: IUseAddAccountMutationProps) {
+}: UseAddAccountMutationProps) {
   const mutationFn = (args: AddAccountArgs) => addAccount.signUp(args);
   return useMutation({ mutationFn });
 }

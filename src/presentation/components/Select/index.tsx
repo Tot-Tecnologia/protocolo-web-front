@@ -1,17 +1,15 @@
-import {
-  BaseInput,
-  IBaseInputProps,
-} from "@/presentation/components/BaseInput";
+import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
 import clsx from "clsx";
 import { Controller, FieldValues, Path } from "react-hook-form";
 
-export type ISelectProps<TFieldValues extends FieldValues = FieldValues> =
+export type SelectProps<TFieldValues extends FieldValues = FieldValues> =
   React.SelectHTMLAttributes<HTMLSelectElement> &
     Omit<
-      IBaseInputProps<React.SelectHTMLAttributes<HTMLSelectElement>>,
+      BaseInputProps<React.SelectHTMLAttributes<HTMLSelectElement>>,
       "Component"
     > & {
       name: Path<TFieldValues>;
+      valueAsNumber?: boolean;
     };
 
 function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
@@ -19,7 +17,7 @@ function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
 }
 
 export function Select<TFieldValues extends FieldValues = FieldValues>(
-  props: ISelectProps<TFieldValues>,
+  props: SelectProps<TFieldValues>,
 ) {
   return (
     <Controller
@@ -36,7 +34,12 @@ export function Select<TFieldValues extends FieldValues = FieldValues>(
             if (props.onChange) {
               props.onChange(event);
             }
-            field.onChange(event);
+            if (props.valueAsNumber) {
+              const value = event.target.value;
+              field.onChange(value?.length ? Number(value) : null);
+            } else {
+              field.onChange(event);
+            }
           }}
           className={clsx(
             // setinha no fim do componente

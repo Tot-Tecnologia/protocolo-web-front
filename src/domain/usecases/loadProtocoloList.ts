@@ -1,24 +1,30 @@
-import { IProtocoloModel } from "@/domain/models";
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
+import { ProtocoloWebPaginationResponse } from "@/domain/models";
 
-export type ILoadProtocoloListArgs = {
-  pagina: number;
-  itemsPorPagina: number;
-  cpfCnpj?: string | null;
-  numeroProtocolo?: number | null;
-  ano?: number | null;
-  tipoSolicitacao?: number | null;
-};
-
-export type ILoadProtocoloListResponse = {
-  totalPages: number;
-  data: IProtocoloModel[];
+export type LoadProtocoloListArgs = {
   paginaAtual: number;
   itensPagina: number;
-  totalItems: number;
+  cpfCnpj?: string | null;
+  numeroProtocolo?: string | null;
+  ano?: number | null;
+  tipoDocumento?: number | null;
 };
+
+export type LoadProtocoloListResponseData = {
+  id: number;
+  numeroProtocolo: string;
+  tipoDocumento: number;
+  dataSolicitacao: string;
+  statusEnum: ProtocoloStatus;
+  statusTexto: string;
+};
+
+export type LoadProtocoloListResponse =
+  ProtocoloWebPaginationResponse<LoadProtocoloListResponseData>;
 
 export interface LoadProtocoloList {
   loadWithFilter: (
-    args: ILoadProtocoloListArgs,
-  ) => Promise<ILoadProtocoloListResponse>;
+    args: LoadProtocoloListArgs,
+    token: string, // TODO: remover token daqui
+  ) => Promise<LoadProtocoloListResponse>;
 }

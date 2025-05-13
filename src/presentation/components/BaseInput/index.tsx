@@ -2,17 +2,17 @@ import { useId } from "react";
 import { InputLabel } from "@/presentation/components/InputLabel";
 import clsx from "clsx";
 
-type IBaseInputComponentProps = {
+type BaseInputComponentProps = {
   id?: string;
   className?: string;
 };
 
-export type IBaseInputProps<
+export type BaseInputProps<
   THTMLAttributes extends
     | React.SelectHTMLAttributes<HTMLSelectElement>
     | React.InputHTMLAttributes<HTMLInputElement>
     | React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-  TComponentProps extends IBaseInputComponentProps = IBaseInputComponentProps,
+  TComponentProps extends BaseInputComponentProps = BaseInputComponentProps,
 > = THTMLAttributes & {
   Component: React.ComponentType<TComponentProps>;
   label?: React.ReactNode;
@@ -36,7 +36,7 @@ export function BaseInput<
   error,
   disabled,
   ...props
-}: IBaseInputProps<THTMLAttributes>) {
+}: BaseInputProps<THTMLAttributes>) {
   const isLabelVisible = label != null;
   const isHelperTextVisible = helperText != null;
   const generatedId = useId();

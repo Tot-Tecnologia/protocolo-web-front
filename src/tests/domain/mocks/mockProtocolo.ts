@@ -1,24 +1,61 @@
 import { faker } from "@faker-js/faker";
-import { ILoadProtocoloListArgs } from "@/domain/usecases";
+import { estadosBR } from "@/data/constants/estadosBR";
 import { IProtocoloModel } from "@/domain/models";
+import {
+  LoadProtocoloListArgs,
+  LoadProtocoloDetailsArgs,
+  LoadProtocoloDetailsResponse,
+} from "@/domain/usecases";
 
-export const mockLoadProtocoloListArgs = (): ILoadProtocoloListArgs => ({
-  pagina: faker.number.int(),
-  itemsPorPagina: faker.number.int(),
+export const mockLoadProtocoloListArgs = (): LoadProtocoloListArgs => ({
+  paginaAtual: faker.number.int(),
+  itensPagina: faker.number.int(),
   cpfCnpj: faker.string.uuid(),
   ano: faker.number.int(),
-  numeroProtocolo: faker.number.int(),
-  tipoSolicitacao: faker.number.int(),
+  numeroProtocolo: faker.lorem.word(),
+  tipoDocumento: faker.number.int(),
 });
 
+export const mockLoadProtocoloDetailsArgs = (): LoadProtocoloDetailsArgs => ({
+  numeroProtocolo: faker.lorem.word(),
+});
+
+export const mockLoadProtocoloDetailsResponse =
+  (): LoadProtocoloDetailsResponse => ({
+    id: faker.number.int(),
+    bairro: faker.lorem.words(),
+    cep: faker.string.numeric({ allowLeadingZeros: true, length: 8 }),
+    cidade: faker.person.fullName(),
+    complemento: faker.lorem.word(),
+    cpfCnpj: faker.string.numeric({ allowLeadingZeros: true, length: 11 }),
+    arquivos: [{ id: faker.number.int(), nome: faker.lorem.words() }],
+    descricao: faker.lorem.paragraph(),
+    email: faker.internet.email(),
+    estado: faker.helpers.arrayElement(estadosBR),
+    logradouro: faker.lorem.word(),
+    nomeSolicitante: faker.person.fullName(),
+    numero: faker.string.alphanumeric(),
+    telefone: faker.string.numeric({ length: 11 }),
+    tipoDocumentoId: faker.number.int(),
+    tipoDocumentoTexto: faker.person.fullName(),
+    statusEnum: faker.lorem.word(),
+    statusTexto: faker.person.fullName(),
+    numeroProtocolo: faker.lorem.word(),
+  });
+
 export const mockProtocoloModel = (): IProtocoloModel => ({
-  id: faker.number.int({ min: 1, max: 1000 }),
-  numeroProtocolo: faker.string.numeric(8),
-  tipoDocumento: faker.number.int({ min: 1, max: 5 }),
-  numero: faker.number.int({ min: 1, max: 9999 }),
-  tipoSolicitacao: faker.lorem.words(2),
+  id: faker.number.int(),
   dataSolicitacao: faker.date.anytime().toISOString(),
-  status: faker.helpers.arrayElement(["aberto", "emAnalise", "aprovado", "rejeitado"]),
-  orgaoResponsavel: faker.company.name(),
-  observacao: faker.lorem.sentence(),
+  numero: faker.number.int(),
+  numeroProtocolo: faker.lorem.word(),
+  orgaoResponsavel: faker.lorem.word({ length: { min: 1, max: 5 } }),
+  status: faker.helpers.arrayElement([
+    "aberto",
+    "emAnalise",
+    "aprovado",
+    "rejeitado",
+  ]),
+  tipoDocumento: faker.number.int(),
+  tipoSolicitacao: faker.lorem.word(),
+  observacao: faker.lorem.paragraph(),
 });

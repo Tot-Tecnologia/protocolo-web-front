@@ -6,7 +6,7 @@ import { makeUiNotification } from "@/presentation/main/factories/usecases/uiNot
 import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import userEvent, { UserEvent } from "@testing-library/user-event";
 
-type ISimulateValidSubmitSignInArgs = {
+type SimulateValidSubmitSignInArgs = {
   sut: typeof screen;
   user: UserEvent;
 };
@@ -34,7 +34,7 @@ const makeSut = () => {
 const simulateValidSubmitSignIn = async ({
   sut,
   user,
-}: ISimulateValidSubmitSignInArgs) => {
+}: SimulateValidSubmitSignInArgs) => {
   const emailValue = faker.internet.email();
   const passwordValue = faker.lorem.word();
 

@@ -1,17 +1,14 @@
-import {
-  BaseInput,
-  IBaseInputProps,
-} from "@/presentation/components/BaseInput";
+import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
 import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
 import { useState } from "react";
 
-type IFileUploadProps = Omit<
+type FileUploadProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "type"
 > &
   Omit<
-    IBaseInputProps<React.InputHTMLAttributes<HTMLInputElement>>,
+    BaseInputProps<React.InputHTMLAttributes<HTMLInputElement>>,
     "Component"
   >;
 
@@ -80,7 +77,7 @@ function FileUploadComponent({
   );
 }
 
-export function FileUpload(props: IFileUploadProps) {
+export function FileUpload(props: FileUploadProps) {
   return (
     <BaseInput<React.InputHTMLAttributes<HTMLInputElement>>
       Component={FileUploadComponent}

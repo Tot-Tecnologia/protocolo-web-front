@@ -1,4 +1,8 @@
-import { AddProtocolo, UiNotification } from "@/domain/usecases";
+import {
+  AddProtocolo,
+  LoadTiposDocumentoList,
+  UiNotification,
+} from "@/domain/usecases";
 import { Button } from "@/presentation/components/Button";
 import { Card } from "@/presentation/components/Card";
 import { FileUpload } from "@/presentation/components/FileUpload";
@@ -6,7 +10,9 @@ import { Input } from "@/presentation/components/Input";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
+import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
+import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
 import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProtocolo/common/components/OneLargeOneSmallInputsContainer";
 import { useAddProtocoloMutation } from "@/presentation/views/CreateProtocolo/common/hooks/useAddProtocoloMutation";
 import {
@@ -16,26 +22,37 @@ import {
 } from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
 import { FormProvider } from "react-hook-form";
 
-type ICreateProtocoloProps = {
+type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
   uiNotification: UiNotification;
+  loadTiposDocumentoList: LoadTiposDocumentoList;
 };
 
 export function CreateProtocolo({
   addProtocolo,
   uiNotification,
-}: ICreateProtocoloProps) {
+  loadTiposDocumentoList,
+}: CreateProtocoloProps) {
   const form = useFormWithZod({
     schema: protocoloRequestValidationSchema,
     defaultValues: protocoloRequestDefaultValues,
   });
 
+  const [token] = useAccessToken();
+
+  const tiposDocumentoListQuery = useTiposDocumentoListQuery({
+    loadTiposDocumentoList: loadTiposDocumentoList,
+    token: token,
+  });
+
   const addProtocoloMutation = useAddProtocoloMutation({ addProtocolo });
 
-  const handleSubmitForm = form.handleSubmit((data) => {
-    addProtocoloMutation.mutate(data, {
-      onSuccess: () => {
-        uiNotification.success("Solicitação realizada com sucesso.");
+  const handleSubmitForm = form.handleSubmit((args) => {
+    addProtocoloMutation.mutate(args, {
+      onSuccess: (response) => {
+        uiNotification.success(
+          `Solicitação realizada com sucesso. Número ${response.numeroProtocolo}.`,
+        );
         form.reset();
       },
       onError: (error) => uiNotification.error(error.message),
@@ -110,17 +127,14 @@ export function CreateProtocolo({
               <Select<ProtocoloRequest>
                 name="tipoDocumento"
                 label="Tipo de solicitação"
+                valueAsNumber
               >
                 <option value="">Selecione uma opção</option>
-                <option value="1">
-                  Emissão de Certidão Negativa de Débitos (CND)
-                </option>
-                <option value="2">Atualização Cadastral de Imóvel</option>
-                <option value="3">
-                  Solicitação de Alvará de Funcionamento
-                </option>
-                <option value="4">Isenção de IPTU</option>
-                <option value="5">Protocolo de Recurso Administrativo</option>
+                {tiposDocumentoListQuery.data?.map((tipoDocumento) => (
+                  <option key={tipoDocumento.id} value={tipoDocumento.id}>
+                    {tipoDocumento.nome}
+                  </option>
+                ))}
               </Select>
 
               <TextArea<ProtocoloRequest>

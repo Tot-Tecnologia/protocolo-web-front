@@ -8,18 +8,15 @@ function range(start: number, end: number) {
 
 const DOTS = "dots";
 
-export type IPaginationProps = {
+export type PaginationProps = {
   /** Página selecionada inicialmente. @default 1 */
   initialPage?: number;
 
   /** Estado controlado da página selecionada. */
   page?: number;
 
-  /** Quantidade total de itens. */
+  /** Quantidade total de páginas. */
   total: number;
-
-  /** Quantidade total de páginas (opcional). */
-  totalPages?: number; // Adiciona totalPages aqui
 
   /** Quantidade de irmãos na direita e esquerda da página selecionada. @default 1 */
   siblings?: number;
@@ -33,15 +30,13 @@ export type IPaginationProps = {
 
 export function usePagination({
   total,
-  totalPages = Math.ceil(total / 10),  // Caso totalPages não seja fornecido, calcule com base em `total` e itens por página (assumido como 10 aqui)
   siblings = 1,
   boundaries = 1,
   page,
   initialPage = 1,
   onChange,
-}: IPaginationProps) {
-  // const _total = Math.max(Math.trunc(total), 0);
-  const _totalPages = totalPages;
+}: PaginationProps) {
+  const _total = Math.max(Math.trunc(total), 0);
 
   // A página ativa agora é controlada pela variável `activePage`
   const [activePage, setActivePage] = useUncontrolled({
@@ -54,8 +49,8 @@ export function usePagination({
   const setPage = (pageNumber: number) => {
     if (pageNumber <= 0) {
       setActivePage(1);
-    } else if (pageNumber > _totalPages) {
-      setActivePage(_totalPages);
+    } else if (pageNumber > _total) {
+      setActivePage(_total);
     } else {
       setActivePage(pageNumber);
     }
@@ -64,29 +59,29 @@ export function usePagination({
   const next = () => setPage(activePage + 1);
   const previous = () => setPage(activePage - 1);
   const first = () => setPage(1);
-  const last = () => setPage(_totalPages);
+  const last = () => setPage(_total);
 
   const paginationRange = useMemo((): (number | "dots")[] => {
     const totalPageNumbers = siblings * 2 + 3 + boundaries * 2;
-    if (totalPageNumbers >= _totalPages) {
-      return range(1, _totalPages);
+    if (totalPageNumbers >= _total) {
+      return range(1, _total);
     }
 
     const leftSiblingIndex = Math.max(activePage - siblings, boundaries);
     const rightSiblingIndex = Math.min(
       activePage + siblings,
-      _totalPages - boundaries,
+      _total - boundaries,
     );
 
     const shouldShowLeftDots = leftSiblingIndex > boundaries + 2;
-    const shouldShowRightDots = rightSiblingIndex < _totalPages - (boundaries + 1);
+    const shouldShowRightDots = rightSiblingIndex < _total - (boundaries + 1);
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
       const leftItemCount = siblings * 2 + boundaries + 2;
       return [
         ...range(1, leftItemCount),
         DOTS,
-        ...range(_totalPages - (boundaries - 1), _totalPages),
+        ...range(_total - (boundaries - 1), _total),
       ];
     }
 
@@ -95,7 +90,7 @@ export function usePagination({
       return [
         ...range(1, boundaries),
         DOTS,
-        ...range(_totalPages - rightItemCount, _totalPages),
+        ...range(_total - rightItemCount, _total),
       ];
     }
 
@@ -104,13 +99,13 @@ export function usePagination({
       DOTS,
       ...range(leftSiblingIndex, rightSiblingIndex),
       DOTS,
-      ...range(_totalPages - boundaries + 1, _totalPages),
+      ...range(_total - boundaries + 1, _total),
     ];
-  }, [siblings, boundaries, _totalPages, activePage]);
+  }, [siblings, boundaries, _total, activePage]);
 
   return {
     range: paginationRange,
-    active: activePage,  // Utilize `activePage` em vez de `paginaAtual`
+    active: activePage,
     setPage,
     next,
     previous,

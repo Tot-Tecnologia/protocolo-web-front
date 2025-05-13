@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm, UseFormProps } from "react-hook-form";
 import { ZodType } from "zod";
 
-type IUseFormWithZodProps<TFieldValues extends FieldValues = FieldValues> =
+type UseFormWithZodProps<TFieldValues extends FieldValues = FieldValues> =
   UseFormProps<TFieldValues> & {
     schema: ZodType<TFieldValues>;
   };
@@ -10,7 +10,7 @@ type IUseFormWithZodProps<TFieldValues extends FieldValues = FieldValues> =
 export function useFormWithZod<TFieldValues extends FieldValues = FieldValues>({
   schema,
   ...props
-}: IUseFormWithZodProps<TFieldValues>) {
+}: UseFormWithZodProps<TFieldValues>) {
   return useForm({
     resolver: zodResolver(schema),
     ...props,

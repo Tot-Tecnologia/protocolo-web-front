@@ -6,7 +6,7 @@ import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks";
-import { phoneMask } from "@/presentation/utils/inputMasks"; 
+import { phoneMask } from "@/presentation/utils/inputMasks";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import {
   SignUpDto,
@@ -15,12 +15,12 @@ import {
 import { AddAccount, UiNotification } from "@/domain/usecases";
 import { useAddAccountMutation } from "@/presentation/views/SignUp/common/hooks/useAddAccountMutation";
 
-type ISignUpProps = {
+type SignUpProps = {
   addAccount: AddAccount;
   uiNotification: UiNotification;
 };
 
-export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
+export function SignUp({ addAccount, uiNotification }: SignUpProps) {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const form = useFormWithZod({ schema: signUpValidationSchema });
@@ -34,7 +34,9 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
 
     addAccountMutation.mutate(data, {
       onSuccess: () => {
-        uiNotification.success("Cadastro realizado! Acesse seu e-mail para validar sua conta e concluir o processo.");
+        uiNotification.success(
+          "Cadastro realizado! Acesse seu e-mail para validar sua conta e concluir o processo.",
+        );
         void navigate({ to: SIGN_IN_ROUTE_URL });
       },
       onError: (error) => uiNotification.error(error.message),
@@ -61,7 +63,7 @@ export function SignUp({ addAccount, uiNotification }: ISignUpProps) {
             <Input<SignUpDto>
               name="telefone"
               placeholder="Celular"
-              onChange={phoneMask} 
+              onChange={phoneMask}
             />
 
             <Input<SignUpDto> name="email" placeholder="E-mail" type="email" />

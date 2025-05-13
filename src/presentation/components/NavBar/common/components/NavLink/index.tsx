@@ -1,13 +1,13 @@
 import { router } from "@/presentation/router";
 import { Link, LinkComponentProps } from "@tanstack/react-router";
 
-type INavLinkProps = {
+type NavLinkProps = {
   to: LinkComponentProps<"a", typeof router>["to"];
   iconSrc: string;
   children: React.ReactNode;
 };
 
-export function NavLink({ to, iconSrc, children }: INavLinkProps) {
+export function NavLink({ to, iconSrc, children }: NavLinkProps) {
   return (
     <Link
       to={to}

@@ -1,5 +1,5 @@
 // TODO: mover para model da camada de domínio quando estiver pronto no back-end
-export type IHistoricoAtualizacao = {
+export type HistoricoAtualizacao = {
   etapa: number;
   status: "aberto" | "fechado";
   dataHora: Date;

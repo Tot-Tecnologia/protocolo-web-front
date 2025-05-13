@@ -1,9 +1,24 @@
 import { estadosBR } from "@/data/constants/estadosBR";
-import { AddProtocoloArgs } from "@/domain/usecases";
 import { CPF_CNPJ_REGEXP } from "@/presentation/constants/regExps";
 import { z } from "zod";
 
-export type ProtocoloRequest = AddProtocoloArgs;
+export type ProtocoloRequest = {
+  cpfCnpj: string;
+  telefone: string;
+  nomeSolicitante: string;
+  endereco: string;
+  logradouro: string;
+  numero: string;
+  bairro: string;
+  cep: string;
+  estado: string;
+  email: string;
+  complemento: string;
+  descricao: string;
+  cidade: string;
+  tipoDocumento: number;
+  arquivos: File[];
+};
 
 // TODO: refinar validações
 
@@ -31,7 +46,7 @@ export const protocoloRequestValidationSchema: z.Schema<ProtocoloRequest> =
     descricao: z.string(),
     cidade: z.string(),
     tipoDocumento: z.coerce.number(),
-    arquivos: z.array(z.unknown()),
+    arquivos: z.array(z.any()),
   });
 
 export const protocoloRequestDefaultValues: ProtocoloRequest = {

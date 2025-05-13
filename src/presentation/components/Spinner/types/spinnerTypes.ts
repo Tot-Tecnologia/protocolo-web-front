@@ -1,8 +1,8 @@
 import { ThemeColor } from "@/types/utils";
 
-export type ISize = "small" | "medium" | "large";
+export type Size = "small" | "medium" | "large";
 
-export type ISpinnerProps = {
+export type SpinnerProps = {
   color?: ThemeColor;
-  size?: ISize;
+  size?: Size;
 };

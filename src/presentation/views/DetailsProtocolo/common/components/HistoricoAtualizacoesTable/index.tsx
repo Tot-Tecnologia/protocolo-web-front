@@ -2,9 +2,9 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
 import { columns } from "./columns";
-import { IHistoricoAtualizacao } from "./types";
+import { HistoricoAtualizacao } from "./types";
 
-const fakeData: IHistoricoAtualizacao[] = [
+const fakeData: HistoricoAtualizacao[] = [
   {
     etapa: 1,
     local: "Secretaria de Finanças",
@@ -33,15 +33,19 @@ const fakeData: IHistoricoAtualizacao[] = [
 
 export function HistoricoAtualizacoesTable() {
   const table = useReactTable({
-    data: fakeData,
+    data: [],
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  if (fakeData) {
+    // não faz nada
+  }
+
   return (
     <div className="grid gap-y-6 md:gap-y-2">
       <Table table={table} title="Histórico de atualizações da solicitação" />
-      <TablePagination total={44} />
+      <TablePagination total={0} />
     </div>
   );
 }

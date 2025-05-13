@@ -4,7 +4,7 @@ import {
   fontSizeVariants,
   paddingVariants,
 } from "@/presentation/components/Button/styles/buttonVariants";
-import { IButtonProps } from "@/presentation/components/Button/types/buttonTypes";
+import { ButtonProps } from "@/presentation/components/Button/types/buttonTypes";
 import { Spinner } from "@/presentation/components/Spinner";
 import clsx from "clsx";
 
@@ -15,7 +15,7 @@ export function Button({
   variant = "contained",
   size = "medium",
   ...props
-}: IButtonProps) {
+}: ButtonProps) {
   return (
     <button
       type="button"

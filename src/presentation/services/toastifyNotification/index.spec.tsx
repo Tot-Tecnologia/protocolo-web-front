@@ -4,13 +4,13 @@ import { faker } from "@faker-js/faker";
 import { screen, waitFor } from "@testing-library/react";
 import { useEffect } from "react";
 
-type IMakeSutArgs = {
+type MakeSutArgs = {
   serviceFn: () => void;
 };
 
 const toastifyNotification = new ToastifyNotification();
 
-const makeSut = ({ serviceFn }: IMakeSutArgs) => {
+const makeSut = ({ serviceFn }: MakeSutArgs) => {
   function Component() {
     useEffect(() => serviceFn(), []);
     return null;

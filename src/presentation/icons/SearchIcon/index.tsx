@@ -1,6 +1,6 @@
-type ISearchIconProps = React.SVGProps<SVGSVGElement>;
+type SearchIconProps = React.SVGProps<SVGSVGElement>;
 
-export function SearchIcon(props: ISearchIconProps) {
+export function SearchIcon(props: SearchIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

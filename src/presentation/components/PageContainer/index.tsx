@@ -5,7 +5,7 @@ import { Button } from "@/presentation/components/Button";
 import { NavBar } from "@/presentation/components/NavBar";
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
 
-type IPageContainerProps = {
+type PageContainerProps = {
   title?: React.ReactNode;
   navigateBackwardTo?: LinkComponentProps<"a", typeof router>["to"];
   children?: React.ReactNode;
@@ -15,7 +15,7 @@ export function PageContainer({
   title,
   navigateBackwardTo,
   children,
-}: IPageContainerProps) {
+}: PageContainerProps) {
   return (
     <div className="block min-h-dvh px-2.5 py-4 md:grid md:grid-cols-[auto_1fr] md:px-4 md:py-6">
       <NavBar className="hidden md:block" />

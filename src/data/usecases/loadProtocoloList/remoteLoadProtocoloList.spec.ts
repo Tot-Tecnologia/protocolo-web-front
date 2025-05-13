@@ -1,13 +1,12 @@
 import { faker } from "@faker-js/faker";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
-import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
-import {
-  mockLoadProtocoloListArgs,
-  mockProtocoloModel,
-} from "@/tests/domain/mocks";
+import { mockProtocoloWebPaginationResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
+import { mockLoadProtocoloListArgs } from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
-import { ILoadProtocoloListResponse } from "@/domain/usecases";
+import { LoadProtocoloListResponseData } from "@/domain/usecases";
+import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
 
 const makeSut = () => {
   const url = faker.internet.url();
@@ -23,15 +22,15 @@ describe("RemoteLoadProtocoloList", () => {
 
     const loadProtocoloListArgs = mockLoadProtocoloListArgs();
 
-    await sut.loadWithFilter(loadProtocoloListArgs);
+    await sut.loadWithFilter(loadProtocoloListArgs, "");
 
     expect(httpClientSpy.url).toContain(url);
-    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.pagina);
-    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.itemsPorPagina);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.paginaAtual);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.itensPagina);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.cpfCnpj);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.ano);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.numeroProtocolo);
-    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.tipoSolicitacao);
+    expect(httpClientSpy.url).toContain(loadProtocoloListArgs.tipoDocumento);
     expect(httpClientSpy.method).toBe("get");
   });
 
@@ -49,7 +48,7 @@ describe("RemoteLoadProtocoloList", () => {
       body: null,
     };
 
-    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs(), "");
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -57,22 +56,23 @@ describe("RemoteLoadProtocoloList", () => {
   test("should return a LoadProtocoloListResponse if HttpClient returns 200", async () => {
     const { sut, httpClientSpy } = makeSut();
 
-    const data = faker.helpers.multiple(mockProtocoloModel);
+    const data = faker.helpers.multiple<LoadProtocoloListResponseData>(() => ({
+      dataSolicitacao: faker.lorem.word(),
+      id: faker.number.int(),
+      numeroProtocolo: faker.lorem.word(),
+      statusEnum: ProtocoloStatus.ABERTO,
+      statusTexto: faker.lorem.word(),
+      tipoDocumento: faker.number.int(),
+    }));
 
-    const responseBody: ILoadProtocoloListResponse = {
-      paginaAtual: 1,
-      itensPagina: 10,
-      totalItems: 100,
-      totalPages: 10,
-      data: data,
-    };
+    const responseBody = mockProtocoloWebPaginationResponse(data);
 
     httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,
       body: responseBody,
     };
 
-    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs(), "");
 
     await expect(promise).resolves.toEqual(responseBody);
   });

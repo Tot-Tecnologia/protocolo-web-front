@@ -17,12 +17,12 @@ import {
 } from "./common/validation/signInValidationSchema";
 import { useAuthenticationMutation } from "./common/hooks/useAuthenticationMutation";
 
-type ISignInProps = {
+type SignInProps = {
   authentication: Authentication;
   uiNotification: UiNotification;
 };
 
-export function SignIn({ authentication, uiNotification }: ISignInProps) {
+export function SignIn({ authentication, uiNotification }: SignInProps) {
   const [, setAccessToken] = useAccessToken();
 
   const form = useFormWithZod({ schema: signInValidationSchema });

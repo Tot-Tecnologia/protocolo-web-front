@@ -1,4 +1,4 @@
-type IMainPageWithImageProps = {
+type MainPageWithImageProps = {
   title: React.ReactNode;
   children: React.ReactNode;
   fitImageToDisplayHeight?: boolean;
@@ -12,7 +12,7 @@ export function MainPageWithImage({
   title,
   children,
   fitImageToDisplayHeight,
-}: IMainPageWithImageProps) {
+}: MainPageWithImageProps) {
   return (
     <div className="flex justify-between gap-4">
       <div className="mx-auto max-w-95 basis-full px-4 py-6 md:basis-65/100">

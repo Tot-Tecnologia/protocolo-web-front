@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { ISelectProps, Select } from "@/presentation/components/Select";
+import { SelectProps, Select } from "@/presentation/components/Select";
 import { faker } from "@faker-js/faker";
 import {
   act,
@@ -26,11 +26,11 @@ const selectOptions = [
   ),
 ];
 
-type IMakeSutArgs = {
-  selectProps?: Partial<ISelectProps>;
+type MakeSutArgs = {
+  selectProps?: Partial<SelectProps>;
 };
 
-const makeSut = (args?: IMakeSutArgs) => {
+const makeSut = (args?: MakeSutArgs) => {
   const user = userEvent.setup();
 
   const { result } = renderHook(() => useForm());

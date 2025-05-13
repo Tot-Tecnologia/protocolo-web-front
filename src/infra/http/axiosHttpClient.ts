@@ -11,25 +11,11 @@ export class AxiosHttpClient implements HttpClient {
     data: HttpRequest<TRequestBody>,
   ): Promise<HttpResponse<TResponseBody>> {
     try {
-      const token = (() => {
-        try {
-          const item = localStorage.getItem("@ProtocoloWeb__Key=authToken");
-          return item ? JSON.parse(item) : null;
-        } catch {
-          return null;
-        }
-      })();
-
       const axiosResponse = await axios.request<TResponseBody>({
         url: data.url,
         method: data.method,
         data: data.body,
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-          ...(data.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
-          ...data.headers ?? {},
-        },
-        
+        headers: data.headers,
       });
 
       return {
@@ -37,7 +23,6 @@ export class AxiosHttpClient implements HttpClient {
         body: axiosResponse.data,
       };
     } catch (error) {
-      console.error(error);
       if (axios.isAxiosError<TResponseBody>(error)) {
         if (error.response) {
           return {
@@ -46,6 +31,7 @@ export class AxiosHttpClient implements HttpClient {
           };
         }
       }
+      console.error(error);
     }
 
     return {

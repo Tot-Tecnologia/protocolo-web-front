@@ -1,13 +1,10 @@
 import { Controller, FieldValues, Path } from "react-hook-form";
-import {
-  BaseInput,
-  IBaseInputProps,
-} from "@/presentation/components/BaseInput";
+import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
 
-export type IInputProps<TFieldValues extends FieldValues = FieldValues> =
+export type InputProps<TFieldValues extends FieldValues = FieldValues> =
   React.InputHTMLAttributes<HTMLInputElement> &
     Omit<
-      IBaseInputProps<React.InputHTMLAttributes<HTMLInputElement>>,
+      BaseInputProps<React.InputHTMLAttributes<HTMLInputElement>>,
       "Component"
     > & {
       name: Path<TFieldValues>;
@@ -18,7 +15,7 @@ function InputComponent(props: React.InputHTMLAttributes<HTMLInputElement>) {
 }
 
 export function Input<TFieldValues extends FieldValues = FieldValues>(
-  props: IInputProps<TFieldValues>,
+  props: InputProps<TFieldValues>,
 ) {
   return (
     <Controller
