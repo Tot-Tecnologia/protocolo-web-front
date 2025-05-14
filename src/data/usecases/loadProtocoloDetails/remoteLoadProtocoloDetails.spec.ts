@@ -24,7 +24,9 @@ describe("RemoteLoadProtocoloDetails", () => {
 
     await sut.load(loadProtocoloDetailsArgs, "");
 
-    expect(httpClientSpy.url).toBe(`${url}/${loadProtocoloDetailsArgs.id}`);
+    expect(httpClientSpy.url).toBe(
+      `${url}/${loadProtocoloDetailsArgs.numeroProtocolo}`,
+    );
     expect(httpClientSpy.method).toBe("get");
   });
 

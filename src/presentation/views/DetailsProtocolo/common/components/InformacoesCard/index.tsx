@@ -31,7 +31,10 @@ export function InformacoesCard({ protocolo }: InformacoesCardProps) {
         </p>
 
         <p>
-          <b>Observação</b>: Sem observações. {/* TODO */}
+          <b>Descrição</b>:{" "}
+          {protocolo.descricao.length
+            ? protocolo.descricao
+            : "Sem observações."}
         </p>
       </div>
     </Card>

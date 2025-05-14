@@ -7,7 +7,6 @@ import {
 } from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
-import { LoadProtocoloListResponse } from "@/domain/usecases";
 import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
 
 const makeSut = () => {
@@ -60,8 +59,7 @@ describe("RemoteLoadProtocoloList", () => {
 
     const data = faker.helpers.multiple(mockProtocoloModel);
 
-    const responseBody: LoadProtocoloListResponse =
-      mockProtocoloWebPaginationResponse(data);
+    const responseBody = mockProtocoloWebPaginationResponse(data);
 
     httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,

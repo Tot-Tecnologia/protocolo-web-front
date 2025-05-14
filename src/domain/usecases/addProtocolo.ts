@@ -2,7 +2,6 @@ export type AddProtocoloArgs = {
   cpfCnpj: string;
   telefone: string;
   nomeSolicitante: string;
-  endereco: string;
   logradouro: string;
   numero: string;
   bairro: string;

@@ -10,6 +10,7 @@ import { InformacoesCard } from "./common/components/InformacoesCard";
 import { HistoricoAtualizacoesTable } from "./common/components/HistoricoAtualizacoesTable";
 import { GuiasPagamentoTable } from "./common/components/GuiasPagamentoTable";
 import { useProtocoloDetailsQuery } from "./common/hooks/useProtocoloDetailsQuery";
+import { ComplementarCard } from "@/presentation/views/DetailsProtocolo/common/components/ComplementarCard";
 
 type DetailsProtocoloProps = {
   loadProtocoloDetails: LoadProtocoloDetails;
@@ -39,9 +40,7 @@ export function DetailsProtocolo({
             <InformacoesCard protocolo={data} />
             <HistoricoAtualizacoesTable />
             <GuiasPagamentoTable />
-            {/*
             <ComplementarCard />
-            */}
           </>
         )}
 

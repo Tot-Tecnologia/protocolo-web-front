@@ -6,7 +6,6 @@ export type ProtocoloRequest = {
   cpfCnpj: string;
   telefone: string;
   nomeSolicitante: string;
-  endereco: string;
   logradouro: string;
   numero: string;
   bairro: string;
@@ -20,35 +19,34 @@ export type ProtocoloRequest = {
   arquivos: File[];
 };
 
-// TODO: refinar validações
-
 export const protocoloRequestValidationSchema: z.Schema<ProtocoloRequest> =
   z.object({
     cpfCnpj: z
       .string()
+      .min(1, "Obrigatório")
       .regex(CPF_CNPJ_REGEXP)
       .transform((input) => input.replace(/\D/g, "")),
     telefone: z
       .string()
-      .regex(/^\d{2}\d{8,9}$/, "Deve conter DDD e 8 ou 9 dígitos")
+      .min(1, "Obrigatório")
       .transform((input) => input.replace(/\D/g, "")),
     nomeSolicitante: z.string().min(1, "Obrigatório"),
     email: z.string().email(),
-    endereco: z.string(),
-    logradouro: z.string(),
-    numero: z.string(),
-    bairro: z.string(),
-    cep: z.string(),
+    logradouro: z.string().min(1, "Obrigatório"),
+    numero: z.string().min(1, "Obrigatório"),
+    bairro: z.string().min(1, "Obrigatório"),
+    cep: z.string().min(1, "Obrigatório"),
     estado: z
       .string()
+      .min(1, "Obrigatório")
       .refine(
         (estado) => estadosBR.includes(estado),
         "Insira abreviado (MG, SP, etc.)",
       ),
     complemento: z.string(),
     descricao: z.string(),
-    cidade: z.string(),
-    tipoDocumento: z.coerce.number(),
+    cidade: z.string().min(1, "Obrigatório"),
+    tipoDocumento: z.coerce.number().gt(0, "Obrigatório"),
     arquivos: z.array(z.any()),
   });
 
@@ -57,8 +55,7 @@ export const protocoloRequestDefaultValues: ProtocoloRequest = {
   telefone: "",
   nomeSolicitante: "",
   email: "",
-  endereco: "",
-  logradouro: "SEM_NADA",
+  logradouro: "",
   numero: "",
   bairro: "",
   cep: "",

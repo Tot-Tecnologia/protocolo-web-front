@@ -23,6 +23,8 @@ import {
   protocoloRequestDefaultValues,
   protocoloRequestValidationSchema,
 } from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
+import { phoneMask } from "@/presentation/utils/inputMasks";
+import { cepMask } from "@/presentation/utils/inputMasks/cepMask";
 
 type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
@@ -85,7 +87,7 @@ export function CreateProtocolo({
               />
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="endereco" label="Endereço" />
+                <Input<ProtocoloRequest> name="logradouro" label="Logradouro" />
                 <Input<ProtocoloRequest> name="numero" label="Número" />
               </OneLargeOneSmallInputsContainer>
 
@@ -95,6 +97,7 @@ export function CreateProtocolo({
                   name="cep"
                   label="CEP"
                   placeholder="Ex: 38740-000"
+                  onChange={cepMask}
                 />
               </OneLargeOneSmallInputsContainer>
 
@@ -113,10 +116,11 @@ export function CreateProtocolo({
                 />
                 <Input<ProtocoloRequest>
                   name="telefone"
-                  label="Telefone"
+                  label="Celular"
                   containerClassName="w-full"
                   placeholder="Ex: (34) 99123-4567"
                   type="tel"
+                  onChange={phoneMask}
                 />
               </OneLargeOneSmallInputsContainer>
 
