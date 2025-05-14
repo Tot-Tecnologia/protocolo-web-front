@@ -6,7 +6,6 @@ export const mockAddProtocoloArgs = (): AddProtocoloArgs => ({
   cpfCnpj: faker.string.numeric(),
   telefone: faker.string.numeric({ length: { min: 10, max: 11 } }),
   nomeSolicitante: faker.person.fullName(),
-  endereco: faker.lorem.sentence(),
   logradouro: faker.lorem.word({ length: { min: 3, max: 20 } }),
   numero: faker.string.alphanumeric({ length: 1 }),
   bairro: faker.lorem.word({ length: { min: 3, max: 20 } }),

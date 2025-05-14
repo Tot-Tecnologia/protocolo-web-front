@@ -1,3 +1,5 @@
+import { FormProvider } from "react-hook-form";
+import { useNavigate } from "@tanstack/react-router";
 import {
   AddProtocolo,
   LoadTiposDocumentoList,
@@ -10,6 +12,7 @@ import { Input } from "@/presentation/components/Input";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
+import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
@@ -20,7 +23,8 @@ import {
   protocoloRequestDefaultValues,
   protocoloRequestValidationSchema,
 } from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
-import { FormProvider } from "react-hook-form";
+import { phoneMask } from "@/presentation/utils/inputMasks";
+import { cepMask } from "@/presentation/utils/inputMasks/cepMask";
 
 type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
@@ -38,6 +42,8 @@ export function CreateProtocolo({
     defaultValues: protocoloRequestDefaultValues,
   });
 
+  const navigate = useNavigate();
+
   const [token] = useAccessToken();
 
   const tiposDocumentoListQuery = useTiposDocumentoListQuery({
@@ -53,7 +59,10 @@ export function CreateProtocolo({
         uiNotification.success(
           `Solicitação realizada com sucesso. Número ${response.numeroProtocolo}.`,
         );
-        form.reset();
+        void navigate({
+          to: `${DETAILS_PROTOCOLO_ROUTE_URL}`,
+          params: { numeroProtocolo: response.numeroProtocolo },
+        });
       },
       onError: (error) => uiNotification.error(error.message),
     });
@@ -78,7 +87,7 @@ export function CreateProtocolo({
               />
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="endereco" label="Endereço" />
+                <Input<ProtocoloRequest> name="logradouro" label="Logradouro" />
                 <Input<ProtocoloRequest> name="numero" label="Número" />
               </OneLargeOneSmallInputsContainer>
 
@@ -88,6 +97,7 @@ export function CreateProtocolo({
                   name="cep"
                   label="CEP"
                   placeholder="Ex: 38740-000"
+                  onChange={cepMask}
                 />
               </OneLargeOneSmallInputsContainer>
 
@@ -106,10 +116,11 @@ export function CreateProtocolo({
                 />
                 <Input<ProtocoloRequest>
                   name="telefone"
-                  label="Telefone"
+                  label="Celular"
                   containerClassName="w-full"
                   placeholder="Ex: (34) 99123-4567"
                   type="tel"
+                  onChange={phoneMask}
                 />
               </OneLargeOneSmallInputsContainer>
 
