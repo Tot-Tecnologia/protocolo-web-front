@@ -1,3 +1,5 @@
+import { FormProvider } from "react-hook-form";
+import { useNavigate } from "@tanstack/react-router";
 import {
   AddProtocolo,
   LoadTiposDocumentoList,
@@ -10,6 +12,7 @@ import { Input } from "@/presentation/components/Input";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
+import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
@@ -20,7 +23,6 @@ import {
   protocoloRequestDefaultValues,
   protocoloRequestValidationSchema,
 } from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
-import { FormProvider } from "react-hook-form";
 
 type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
@@ -38,6 +40,8 @@ export function CreateProtocolo({
     defaultValues: protocoloRequestDefaultValues,
   });
 
+  const navigate = useNavigate();
+
   const [token] = useAccessToken();
 
   const tiposDocumentoListQuery = useTiposDocumentoListQuery({
@@ -53,7 +57,10 @@ export function CreateProtocolo({
         uiNotification.success(
           `Solicitação realizada com sucesso. Número ${response.numeroProtocolo}.`,
         );
-        form.reset();
+        void navigate({
+          to: `${DETAILS_PROTOCOLO_ROUTE_URL}`,
+          params: { numeroProtocolo: response.numeroProtocolo },
+        });
       },
       onError: (error) => uiNotification.error(error.message),
     });
