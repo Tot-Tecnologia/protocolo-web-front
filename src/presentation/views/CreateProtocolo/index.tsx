@@ -25,6 +25,7 @@ import {
 } from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
 import { phoneMask } from "@/presentation/utils/inputMasks";
 import { cepMask } from "@/presentation/utils/inputMasks/cepMask";
+import { estadosBR } from "@/data/constants/estadosBR";
 
 type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
@@ -103,7 +104,18 @@ export function CreateProtocolo({
 
               <OneLargeOneSmallInputsContainer>
                 <Input<ProtocoloRequest> name="cidade" label="Cidade" />
-                <Input<ProtocoloRequest> name="estado" label="Estado" />
+                <Select<ProtocoloRequest>
+                  name="estado"
+                  label="Estado"
+                  defaultValue="MG"
+                >
+                  <option value="">Selecione</option>
+                  {estadosBR.map((estado) => (
+                    <option key={estado} value={estado}>
+                      {estado}
+                    </option>
+                  ))}
+                </Select>
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>

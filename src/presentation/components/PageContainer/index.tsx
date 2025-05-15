@@ -1,9 +1,11 @@
-import { Link, LinkComponentProps } from "@tanstack/react-router";
+import { Link, LinkComponentProps, useNavigate } from "@tanstack/react-router";
 import { router } from "@/presentation/router";
 import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { Button } from "@/presentation/components/Button";
 import { NavBar } from "@/presentation/components/NavBar";
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
+import { LogoutIcon } from "@/presentation/icons/LogoutIcon";
+import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 
 type PageContainerProps = {
   title?: React.ReactNode;
@@ -16,6 +18,14 @@ export function PageContainer({
   navigateBackwardTo,
   children,
 }: PageContainerProps) {
+  const [, setAccessToken] = useAccessToken();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setAccessToken("");
+    void navigate({ to: "/" });
+  };
+
   return (
     <div className="block min-h-dvh px-2.5 py-4 md:grid md:grid-cols-[auto_1fr] md:px-4 md:py-6">
       <NavBar className="hidden md:block" />
@@ -39,6 +49,15 @@ export function PageContainer({
             onClick={() => alert("TODO")}
           >
             Menu
+          </Button>
+
+          <Button
+            aria-label="Deslogar do sistema"
+            size="small"
+            variant="outlined"
+            onClick={handleLogout}
+          >
+            <LogoutIcon className="mr-2 size-4.25" /> Sair
           </Button>
         </div>
 
