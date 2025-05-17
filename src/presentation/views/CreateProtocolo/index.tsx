@@ -5,7 +5,6 @@ import {
   LoadTiposDocumentoList,
   UiNotification,
 } from "@/domain/usecases";
-import { Button } from "@/presentation/components/Button";
 import { Card } from "@/presentation/components/Card";
 import { FileUpload } from "@/presentation/components/FileUpload";
 import { Input } from "@/presentation/components/Input";
@@ -16,16 +15,17 @@ import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl"
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
-import { OneLargeOneSmallInputsContainer } from "@/presentation/views/CreateProtocolo/common/components/OneLargeOneSmallInputsContainer";
-import { useAddProtocoloMutation } from "@/presentation/views/CreateProtocolo/common/hooks/useAddProtocoloMutation";
+import { phoneMask } from "@/presentation/utils/inputMasks";
+import { cepMask } from "@/presentation/utils/inputMasks/cepMask";
+import { estadosBR } from "@/data/constants/estadosBR";
+import { OneLargeOneSmallInputsContainer } from "./common/components/OneLargeOneSmallInputsContainer";
+import { EnviarButton } from "./common/components/EnviarButton";
+import { useAddProtocoloMutation } from "./common/hooks/useAddProtocoloMutation";
 import {
   ProtocoloRequest,
   protocoloRequestDefaultValues,
   protocoloRequestValidationSchema,
-} from "@/presentation/views/CreateProtocolo/common/validation/createProtocoloValidationSchema";
-import { phoneMask } from "@/presentation/utils/inputMasks";
-import { cepMask } from "@/presentation/utils/inputMasks/cepMask";
-import { estadosBR } from "@/data/constants/estadosBR";
+} from "./common/validation/createProtocoloValidationSchema";
 
 type CreateProtocoloProps = {
   addProtocolo: AddProtocolo;
@@ -54,7 +54,7 @@ export function CreateProtocolo({
 
   const addProtocoloMutation = useAddProtocoloMutation({ addProtocolo });
 
-  const handleSubmitForm = form.handleSubmit((args) => {
+  const handleValidFormSubmission = (args: ProtocoloRequest) => {
     addProtocoloMutation.mutate(args, {
       onSuccess: (response) => {
         uiNotification.success(
@@ -67,7 +67,18 @@ export function CreateProtocolo({
       },
       onError: (error) => uiNotification.error(error.message),
     });
-  });
+  };
+
+  const handleInvalidFormSubmission = () => {
+    uiNotification.error(
+      "Não foi possível criar a solicitação. Verifique os campos informados.",
+    );
+  };
+
+  const handleSubmitForm = form.handleSubmit(
+    handleValidFormSubmission,
+    handleInvalidFormSubmission,
+  );
 
   return (
     <PageContainer title="Solicitar Protocolo">
@@ -171,7 +182,7 @@ export function CreateProtocolo({
             </div>
           </Card>
 
-          <Button type="submit">Enviar</Button>
+          <EnviarButton />
         </form>
       </FormProvider>
     </PageContainer>
