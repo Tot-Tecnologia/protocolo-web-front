@@ -22,9 +22,10 @@ export function ListProtocolosTable({
   loadProtocoloList,
   loadTiposDocumentoList,
 }: ListProtocolosTableProps) {
-  const { paginaAtual, ano, tipoDocumento, numeroProtocolo } = useSearch({
-    from: LIST_PROTOCOLOS_ROUTE_URL,
-  });
+  const { paginaAtual, ano, tipoDocumento, numeroProtocolo, cpfCnpj } =
+    useSearch({
+      from: LIST_PROTOCOLOS_ROUTE_URL,
+    });
 
   const [token] = useAccessToken();
 
@@ -39,6 +40,7 @@ export function ListProtocolosTable({
         ano: ano,
         tipoDocumento: tipoDocumentoParsed,
         numeroProtocolo: numeroProtocolo,
+        cpfCnpj: cpfCnpj,
       }),
     },
     loadProtocoloList: loadProtocoloList,
