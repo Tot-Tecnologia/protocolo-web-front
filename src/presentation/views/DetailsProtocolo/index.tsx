@@ -1,5 +1,9 @@
 import { useParams } from "@tanstack/react-router";
-import { LoadProtocoloDetails } from "@/domain/usecases";
+import {
+  AddDocumentosToProtocolo,
+  LoadProtocoloDetails,
+  UiNotification,
+} from "@/domain/usecases";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import {
@@ -15,10 +19,14 @@ import { ArquivosTable } from "./common/components/ArquivosTable";
 
 type DetailsProtocoloProps = {
   loadProtocoloDetails: LoadProtocoloDetails;
+  addDocumentosToProtocolo: AddDocumentosToProtocolo;
+  uiNotification: UiNotification;
 };
 
 export function DetailsProtocolo({
   loadProtocoloDetails,
+  addDocumentosToProtocolo,
+  uiNotification,
 }: DetailsProtocoloProps) {
   const [token] = useAccessToken();
 
@@ -42,7 +50,11 @@ export function DetailsProtocolo({
             <HistoricoAtualizacoesTable />
             <GuiasPagamentoTable />
             <ArquivosTable protocolo={data} />
-            <ComplementarCard />
+            <ComplementarCard
+              addDocumentosToProtocolo={addDocumentosToProtocolo}
+              protocolo={data}
+              uiNotification={uiNotification}
+            />
           </>
         )}
 

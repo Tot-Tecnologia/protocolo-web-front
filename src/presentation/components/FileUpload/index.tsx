@@ -1,35 +1,34 @@
-import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
-import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
-import { useState } from "react";
+import { FieldValues, Path, useFormContext, useWatch } from "react-hook-form";
+import { BaseInput, BaseInputProps } from "@/presentation/components/BaseInput";
 
-type FileUploadProps = Omit<
+type FileUploadProps<TFieldValues extends FieldValues = FieldValues> = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "type"
 > &
   Omit<
     BaseInputProps<React.InputHTMLAttributes<HTMLInputElement>>,
     "Component"
-  >;
+  > & {
+    name: Path<TFieldValues>;
+  };
 
-function FileUploadComponent({
+function FileUploadComponent<TFieldValues extends FieldValues = FieldValues>({
   name,
   ...props
-}: React.InputHTMLAttributes<HTMLInputElement>) {
+}: FileUploadProps<TFieldValues>) {
   const { setValue } = useFormContext();
-  const [files, setFiles] = useState<File[]>([]); // State to store uploaded files
+  const files = useWatch<TFieldValues, typeof name>({ name: name }) as File[];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
     const newFiles = [...files, ...selectedFiles];
-    setFiles(newFiles);
-    setValue(name!, newFiles);
+    setValue(name, newFiles as never);
   };
 
   const handleFileRemove = (index: number) => {
     const updatedFiles = files.filter((_, fileIndex) => fileIndex !== index);
-    setFiles(updatedFiles);
-    setValue(name!, updatedFiles); // Update form value
+    setValue(name, updatedFiles as never);
   };
 
   return (
@@ -78,10 +77,12 @@ function FileUploadComponent({
   );
 }
 
-export function FileUpload(props: FileUploadProps) {
+export function FileUpload<TFieldValues extends FieldValues = FieldValues>(
+  props: FileUploadProps<TFieldValues>,
+) {
   return (
     <BaseInput<React.InputHTMLAttributes<HTMLInputElement>>
-      Component={FileUploadComponent}
+      Component={FileUploadComponent as never}
       {...props}
       className={clsx(
         "w-full !text-sm file:rounded file:bg-gray-200 file:px-3 file:py-1",
