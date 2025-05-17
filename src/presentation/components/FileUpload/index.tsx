@@ -21,8 +21,9 @@ function FileUploadComponent({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-    setValue(name!, selectedFiles); // Setting value in form
+    const newFiles = [...files, ...selectedFiles];
+    setFiles(newFiles);
+    setValue(name!, newFiles);
   };
 
   const handleFileRemove = (index: number) => {
