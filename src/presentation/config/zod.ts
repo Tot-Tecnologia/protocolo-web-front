@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const customErrorMap: z.ZodErrorMap = (error, ctx) => {
-  console.log(error); // TODO: remover
   switch (error.code) {
     case z.ZodIssueCode.invalid_type:
       if (["undefined", "null"].includes(error.received)) {
