@@ -15,7 +15,10 @@ import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl"
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
-import { phoneMask } from "@/presentation/utils/inputMasks";
+import {
+  changeCpfCnpjEventHandler,
+  phoneMask,
+} from "@/presentation/utils/inputMasks";
 import { cepMask } from "@/presentation/utils/inputMasks/cepMask";
 import { estadosBR } from "@/data/constants/estadosBR";
 import { OneLargeOneSmallInputsContainer } from "./common/components/OneLargeOneSmallInputsContainer";
@@ -69,11 +72,10 @@ export function CreateProtocolo({
     });
   };
 
-  const handleInvalidFormSubmission = () => {
+  const handleInvalidFormSubmission = () =>
     uiNotification.error(
       "Não foi possível criar a solicitação. Verifique os campos informados.",
     );
-  };
 
   const handleSubmitForm = form.handleSubmit(
     handleValidFormSubmission,
@@ -90,6 +92,7 @@ export function CreateProtocolo({
                 name="cpfCnpj"
                 label="Número CPF/CNPJ"
                 containerClassName="w-full"
+                onChange={changeCpfCnpjEventHandler}
               />
 
               <Input<ProtocoloRequest>
@@ -178,7 +181,7 @@ export function CreateProtocolo({
                 placeholder="Descreva em detalhes sua solicitação"
               />
 
-              <FileUpload name="arquivos" label="Enviar arquivo" />
+              <FileUpload name="documentos" label="Enviar arquivo" />
             </div>
           </Card>
 

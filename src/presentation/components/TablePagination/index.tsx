@@ -6,7 +6,7 @@ import {
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
 import { ArrowRightIcon } from "@/presentation/icons/ArrowRightIcon";
 
-type TablePaginationProps = PaginationProps;
+export type TablePaginationProps = PaginationProps;
 
 export function TablePagination(props: TablePaginationProps) {
   const pagination = usePagination(props);

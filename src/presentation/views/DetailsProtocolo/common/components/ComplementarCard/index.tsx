@@ -8,9 +8,10 @@ import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 export function ComplementarCard() {
   const form = useFormWithZod({
     schema: z.object({
-      arquivos: z.array(z.any()),
+      documentos: z.array(z.any()),
     }),
   });
+
   return (
     <Card title="Complementar solicitação">
       <form className="flex flex-col gap-y-4">

@@ -14,7 +14,7 @@ export type AddProtocoloArgs = {
   descricao: string;
   cidade: string;
   tipoDocumento: number;
-  arquivos: File[];
+  documentos: File[];
 };
 
 export type AddProtocoloResponse = {
@@ -35,7 +35,7 @@ export type AddProtocoloResponse = {
   tipoDocumentoTexto: string;
   tipoDocumentoId: number;
   status: ProtocoloStatus;
-  arquivos: Array<{
+  documentos: Array<{
     id: number;
     nome: string;
   }>;

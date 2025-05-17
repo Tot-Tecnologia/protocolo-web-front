@@ -16,7 +16,7 @@ export type ProtocoloRequest = {
   descricao: string;
   cidade: string;
   tipoDocumento: number;
-  arquivos: File[];
+  documentos: File[];
 };
 
 export const protocoloRequestValidationSchema: z.Schema<ProtocoloRequest> =
@@ -40,7 +40,7 @@ export const protocoloRequestValidationSchema: z.Schema<ProtocoloRequest> =
     descricao: z.string(),
     cidade: z.string().min(1, "Obrigatório"),
     tipoDocumento: z.coerce.number().gt(0, "Obrigatório"),
-    arquivos: z.array(z.any()),
+    documentos: z.array(z.any()),
   });
 
 export const protocoloRequestDefaultValues: ProtocoloRequest = {
@@ -57,5 +57,5 @@ export const protocoloRequestDefaultValues: ProtocoloRequest = {
   descricao: "",
   cidade: "",
   tipoDocumento: null as never,
-  arquivos: [],
+  documentos: [],
 };
