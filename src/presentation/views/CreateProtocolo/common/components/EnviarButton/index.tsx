@@ -5,7 +5,11 @@ import {
   protocoloRequestValidationSchema,
 } from "../../validation/createProtocoloValidationSchema";
 
-export function EnviarButton() {
+type EnviarButtonProps = {
+  loading: boolean;
+};
+
+export function EnviarButton({ loading }: EnviarButtonProps) {
   const formValues = useWatch<ProtocoloRequest>();
 
   const { success: isFormValuesValid } =
@@ -20,7 +24,12 @@ export function EnviarButton() {
       }
       className="w-full"
     >
-      <Button type="submit" disabled={!isFormValuesValid} className="w-full">
+      <Button
+        className="w-full"
+        type="submit"
+        disabled={!isFormValuesValid}
+        loading={loading}
+      >
         Enviar
       </Button>
     </span>

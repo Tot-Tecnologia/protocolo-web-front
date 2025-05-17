@@ -185,7 +185,7 @@ export function CreateProtocolo({
             </div>
           </Card>
 
-          <EnviarButton />
+          <EnviarButton loading={addProtocoloMutation.isPending} />
         </form>
       </FormProvider>
     </PageContainer>
