@@ -38,6 +38,7 @@ export type AddProtocoloResponse = {
   documentos: Array<{
     id: number;
     nome: string;
+    dataCriacao: string;
   }>;
 };
 

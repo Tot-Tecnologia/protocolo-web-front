@@ -16,6 +16,14 @@ export const columns = [
     header: "Nome documento",
   }),
 
+  columnHelper.accessor("dataCriacao", {
+    header: "Data de envio",
+    cell: (info) =>
+      info.getValue()?.length
+        ? new Date(info.getValue()).toLocaleDateString()
+        : "",
+  }),
+
   columnHelper.display({
     id: ACTIONS_COLUMN_ID,
     cell: () => (
