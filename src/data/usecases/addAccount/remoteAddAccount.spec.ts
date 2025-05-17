@@ -1,9 +1,9 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
 import { UnexpectedError, ValidationError } from "@/domain/errors";
-import { ProtocoloWebDefaultResponse } from "@/domain/models";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockAddAccountArgs } from "@/tests/domain/mocks";
+import { mockProtocoloWebErrorResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
 import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
 import { UserCredential } from "firebase/auth";
@@ -23,15 +23,6 @@ const { mockedSignInWithEmailAndPassword, mockedSendEmailVerification } =
 
     return { mockedSignInWithEmailAndPassword, mockedSendEmailVerification };
   });
-
-const mockProtocoloWebErrorResponse = (
-  statusCode: HttpStatusCode,
-): ProtocoloWebDefaultResponse => ({
-  codigo: statusCode,
-  mensagem: faker.lorem.sentence(),
-  dataHora: faker.date.anytime().toISOString(),
-  status: faker.lorem.word(),
-});
 
 const makeSut = () => {
   const url = faker.internet.url();
@@ -89,13 +80,13 @@ describe("RemoteAddAccount", () => {
 
     httpClientSpy.response = {
       body: errorResponse,
-      statusCode: errorResponse.codigo,
+      statusCode: errorResponse.statusCode,
     };
 
     const promise = sut.signUp(mockAddAccountArgs());
 
     await expect(promise).rejects.toThrowError(
-      new ValidationError({ message: errorResponse.mensagem }),
+      new ValidationError({ messages: errorResponse.errors }),
     );
   });
 

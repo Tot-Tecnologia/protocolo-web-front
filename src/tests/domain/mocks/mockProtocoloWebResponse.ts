@@ -1,17 +1,19 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
 import {
-  ProtocoloWebDefaultResponse,
+  ProtocoloWebErrorResponse,
   ProtocoloWebPaginationResponse,
 } from "@/domain/models";
 import { faker } from "@faker-js/faker";
 
-export const mockProtocoloWebDefaultResponse = (
+export const mockProtocoloWebErrorResponse = (
   statusCode: HttpStatusCode = HttpStatusCode.ok,
-): ProtocoloWebDefaultResponse => ({
-  codigo: statusCode,
-  mensagem: faker.lorem.sentence(),
-  dataHora: faker.date.anytime().toISOString(),
-  status: faker.lorem.word(),
+): ProtocoloWebErrorResponse => ({
+  statusCode: statusCode,
+  errors: faker.helpers.multiple(() => ({
+    message: faker.lorem.sentence(),
+    field: faker.lorem.word(),
+  })),
+  dateTime: faker.date.anytime().toISOString(),
 });
 
 export const mockProtocoloWebPaginationResponse = <TData = unknown>(

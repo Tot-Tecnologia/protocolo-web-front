@@ -5,7 +5,10 @@ import { ACTIONS_COLUMN_ID } from "@/presentation/constants/tableColumnIds";
 import { ListProtocolosActionsColumn } from "../ListProtocolosActionsColumn";
 import { LoadProtocoloListResponseData } from "@/domain/usecases";
 import { TipoDocumentoModel } from "@/domain/models";
-import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
+import {
+  ProtocoloStatus,
+  ProtocoloStatusEnumDescription,
+} from "@/data/constants/protocoloStatusEnum";
 
 type IUseListProtocolosTableColumnsProps = {
   tipoDocumentoList: TipoDocumentoModel[] | undefined;
@@ -56,11 +59,11 @@ export function useListProtocolosTableColumns({
         header: "Data da solicitação",
       },
     ),
-    columnHelper.accessor("statusEnum", {
+    columnHelper.accessor("status", {
       header: "Status",
-      cell: ({ row }) => (
-        <Badge color={getColor(row.original.statusEnum)}>
-          {row.original.statusTexto}
+      cell: (info) => (
+        <Badge color={getColor(info.getValue())}>
+          {ProtocoloStatusEnumDescription[info.getValue()]}
         </Badge>
       ),
     }),

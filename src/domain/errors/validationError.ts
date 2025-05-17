@@ -1,11 +1,19 @@
+type ErrorMessage = {
+  field: string;
+  message: string;
+};
+
 type ValidationErrorArgs = {
-  message?: string;
+  messages?: ErrorMessage[];
 };
 
 export class ValidationError extends Error {
-  constructor({ message = "" }: ValidationErrorArgs = {}) {
-    if (message.length) {
-      super(message);
+  public messages: ErrorMessage[] | undefined;
+
+  constructor({ messages }: ValidationErrorArgs = {}) {
+    if (messages?.length) {
+      super(messages.map((message) => message.message).join(". "));
+      this.messages = messages;
     } else {
       const unexpectedMessage = "Erro de validação desconhecido.";
       super(unexpectedMessage);

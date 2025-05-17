@@ -15,8 +15,7 @@ export type LoadProtocoloListResponseData = {
   numeroProtocolo: string;
   tipoDocumento: number;
   dataSolicitacao: string;
-  statusEnum: ProtocoloStatus;
-  statusTexto: string;
+  status: ProtocoloStatus;
 };
 
 export type LoadProtocoloListResponse =

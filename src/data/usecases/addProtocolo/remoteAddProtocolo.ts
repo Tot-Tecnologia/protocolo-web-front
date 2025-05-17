@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
-import { ProtocoloWebDefaultResponse } from "@/domain/models";
+import { ProtocoloWebErrorResponse } from "@/domain/models";
 import {
   AddProtocolo,
   AddProtocoloArgs,
@@ -19,7 +19,7 @@ export class RemoteAddProtocolo implements AddProtocolo {
     token: string,
   ): Promise<AddProtocoloResponse> {
     const httpResponse = await this.httpClient.request<
-      ProtocoloWebDefaultResponse | AddProtocoloResponse
+      ProtocoloWebErrorResponse | AddProtocoloResponse
     >({
       url: this.url,
       method: "post",
@@ -36,10 +36,10 @@ export class RemoteAddProtocolo implements AddProtocolo {
       }
 
       case HttpStatusCode.badRequest: {
-        const errorResponse = httpResponse.body as ProtocoloWebDefaultResponse;
-        const message = errorResponse?.mensagem;
-        if (message != null) {
-          throw new ValidationError({ message: message });
+        const errorResponse = httpResponse.body as ProtocoloWebErrorResponse;
+        const errors = errorResponse?.errors;
+        if (errors != null) {
+          throw new ValidationError({ messages: errors });
         }
         throw new UnexpectedError();
       }

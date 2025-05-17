@@ -21,15 +21,8 @@ export type ProtocoloRequest = {
 
 export const protocoloRequestValidationSchema: z.Schema<ProtocoloRequest> =
   z.object({
-    cpfCnpj: z
-      .string()
-      .min(1, "Obrigatório")
-      .regex(CPF_CNPJ_REGEXP)
-      .transform((input) => input.replace(/\D/g, "")),
-    telefone: z
-      .string()
-      .min(1, "Obrigatório")
-      .transform((input) => input.replace(/\D/g, "")),
+    cpfCnpj: z.string().min(1, "Obrigatório").regex(CPF_CNPJ_REGEXP),
+    telefone: z.string().min(1, "Obrigatório"),
     nomeSolicitante: z.string().min(1, "Obrigatório"),
     email: z.string().email(),
     logradouro: z.string().min(1, "Obrigatório"),

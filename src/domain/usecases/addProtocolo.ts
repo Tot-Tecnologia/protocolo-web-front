@@ -1,3 +1,5 @@
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
+
 export type AddProtocoloArgs = {
   cpfCnpj: string;
   telefone: string;
@@ -32,8 +34,7 @@ export type AddProtocoloResponse = {
   cidade: string;
   tipoDocumentoTexto: string;
   tipoDocumentoId: number;
-  statusTexto: string;
-  statusEnum: string;
+  status: ProtocoloStatus;
   arquivos: Array<{
     id: number;
     nome: string;
