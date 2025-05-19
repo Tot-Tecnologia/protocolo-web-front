@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
-import { ProtocoloWebDefaultResponse } from "@/domain/models";
+import { ProtocoloWebErrorResponse } from "@/domain/models";
 import { AddAccount, AddAccountArgs } from "@/domain/usecases";
 import {
   Auth,
@@ -18,7 +18,7 @@ export class RemoteAddAccount implements AddAccount {
 
   async signUp(args: AddAccountArgs): Promise<void> {
     const httpResponse =
-      await this.httpClient.request<ProtocoloWebDefaultResponse | void>({
+      await this.httpClient.request<ProtocoloWebErrorResponse | void>({
         url: this.url,
         method: "post",
         body: args,
@@ -36,10 +36,10 @@ export class RemoteAddAccount implements AddAccount {
       }
 
       case HttpStatusCode.badRequest: {
-        const errorResponse = httpResponse.body as ProtocoloWebDefaultResponse;
-        const message = errorResponse?.mensagem;
-        if (message != null) {
-          throw new ValidationError({ message: message });
+        const errorResponse = httpResponse.body as ProtocoloWebErrorResponse;
+        const errors = errorResponse?.errors;
+        if (errors != null) {
+          throw new ValidationError({ messages: errors });
         }
         throw new UnexpectedError();
       }

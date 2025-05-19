@@ -4,7 +4,10 @@ import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { Select } from "@/presentation/components/Select";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
-import { onlyDigitsHandler } from "@/presentation/utils/inputMasks";
+import {
+  changeCpfCnpjEventHandler,
+  onlyDigitsHandler,
+} from "@/presentation/utils/inputMasks";
 import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import {
   listProtocolosFilterDefaultValues,
@@ -62,11 +65,15 @@ export function ListProtocolosFilter({
     if (isNumeroProtocoloFilled) {
       const ano = getValues("ano");
       const tipoDocumento = getValues("tipoDocumento");
+      const cpfCnpj = getValues("cpfCnpj");
       if (ano != null && ano.toString().length > 0) {
         setValue("ano", null);
       }
       if (tipoDocumento != null && tipoDocumento.toString().length > 0) {
         setValue("tipoDocumento", null);
+      }
+      if (cpfCnpj != null && cpfCnpj.toString().length > 0) {
+        setValue("cpfCnpj", null);
       }
     }
   }, [getValues, isNumeroProtocoloFilled, setValue]);
@@ -75,7 +82,7 @@ export function ListProtocolosFilter({
     <FormProvider {...form}>
       <form
         onSubmit={handleSubmitForm}
-        className="grid items-end gap-4 md:grid-cols-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto_auto]"
+        className="grid items-end gap-4 md:grid-cols-3 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.3fr)_minmax(0,0.6fr)_minmax(0,1fr)_auto_auto]"
       >
         <Input<ListProtocolosFilterDto>
           name="numeroProtocolo"
@@ -86,6 +93,13 @@ export function ListProtocolosFilter({
           name="ano"
           label="Ano"
           onChange={onlyDigitsHandler}
+          disabled={isNumeroProtocoloFilled}
+        />
+
+        <Input<ListProtocolosFilterDto>
+          name="cpfCnpj"
+          label="CPF/CNPJ"
+          onChange={changeCpfCnpjEventHandler}
           disabled={isNumeroProtocoloFilled}
         />
 

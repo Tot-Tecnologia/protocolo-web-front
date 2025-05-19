@@ -1,74 +1,37 @@
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
-import { RemoteAddAccount } from "@/data/usecases/addAccount/remoteAddAccount";
+import { RemoteAddDocumentosToProtocolo } from "@/data/usecases/addDocumentosToProtocolo/remoteAddDocumentosToProtocolo";
 import { UnexpectedError, ValidationError } from "@/domain/errors";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
-import { mockAddAccountArgs } from "@/tests/domain/mocks";
+import { mockAddDocumentosToProtocoloArgs } from "@/tests/domain/mocks";
 import { mockProtocoloWebErrorResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
-import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
-import { UserCredential } from "firebase/auth";
-
-const { mockedSignInWithEmailAndPassword, mockedSendEmailVerification } =
-  vi.hoisted(() => {
-    const mockedSignInWithEmailAndPassword = vi.fn(
-      (): DeepPartial<UserCredential> => ({
-        user: {
-          getIdToken: () => Promise.resolve(faker.string.uuid()),
-          emailVerified: true,
-        },
-      }),
-    );
-
-    const mockedSendEmailVerification = vi.fn();
-
-    return { mockedSignInWithEmailAndPassword, mockedSendEmailVerification };
-  });
 
 const makeSut = () => {
   const url = faker.internet.url();
   const httpClientSpy = new HttpClientSpy();
-  const auth = null as never;
 
   httpClientSpy.response = {
     body: {} as never,
-    statusCode: HttpStatusCode.created,
+    statusCode: HttpStatusCode.ok,
   };
 
-  const sut = new RemoteAddAccount(url, httpClientSpy, auth);
+  const sut = new RemoteAddDocumentosToProtocolo(url, httpClientSpy);
 
   return { sut, url, httpClientSpy };
 };
 
-vi.mock("firebase/auth", () => {
-  return {
-    signInWithEmailAndPassword: mockedSignInWithEmailAndPassword,
-    sendEmailVerification: mockedSendEmailVerification,
-  };
-});
-
-beforeEach(() => {
-  vi.resetAllMocks();
-});
-
-describe("RemoteAddAccount", () => {
+describe("RemoteAddDocumentosToProtocolo", () => {
   test("should call HttpClient with correct values", async () => {
     const { sut, url, httpClientSpy } = makeSut();
 
-    const addAccountArgs = mockAddAccountArgs();
+    const addDocumentosToProtocoloArgs = mockAddDocumentosToProtocoloArgs();
+    const { idProtocolo, ...args } = addDocumentosToProtocoloArgs;
 
-    await sut.signUp(addAccountArgs);
+    await sut.add(addDocumentosToProtocoloArgs, "");
 
-    expect(httpClientSpy.url).toBe(url);
-    expect(httpClientSpy.method).toBe("post");
-    expect(httpClientSpy.body).toBe(addAccountArgs);
-  });
-
-  test("should send email verification from firebase on success", async () => {
-    const { sut } = makeSut();
-
-    await sut.signUp(mockAddAccountArgs());
-
-    expect(mockedSignInWithEmailAndPassword).toHaveBeenCalledOnce();
+    expect(httpClientSpy.url).toBe(`${url}/${idProtocolo}`);
+    expect(httpClientSpy.method).toBe("patch");
+    expect(httpClientSpy.body).toEqual(args);
   });
 
   test("should throw ValidationError if HttpClient returns 400 with message", async () => {
@@ -83,7 +46,7 @@ describe("RemoteAddAccount", () => {
       statusCode: errorResponse.statusCode,
     };
 
-    const promise = sut.signUp(mockAddAccountArgs());
+    const promise = sut.add(mockAddDocumentosToProtocoloArgs(), "");
 
     await expect(promise).rejects.toThrowError(
       new ValidationError({ messages: errorResponse.errors }),
@@ -98,7 +61,7 @@ describe("RemoteAddAccount", () => {
       statusCode: HttpStatusCode.badRequest,
     };
 
-    const promise = sut.signUp(mockAddAccountArgs());
+    const promise = sut.add(mockAddDocumentosToProtocoloArgs(), "");
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -111,7 +74,7 @@ describe("RemoteAddAccount", () => {
       statusCode: HttpStatusCode.serverError,
     };
 
-    const promise = sut.signUp(mockAddAccountArgs());
+    const promise = sut.add(mockAddDocumentosToProtocoloArgs(), "");
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });

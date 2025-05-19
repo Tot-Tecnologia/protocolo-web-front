@@ -3,27 +3,30 @@ import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
 import { ProtocoloWebErrorResponse } from "@/domain/models";
 import {
-  AddProtocolo,
-  AddProtocoloArgs,
-  AddProtocoloResponse,
+  AddDocumentosToProtocolo,
+  AddDocumentosToProtocoloArgs,
+  AddDocumentosToProtocoloResponse,
 } from "@/domain/usecases";
 
-export class RemoteAddProtocolo implements AddProtocolo {
+export class RemoteAddDocumentosToProtocolo
+  implements AddDocumentosToProtocolo
+{
   constructor(
     private readonly url: string,
     private readonly httpClient: HttpClient,
   ) {}
 
-  async save(
-    args: AddProtocoloArgs,
+  async add(
+    args: AddDocumentosToProtocoloArgs,
     token: string,
-  ): Promise<AddProtocoloResponse> {
+  ): Promise<AddDocumentosToProtocoloResponse> {
+    const { idProtocolo, ...body } = args;
     const httpResponse = await this.httpClient.request<
-      ProtocoloWebErrorResponse | AddProtocoloResponse
+      ProtocoloWebErrorResponse | AddDocumentosToProtocoloResponse
     >({
-      url: this.url,
-      method: "post",
-      body: args,
+      url: `${this.url}/${idProtocolo}`,
+      method: "patch",
+      body: body,
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
@@ -31,8 +34,8 @@ export class RemoteAddProtocolo implements AddProtocolo {
     });
 
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.created: {
-        return httpResponse.body as AddProtocoloResponse;
+      case HttpStatusCode.ok: {
+        return httpResponse.body as AddDocumentosToProtocoloResponse;
       }
 
       case HttpStatusCode.badRequest: {

@@ -3,7 +3,7 @@ import { RemoteAddProtocolo } from "@/data/usecases/addProtocolo/remoteAddProtoc
 import { UnexpectedError, ValidationError } from "@/domain/errors";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockAddProtocoloArgs } from "@/tests/domain/mocks";
-import { mockProtocoloWebDefaultResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
+import { mockProtocoloWebErrorResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
 import { faker } from "@faker-js/faker";
 
 const makeSut = () => {
@@ -36,19 +36,19 @@ describe("RemoteAddProtocolo", () => {
   test("should throw ValidationError if HttpClient returns 400 with message", async () => {
     const { sut, httpClientSpy } = makeSut();
 
-    const errorResponse = mockProtocoloWebDefaultResponse(
+    const errorResponse = mockProtocoloWebErrorResponse(
       HttpStatusCode.badRequest,
     );
 
     httpClientSpy.response = {
       body: errorResponse,
-      statusCode: errorResponse.codigo,
+      statusCode: errorResponse.statusCode,
     };
 
     const promise = sut.save(mockAddProtocoloArgs(), "");
 
     await expect(promise).rejects.toThrowError(
-      new ValidationError({ message: errorResponse.mensagem }),
+      new ValidationError({ messages: errorResponse.errors }),
     );
   });
 

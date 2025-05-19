@@ -1,5 +1,6 @@
 import { Card } from "@/presentation/components/Card";
 import { LoadProtocoloDetailsResponse } from "@/domain/usecases";
+import { ProtocoloStatusEnumDescription } from "@/data/constants/protocoloStatusEnum";
 
 type InformacoesCardProps = {
   protocolo: LoadProtocoloDetailsResponse | undefined;
@@ -18,16 +19,12 @@ export function InformacoesCard({ protocolo }: InformacoesCardProps) {
             <b>Número</b>: {protocolo.numeroProtocolo}
           </p>
           <p>
-            <b>Situação</b>: {protocolo.statusTexto}
+            <b>Situação</b>: {ProtocoloStatusEnumDescription[protocolo.status]}
           </p>
         </div>
 
         <p>
           <b>Tipo</b>: {protocolo.tipoDocumentoTexto}
-        </p>
-
-        <p>
-          <b>Órgão responsável</b>: - {/* TODO */}
         </p>
 
         <p>

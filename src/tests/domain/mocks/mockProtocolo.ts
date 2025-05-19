@@ -6,6 +6,7 @@ import {
   LoadProtocoloDetailsArgs,
   LoadProtocoloDetailsResponse,
 } from "@/domain/usecases";
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
 
 export const mockLoadProtocoloListArgs = (): LoadProtocoloListArgs => ({
   paginaAtual: faker.number.int(),
@@ -28,7 +29,7 @@ export const mockLoadProtocoloDetailsResponse =
     cidade: faker.person.fullName(),
     complemento: faker.lorem.word(),
     cpfCnpj: faker.string.numeric({ allowLeadingZeros: true, length: 11 }),
-    arquivos: [{ id: faker.number.int(), nome: faker.lorem.words() }],
+    documentos: [{ id: faker.number.int(), nome: faker.lorem.words() }],
     descricao: faker.lorem.paragraph(),
     email: faker.internet.email(),
     estado: faker.helpers.arrayElement(estadosBR),
@@ -38,8 +39,7 @@ export const mockLoadProtocoloDetailsResponse =
     telefone: faker.string.numeric({ length: 11 }),
     tipoDocumentoId: faker.number.int(),
     tipoDocumentoTexto: faker.person.fullName(),
-    statusEnum: faker.lorem.word(),
-    statusTexto: faker.person.fullName(),
+    status: faker.helpers.arrayElement(Object.values(ProtocoloStatus)),
     numeroProtocolo: faker.lorem.word(),
   });
 

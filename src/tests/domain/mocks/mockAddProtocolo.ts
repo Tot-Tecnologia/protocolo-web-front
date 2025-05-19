@@ -15,6 +15,6 @@ export const mockAddProtocoloArgs = (): AddProtocoloArgs => ({
   complemento: faker.lorem.words({ min: 1, max: 3 }),
   descricao: faker.lorem.paragraph(),
   tipoDocumento: faker.number.int(),
-  arquivos: [], // TODO
+  documentos: [], // TODO
   estado: faker.helpers.arrayElement(estadosBR),
 });

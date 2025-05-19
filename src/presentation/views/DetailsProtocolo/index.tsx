@@ -1,5 +1,9 @@
 import { useParams } from "@tanstack/react-router";
-import { LoadProtocoloDetails } from "@/domain/usecases";
+import {
+  AddDocumentosToProtocolo,
+  LoadProtocoloDetails,
+  UiNotification,
+} from "@/domain/usecases";
 import { PageContainer } from "@/presentation/components/PageContainer";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import {
@@ -10,14 +14,19 @@ import { InformacoesCard } from "./common/components/InformacoesCard";
 import { HistoricoAtualizacoesTable } from "./common/components/HistoricoAtualizacoesTable";
 import { GuiasPagamentoTable } from "./common/components/GuiasPagamentoTable";
 import { useProtocoloDetailsQuery } from "./common/hooks/useProtocoloDetailsQuery";
-import { ComplementarCard } from "@/presentation/views/DetailsProtocolo/common/components/ComplementarCard";
+import { ComplementarCard } from "./common/components/ComplementarCard";
+import { ArquivosTable } from "./common/components/ArquivosTable";
 
 type DetailsProtocoloProps = {
   loadProtocoloDetails: LoadProtocoloDetails;
+  addDocumentosToProtocolo: AddDocumentosToProtocolo;
+  uiNotification: UiNotification;
 };
 
 export function DetailsProtocolo({
   loadProtocoloDetails,
+  addDocumentosToProtocolo,
+  uiNotification,
 }: DetailsProtocoloProps) {
   const [token] = useAccessToken();
 
@@ -40,7 +49,12 @@ export function DetailsProtocolo({
             <InformacoesCard protocolo={data} />
             <HistoricoAtualizacoesTable />
             <GuiasPagamentoTable />
-            <ComplementarCard />
+            <ArquivosTable protocolo={data} />
+            <ComplementarCard
+              addDocumentosToProtocolo={addDocumentosToProtocolo}
+              protocolo={data}
+              uiNotification={uiNotification}
+            />
           </>
         )}
 

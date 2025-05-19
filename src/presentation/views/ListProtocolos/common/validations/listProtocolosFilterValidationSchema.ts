@@ -8,10 +8,15 @@ export const listProtocolosFilterValidationSchema: z.Schema<ListProtocolosFilter
     numeroProtocolo: z.string().nullish(),
     ano: z.coerce.number().nullish(),
     tipoDocumento: z.number().nullish(),
+    cpfCnpj: z
+      .string()
+      .nullish()
+      .transform((input) => input?.replace(/\D/g, "")),
   });
 
 export const listProtocolosFilterDefaultValues: ListProtocolosFilterDto = {
   ano: null,
   numeroProtocolo: null,
   tipoDocumento: null,
+  cpfCnpj: null,
 };
