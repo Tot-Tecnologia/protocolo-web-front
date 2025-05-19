@@ -29,7 +29,13 @@ export const mockLoadProtocoloDetailsResponse =
     cidade: faker.person.fullName(),
     complemento: faker.lorem.word(),
     cpfCnpj: faker.string.numeric({ allowLeadingZeros: true, length: 11 }),
-    documentos: [{ id: faker.number.int(), nome: faker.lorem.words() }],
+    documentos: [
+      {
+        id: faker.number.int(),
+        nome: faker.lorem.words(),
+        dataCriacao: faker.date.anytime().toISOString(),
+      },
+    ],
     descricao: faker.lorem.paragraph(),
     email: faker.internet.email(),
     estado: faker.helpers.arrayElement(estadosBR),
