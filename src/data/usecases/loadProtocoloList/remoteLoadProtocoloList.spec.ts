@@ -63,6 +63,7 @@ describe("RemoteLoadProtocoloList", () => {
       statusEnum: ProtocoloStatus.ABERTO,
       statusTexto: faker.lorem.word(),
       tipoDocumento: faker.number.int(),
+      status: faker.helpers.arrayElement(Object.values(ProtocoloStatus)),
     }));
 
     const responseBody = mockProtocoloWebPaginationResponse(data);
