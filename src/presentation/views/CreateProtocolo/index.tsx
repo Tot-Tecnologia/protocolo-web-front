@@ -86,7 +86,7 @@ export function CreateProtocolo({
     <PageContainer title="Solicitar Protocolo">
       <FormProvider {...form}>
         <form onSubmit={handleSubmitForm} className="flex flex-col gap-y-6">
-          <Card title="Informações do solicitante">
+          <Card title="Informações do solicitante" detail="(*) Campos obrigatórios">
             <div className="flex flex-wrap gap-y-6">
               <Input<ProtocoloRequest>
                 name="cpfCnpj"
