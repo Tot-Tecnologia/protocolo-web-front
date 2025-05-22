@@ -90,24 +90,24 @@ export function CreateProtocolo({
             <div className="flex flex-wrap gap-y-6">
               <Input<ProtocoloRequest>
                 name="cpfCnpj"
-                label="Número CPF/CNPJ"
+                label="Número CPF/CNPJ *"
                 containerClassName="w-full"
                 onChange={changeCpfCnpjEventHandler}
               />
 
               <Input<ProtocoloRequest>
                 name="nomeSolicitante"
-                label="Nome do solicitante"
+                label="Nome do solicitante *"
                 containerClassName="w-full"
               />
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="logradouro" label="Logradouro" />
-                <Input<ProtocoloRequest> name="numero" label="Número" />
+                <Input<ProtocoloRequest> name="logradouro" label="Logradouro *" />
+                <Input<ProtocoloRequest> name="numero" label="Número *" />
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="bairro" label="Nome do bairro" />
+                <Input<ProtocoloRequest> name="bairro" label="Nome do bairro *" />
                 <Input<ProtocoloRequest>
                   name="cep"
                   label="CEP"
@@ -117,10 +117,10 @@ export function CreateProtocolo({
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="cidade" label="Cidade" />
+                <Input<ProtocoloRequest> name="cidade" label="Cidade *" />
                 <Select<ProtocoloRequest>
                   name="estado"
-                  label="Estado"
+                  label="Estado *"
                   defaultValue="MG"
                 >
                   <option value="">Selecione</option>
@@ -135,14 +135,14 @@ export function CreateProtocolo({
               <OneLargeOneSmallInputsContainer>
                 <Input<ProtocoloRequest>
                   name="email"
-                  label="E-mail"
+                  label="E-mail *"
                   containerClassName="w-full"
                   placeholder="exemplo@gmail.com"
                   type="email"
                 />
                 <Input<ProtocoloRequest>
                   name="telefone"
-                  label="Celular"
+                  label="Celular *"
                   containerClassName="w-full"
                   placeholder="Ex: (34) 99123-4567"
                   type="tel"
@@ -163,7 +163,7 @@ export function CreateProtocolo({
             <div className="flex flex-wrap gap-x-5 gap-y-6 *:w-full">
               <Select<ProtocoloRequest>
                 name="tipoDocumento"
-                label="Tipo de solicitação"
+                label="Tipo de solicitação *"
                 valueAsNumber
               >
                 <option value="">Selecione uma opção</option>
