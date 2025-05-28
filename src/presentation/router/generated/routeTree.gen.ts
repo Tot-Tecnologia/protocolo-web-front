@@ -14,6 +14,7 @@ import { Route as rootRoute } from './../routes/__root'
 import { Route as SolicitarProtocoloImport } from './../routes/solicitarProtocolo'
 import { Route as RecuperarSenhaImport } from './../routes/recuperarSenha'
 import { Route as LoginImport } from './../routes/login'
+import { Route as ConsultarUsuariosImport } from './../routes/consultarUsuarios'
 import { Route as ConsultarProtocolosImport } from './../routes/consultarProtocolos'
 import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
@@ -36,6 +37,12 @@ const RecuperarSenhaRoute = RecuperarSenhaImport.update({
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConsultarUsuariosRoute = ConsultarUsuariosImport.update({
+  id: '/consultarUsuarios',
+  path: '/consultarUsuarios',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -89,6 +96,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsultarProtocolosImport
       parentRoute: typeof rootRoute
     }
+    '/consultarUsuarios': {
+      id: '/consultarUsuarios'
+      path: '/consultarUsuarios'
+      fullPath: '/consultarUsuarios'
+      preLoaderRoute: typeof ConsultarUsuariosImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -126,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
+  '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -136,6 +151,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
+  '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -147,6 +163,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
+  '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -159,6 +176,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cadastro'
     | '/consultarProtocolos'
+    | '/consultarUsuarios'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -168,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cadastro'
     | '/consultarProtocolos'
+    | '/consultarUsuarios'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -177,6 +196,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cadastro'
     | '/consultarProtocolos'
+    | '/consultarUsuarios'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -188,6 +208,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
   ConsultarProtocolosRoute: typeof ConsultarProtocolosRoute
+  ConsultarUsuariosRoute: typeof ConsultarUsuariosRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProtocoloRoute: typeof SolicitarProtocoloRoute
@@ -198,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
   ConsultarProtocolosRoute: ConsultarProtocolosRoute,
+  ConsultarUsuariosRoute: ConsultarUsuariosRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProtocoloRoute: SolicitarProtocoloRoute,
@@ -217,6 +239,7 @@ export const routeTree = rootRoute
         "/",
         "/cadastro",
         "/consultarProtocolos",
+        "/consultarUsuarios",
         "/login",
         "/recuperarSenha",
         "/solicitarProtocolo",
@@ -231,6 +254,9 @@ export const routeTree = rootRoute
     },
     "/consultarProtocolos": {
       "filePath": "consultarProtocolos.tsx"
+    },
+    "/consultarUsuarios": {
+      "filePath": "consultarUsuarios.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
