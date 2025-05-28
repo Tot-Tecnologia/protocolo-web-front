@@ -1,5 +1,6 @@
 import { LoadUsuarioListResponseData } from "@/domain/usecases/loadUsuariosList";
 import { Table } from "@/presentation/components/Table";
+import { TablePagination } from "@/presentation/components/TablePagination";
 import { useListUsuariosTableColumns } from "@/presentation/views/ListUsuarios/components/ListUsuariosTable/columns";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
@@ -26,8 +27,14 @@ export function ListUsuariosTable() {
     })
 
     return (
-        <>
+        <div className="grid gap-y-6 md:gap-y-2">
+
             <Table table={table} />
-        </>
+            <TablePagination
+                page={1}
+                onChange={() => { }}
+                total={2}
+            />
+        </div>
     );
 }
