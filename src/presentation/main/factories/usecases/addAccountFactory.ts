@@ -3,7 +3,22 @@ import { makeAxiosHttpClient } from "@/presentation/main/factories/http/axiosHtt
 import { firebaseAuth } from "@/infra/frameworks/firebase";
 
 export function makeAddAccount() {
+  return new RemoteAddAccount(
+    getFullUrl("/portal-cidadao/auth/registrar"),
+    makeAxiosHttpClient(),
+    firebaseAuth,
+  );
+}
+
+export function makeAddServidorAccount() {
+  return new RemoteAddAccount(
+    getFullUrl("/portal-cidadao/auth/registrar/servidor"),
+    makeAxiosHttpClient(),
+    firebaseAuth,
+  );
+}
+
+function getFullUrl(path: string) {
   const baseUrl = import.meta.env.VITE_PROTOCOLO_WEB_API_URL;
-  const fullUrl = baseUrl + "/portal-cidadao/auth/registrar";
-  return new RemoteAddAccount(fullUrl, makeAxiosHttpClient(), firebaseAuth);
+  return baseUrl + path;
 }
