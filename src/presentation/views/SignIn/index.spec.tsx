@@ -5,6 +5,7 @@ import { SignIn } from "@/presentation/views/SignIn";
 import { makeUiNotification } from "@/presentation/main/factories/usecases/uiNotificationFactory";
 import { renderWithProviders } from "@/tests/helpers/renderWithProviders";
 import userEvent, { UserEvent } from "@testing-library/user-event";
+import { UserDetailSpy } from "@/tests/domain/mocks/mockLoadUserDetail";
 
 type SimulateValidSubmitSignInArgs = {
   sut: typeof screen;
@@ -16,11 +17,13 @@ let mockLocalStorage: Record<string, string> = {};
 const makeSut = () => {
   const user = userEvent.setup();
   const authenticationSpy = new AuthenticationSpy();
+  const loadUserDetailSpy = new UserDetailSpy();
 
   renderWithProviders(
     <SignIn
       authentication={authenticationSpy}
       uiNotification={makeUiNotification()}
+      userDetail={loadUserDetailSpy}
     />,
   );
 
@@ -28,6 +31,7 @@ const makeSut = () => {
     sut: screen,
     user: user,
     authenticationSpy: authenticationSpy,
+    loadUserDetailSpy: loadUserDetailSpy,
   };
 };
 
@@ -94,8 +98,8 @@ describe("SignIn", () => {
     });
   });
 
-  test("should save accessToken locally on success", async () => {
-    const { sut, user, authenticationSpy } = makeSut();
+  test("should save accessToken and userType locally on success", async () => {
+    const { sut, user, authenticationSpy, loadUserDetailSpy } = makeSut();
 
     await simulateValidSubmitSignIn({ sut, user });
 
@@ -104,5 +108,12 @@ describe("SignIn", () => {
       "@ProtocoloWeb__Key=accessToken",
       JSON.stringify(authenticationSpy.accountModel.accessToken),
     );
+
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(global.Storage.prototype.setItem).toHaveBeenCalledWith(
+      "@ProtocoloWeb__Key=userType",
+      JSON.stringify(loadUserDetailSpy.userDetailModel.tipoUsuario)
+
+    )
   });
 });
