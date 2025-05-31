@@ -4,12 +4,15 @@ import {
   CREATE_PROTOCOLO_ROUTE_URL,
   LIST_PROTOCOLOS_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
+import { UserType } from "@/domain/models";
 
 type NavBarProps = {
   className?: string;
+  userType: string
 };
 
-export function NavBar({ className }: NavBarProps) {
+export function NavBar({ className, userType }: NavBarProps) {
+
   return (
     <nav
       className={clsx(
@@ -30,11 +33,11 @@ export function NavBar({ className }: NavBarProps) {
       <span className="block text-xs text-gray-400">MENU</span>
 
       <ul className="mt-3 flex w-62 flex-col gap-y-1">
-        <li>
+        {userType === UserType.CIDADAO ? <li>
           <NavLink to={CREATE_PROTOCOLO_ROUTE_URL} iconSrc="/pageIcon.svg">
             Solicitação
           </NavLink>
-        </li>
+        </li> : <></>}
 
         <li>
           <NavLink to={LIST_PROTOCOLOS_ROUTE_URL} iconSrc="/tableIcon.svg">

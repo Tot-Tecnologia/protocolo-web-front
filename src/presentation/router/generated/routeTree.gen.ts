@@ -14,7 +14,9 @@ import { Route as rootRoute } from './../routes/__root'
 import { Route as SolicitarProtocoloImport } from './../routes/solicitarProtocolo'
 import { Route as RecuperarSenhaImport } from './../routes/recuperarSenha'
 import { Route as LoginImport } from './../routes/login'
+import { Route as ConsultarUsuariosImport } from './../routes/consultarUsuarios'
 import { Route as ConsultarProtocolosImport } from './../routes/consultarProtocolos'
+import { Route as CadastroServidorImport } from './../routes/cadastroServidor'
 import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
 import { Route as ExibirProtocoloNumeroProtocoloImport } from './../routes/exibirProtocolo.$numeroProtocolo'
@@ -39,9 +41,21 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ConsultarUsuariosRoute = ConsultarUsuariosImport.update({
+  id: '/consultarUsuarios',
+  path: '/consultarUsuarios',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ConsultarProtocolosRoute = ConsultarProtocolosImport.update({
   id: '/consultarProtocolos',
   path: '/consultarProtocolos',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CadastroServidorRoute = CadastroServidorImport.update({
+  id: '/cadastroServidor',
+  path: '/cadastroServidor',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -82,11 +96,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CadastroImport
       parentRoute: typeof rootRoute
     }
+    '/cadastroServidor': {
+      id: '/cadastroServidor'
+      path: '/cadastroServidor'
+      fullPath: '/cadastroServidor'
+      preLoaderRoute: typeof CadastroServidorImport
+      parentRoute: typeof rootRoute
+    }
     '/consultarProtocolos': {
       id: '/consultarProtocolos'
       path: '/consultarProtocolos'
       fullPath: '/consultarProtocolos'
       preLoaderRoute: typeof ConsultarProtocolosImport
+      parentRoute: typeof rootRoute
+    }
+    '/consultarUsuarios': {
+      id: '/consultarUsuarios'
+      path: '/consultarUsuarios'
+      fullPath: '/consultarUsuarios'
+      preLoaderRoute: typeof ConsultarUsuariosImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -125,7 +153,9 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
+  '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -135,7 +165,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
+  '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -146,7 +178,9 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
+  '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -158,7 +192,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cadastro'
+    | '/cadastroServidor'
     | '/consultarProtocolos'
+    | '/consultarUsuarios'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -167,7 +203,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/cadastro'
+    | '/cadastroServidor'
     | '/consultarProtocolos'
+    | '/consultarUsuarios'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -176,7 +214,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/cadastro'
+    | '/cadastroServidor'
     | '/consultarProtocolos'
+    | '/consultarUsuarios'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -187,7 +227,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
+  CadastroServidorRoute: typeof CadastroServidorRoute
   ConsultarProtocolosRoute: typeof ConsultarProtocolosRoute
+  ConsultarUsuariosRoute: typeof ConsultarUsuariosRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProtocoloRoute: typeof SolicitarProtocoloRoute
@@ -197,7 +239,9 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
+  CadastroServidorRoute: CadastroServidorRoute,
   ConsultarProtocolosRoute: ConsultarProtocolosRoute,
+  ConsultarUsuariosRoute: ConsultarUsuariosRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProtocoloRoute: SolicitarProtocoloRoute,
@@ -216,7 +260,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/cadastro",
+        "/cadastroServidor",
         "/consultarProtocolos",
+        "/consultarUsuarios",
         "/login",
         "/recuperarSenha",
         "/solicitarProtocolo",
@@ -229,8 +275,14 @@ export const routeTree = rootRoute
     "/cadastro": {
       "filePath": "cadastro.tsx"
     },
+    "/cadastroServidor": {
+      "filePath": "cadastroServidor.tsx"
+    },
     "/consultarProtocolos": {
       "filePath": "consultarProtocolos.tsx"
+    },
+    "/consultarUsuarios": {
+      "filePath": "consultarUsuarios.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

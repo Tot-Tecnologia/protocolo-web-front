@@ -1,13 +1,12 @@
 import { faker } from "@faker-js/faker";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockProtocoloWebPaginationResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
-import {
-  mockLoadProtocoloListArgs,
-  mockProtocoloModel,
-} from "@/tests/domain/mocks";
+import { mockLoadProtocoloListArgs } from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { LoadProtocoloListResponseData } from "@/domain/usecases";
 import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
+import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
 
 const makeSut = () => {
   const url = faker.internet.url();
@@ -57,7 +56,15 @@ describe("RemoteLoadProtocoloList", () => {
   test("should return a LoadProtocoloListResponse if HttpClient returns 200", async () => {
     const { sut, httpClientSpy } = makeSut();
 
-    const data = faker.helpers.multiple(mockProtocoloModel);
+    const data = faker.helpers.multiple<LoadProtocoloListResponseData>(() => ({
+      dataSolicitacao: faker.lorem.word(),
+      id: faker.number.int(),
+      numeroProtocolo: faker.lorem.word(),
+      statusEnum: ProtocoloStatus.ABERTO,
+      statusTexto: faker.lorem.word(),
+      tipoDocumento: faker.number.int(),
+      status: faker.helpers.arrayElement(Object.values(ProtocoloStatus)),
+    }));
 
     const responseBody = mockProtocoloWebPaginationResponse(data);
 

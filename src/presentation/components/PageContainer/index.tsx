@@ -6,6 +6,7 @@ import { NavBar } from "@/presentation/components/NavBar";
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
 import { LogoutIcon } from "@/presentation/icons/LogoutIcon";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
+import { useUserType } from "@/presentation/hooks/useUserType";
 
 type PageContainerProps = {
   title?: React.ReactNode;
@@ -19,16 +20,20 @@ export function PageContainer({
   children,
 }: PageContainerProps) {
   const [, setAccessToken] = useAccessToken();
+  const [, setUserType] = useUserType();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setAccessToken("");
+    setUserType("");
     void navigate({ to: "/" });
   };
 
+  const [userType] = useUserType();
+
   return (
     <div className="block min-h-dvh px-2.5 py-4 md:grid md:grid-cols-[auto_1fr] md:px-4 md:py-6">
-      <NavBar className="hidden md:block" />
+      <NavBar className="hidden md:block" userType={userType} />
 
       <div>
         <div className="flex items-center justify-between pb-10">
