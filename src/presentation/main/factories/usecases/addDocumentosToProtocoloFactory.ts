@@ -1,14 +1,14 @@
 import { RemoteAddDocumentosToProtocolo } from "@/data/usecases/addDocumentosToProtocolo/remoteAddDocumentosToProtocolo";
 import { makeAxiosHttpClient } from "@/presentation/main/factories/http/axiosHttpClientFactory";
 
-export function makeAddDocumentosToProtocolo() {
-  const baseUrl = import.meta.env.VITE_PROTOCOLO_WEB_API_URL;
-  const fullUrl = baseUrl + "/portal-cidadao/protocolos/documentos";
-  return new RemoteAddDocumentosToProtocolo(fullUrl, makeAxiosHttpClient());
-}
+type MakeAddDocumentosToProtocoloProps = {
+  tipo: "documentos" | "guias";
+};
 
-export function makeAddGuiaToProtocolo() {
+export function makeAddDocumentosToProtocolo({
+  tipo,
+}: MakeAddDocumentosToProtocoloProps) {
   const baseUrl = import.meta.env.VITE_PROTOCOLO_WEB_API_URL;
-  const fullUrl = baseUrl + "/portal-cidadao/protocolos/guias";
+  const fullUrl = baseUrl + `/portal-cidadao/protocolos/${tipo}`;
   return new RemoteAddDocumentosToProtocolo(fullUrl, makeAxiosHttpClient());
 }
