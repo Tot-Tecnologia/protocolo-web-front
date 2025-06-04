@@ -38,6 +38,7 @@ export function DetailsProtocolo({
     token: token,
   });
 
+
   return (
     <PageContainer
       navigateBackwardTo={LIST_PROTOCOLOS_ROUTE_URL}
@@ -48,7 +49,7 @@ export function DetailsProtocolo({
           <>
             <InformacoesCard protocolo={data} />
             <HistoricoAtualizacoesTable />
-            <GuiasPagamentoTable />
+            <GuiasPagamentoTable protocolo={data} />
             <ArquivosTable protocolo={data} />
             <ComplementarCard
               addDocumentosToProtocolo={addDocumentosToProtocolo}

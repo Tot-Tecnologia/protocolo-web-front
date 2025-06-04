@@ -6,3 +6,9 @@ export function makeAddDocumentosToProtocolo() {
   const fullUrl = baseUrl + "/portal-cidadao/protocolos/documentos";
   return new RemoteAddDocumentosToProtocolo(fullUrl, makeAxiosHttpClient());
 }
+
+export function makeAddGuiaToProtocolo() {
+  const baseUrl = import.meta.env.VITE_PROTOCOLO_WEB_API_URL;
+  const fullUrl = baseUrl + "/portal-cidadao/protocolos/guias";
+  return new RemoteAddDocumentosToProtocolo(fullUrl, makeAxiosHttpClient());
+}

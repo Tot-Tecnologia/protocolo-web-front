@@ -1,4 +1,5 @@
 import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";
+import type { GuiaPagamentoModel } from "../models/guiaPagamentoModel";
 
 export type AddProtocoloArgs = {
   cpfCnpj: string;
@@ -40,6 +41,7 @@ export type AddProtocoloResponse = {
     nome: string;
     dataCriacao: string;
   }>;
+  guias: GuiaPagamentoModel[];
 };
 
 export interface AddProtocolo {
