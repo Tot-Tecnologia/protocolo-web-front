@@ -19,9 +19,11 @@ type ComplementarCardProps = {
   addDocumentosToProtocolo: AddDocumentosToProtocolo;
   protocolo: LoadProtocoloDetailsResponse | undefined;
   uiNotification: UiNotification;
+  label?: string;
 };
 
 export function ComplementarCard({
+  label = "Enviar arquivo",
   addDocumentosToProtocolo,
   protocolo,
   uiNotification,
@@ -70,7 +72,7 @@ export function ComplementarCard({
     <Card title="Complementar solicitação">
       <form className="flex flex-col gap-y-4" onSubmit={handleSubmitForm}>
         <FormProvider {...addDocumentosForm}>
-          <FileUpload name="documentos" label="Enviar arquivo" />
+          <FileUpload name="documentos" label={label} />
           <Button
             className="mt-5"
             type="submit"

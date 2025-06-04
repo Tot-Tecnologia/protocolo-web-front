@@ -19,6 +19,7 @@ import { Route as ConsultarProtocolosImport } from './../routes/consultarProtoco
 import { Route as CadastroServidorImport } from './../routes/cadastroServidor'
 import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
+import { Route as ExibirProtocoloServidorNumeroProtocoloImport } from './../routes/exibirProtocoloServidor.$numeroProtocolo'
 import { Route as ExibirProtocoloNumeroProtocoloImport } from './../routes/exibirProtocolo.$numeroProtocolo'
 
 // Create/Update Routes
@@ -70,6 +71,13 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const ExibirProtocoloServidorNumeroProtocoloRoute =
+  ExibirProtocoloServidorNumeroProtocoloImport.update({
+    id: '/exibirProtocoloServidor/$numeroProtocolo',
+    path: '/exibirProtocoloServidor/$numeroProtocolo',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 const ExibirProtocoloNumeroProtocoloRoute =
   ExibirProtocoloNumeroProtocoloImport.update({
@@ -145,6 +153,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExibirProtocoloNumeroProtocoloImport
       parentRoute: typeof rootRoute
     }
+    '/exibirProtocoloServidor/$numeroProtocolo': {
+      id: '/exibirProtocoloServidor/$numeroProtocolo'
+      path: '/exibirProtocoloServidor/$numeroProtocolo'
+      fullPath: '/exibirProtocoloServidor/$numeroProtocolo'
+      preLoaderRoute: typeof ExibirProtocoloServidorNumeroProtocoloImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -160,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
   '/exibirProtocolo/$numeroProtocolo': typeof ExibirProtocoloNumeroProtocoloRoute
+  '/exibirProtocoloServidor/$numeroProtocolo': typeof ExibirProtocoloServidorNumeroProtocoloRoute
 }
 
 export interface FileRoutesByTo {
@@ -172,6 +188,7 @@ export interface FileRoutesByTo {
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
   '/exibirProtocolo/$numeroProtocolo': typeof ExibirProtocoloNumeroProtocoloRoute
+  '/exibirProtocoloServidor/$numeroProtocolo': typeof ExibirProtocoloServidorNumeroProtocoloRoute
 }
 
 export interface FileRoutesById {
@@ -185,6 +202,7 @@ export interface FileRoutesById {
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
   '/exibirProtocolo/$numeroProtocolo': typeof ExibirProtocoloNumeroProtocoloRoute
+  '/exibirProtocoloServidor/$numeroProtocolo': typeof ExibirProtocoloServidorNumeroProtocoloRoute
 }
 
 export interface FileRouteTypes {
@@ -199,6 +217,7 @@ export interface FileRouteTypes {
     | '/recuperarSenha'
     | '/solicitarProtocolo'
     | '/exibirProtocolo/$numeroProtocolo'
+    | '/exibirProtocoloServidor/$numeroProtocolo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -210,6 +229,7 @@ export interface FileRouteTypes {
     | '/recuperarSenha'
     | '/solicitarProtocolo'
     | '/exibirProtocolo/$numeroProtocolo'
+    | '/exibirProtocoloServidor/$numeroProtocolo'
   id:
     | '__root__'
     | '/'
@@ -221,6 +241,7 @@ export interface FileRouteTypes {
     | '/recuperarSenha'
     | '/solicitarProtocolo'
     | '/exibirProtocolo/$numeroProtocolo'
+    | '/exibirProtocoloServidor/$numeroProtocolo'
   fileRoutesById: FileRoutesById
 }
 
@@ -234,6 +255,7 @@ export interface RootRouteChildren {
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProtocoloRoute: typeof SolicitarProtocoloRoute
   ExibirProtocoloNumeroProtocoloRoute: typeof ExibirProtocoloNumeroProtocoloRoute
+  ExibirProtocoloServidorNumeroProtocoloRoute: typeof ExibirProtocoloServidorNumeroProtocoloRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -246,6 +268,8 @@ const rootRouteChildren: RootRouteChildren = {
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProtocoloRoute: SolicitarProtocoloRoute,
   ExibirProtocoloNumeroProtocoloRoute: ExibirProtocoloNumeroProtocoloRoute,
+  ExibirProtocoloServidorNumeroProtocoloRoute:
+    ExibirProtocoloServidorNumeroProtocoloRoute,
 }
 
 export const routeTree = rootRoute
@@ -266,7 +290,8 @@ export const routeTree = rootRoute
         "/login",
         "/recuperarSenha",
         "/solicitarProtocolo",
-        "/exibirProtocolo/$numeroProtocolo"
+        "/exibirProtocolo/$numeroProtocolo",
+        "/exibirProtocoloServidor/$numeroProtocolo"
       ]
     },
     "/": {
@@ -295,6 +320,9 @@ export const routeTree = rootRoute
     },
     "/exibirProtocolo/$numeroProtocolo": {
       "filePath": "exibirProtocolo.$numeroProtocolo.tsx"
+    },
+    "/exibirProtocoloServidor/$numeroProtocolo": {
+      "filePath": "exibirProtocoloServidor.$numeroProtocolo.tsx"
     }
   }
 }

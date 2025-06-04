@@ -3,13 +3,15 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
-import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import { DETAILS_PROTOCOLO_ROUTE_URL, DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL, LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { useListProtocolosTableColumns } from "./columns";
 import { LoadProtocoloList, LoadTiposDocumentoList } from "@/domain/usecases";
 import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useProtocolosListQuery } from "@/presentation/views/ListProtocolos/common/hooks/useProtocolosListQuery";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
 import { removeNullish } from "@/presentation/utils/objectUtils/removeNullish";
+import { useUserType } from "@/presentation/hooks/useUserType";
+import { UserType } from "@/domain/models";
 
 type ListProtocolosTableProps = {
   loadProtocoloList: LoadProtocoloList;
@@ -28,6 +30,7 @@ export function ListProtocolosTable({
     });
 
   const [token] = useAccessToken();
+  const [userType] = useUserType();
 
   const tipoDocumentoParsed =
     tipoDocumento != null && tipoDocumento > 0 ? tipoDocumento : null;
@@ -54,6 +57,7 @@ export function ListProtocolosTable({
 
   const columns = useListProtocolosTableColumns({
     tipoDocumentoList: tipoDocumentoListQuery.data,
+    link: userType == UserType.CIDADAO ? DETAILS_PROTOCOLO_ROUTE_URL : DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL
   });
 
   const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });
