@@ -5,7 +5,7 @@ type AproveRejectCardProps = {
     protocolo: LoadProtocoloDetailsResponse
 }
 
-export function AproveRejectCard({ }: AproveRejectCardProps) {
+export function AprovarRejeitarCard({ }: AproveRejectCardProps) {
     return <div className="flex justify-end">
 
         <Button className="mr-2 md:mt-0 w-50" type="submit">

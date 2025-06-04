@@ -14,7 +14,7 @@ import { HistoricoAtualizacoesTable } from "@/presentation/views/DetailsProtocol
 import { InformacoesCard } from "@/presentation/views/DetailsProtocolo/common/components/InformacoesCard";
 import { useProtocoloDetailsQuery } from "@/presentation/views/DetailsProtocolo/common/hooks/useProtocoloDetailsQuery";
 import { AnaliseCidadaoCard } from "@/presentation/views/DetailsProtocoloServidor/common/components/AnaliseCidadaoCard";
-import { AproveRejectCard } from "@/presentation/views/DetailsProtocoloServidor/common/components/AproveRejectCard";
+import { AprovarRejeitarCard } from "@/presentation/views/DetailsProtocoloServidor/common/components/AprovarRejeitarCard";
 import { useParams } from "@tanstack/react-router";
 
 type DetailsProtocoloServidorProps = {
@@ -47,7 +47,7 @@ export function DetailsProtocoloServidor({
             <div className="space-y-10">
                 {data != null && !isLoading && !isError && (
                     <>
-                        <AproveRejectCard protocolo={data} />
+                        <AprovarRejeitarCard protocolo={data} />
                         <InformacoesCard protocolo={data} />
                         <HistoricoAtualizacoesTable />
                         <GuiasPagamentoTable protocolo={data} />
