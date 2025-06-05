@@ -24,13 +24,13 @@ export function AprovarRejeitarCard({
         token
     });
 
-    const handlerChangeProtocolStatus = (status: ProtocoloStatus) => {
+    const handlerChangeProtocolStatus = (status: ProtocoloStatus, callback: () => void) => {
         changeProtocolStatusMutation.mutate({
             id: protocolo.id,
             status
         }, {
             onSuccess: () => {
-                uiNotification.success("Protocolo aprovado");
+                callback();
             },
             onError: (error) => uiNotification.error(error.message),
         })
@@ -38,12 +38,16 @@ export function AprovarRejeitarCard({
     return <div className="flex justify-end">
 
         <Button className="mr-2 md:mt-0 w-50" onClick={
-            () => handlerChangeProtocolStatus(ProtocoloStatus.APROVADO)}>
+            () => handlerChangeProtocolStatus(ProtocoloStatus.APROVADO, () => {
+                uiNotification.success("Protocolo aprovado")
+            })}>
             Aprovar
         </Button>
 
         <Button className="w-50" variant="outlined" onClick={
-            () => handlerChangeProtocolStatus(ProtocoloStatus.REJEITADO)}>
+            () => handlerChangeProtocolStatus(ProtocoloStatus.REJEITADO, () => {
+                uiNotification.warning("Protocolo rejeitado")
+            })}>
             Rejeitar
         </Button>
     </div>
