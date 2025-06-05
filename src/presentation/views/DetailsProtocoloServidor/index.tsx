@@ -1,8 +1,9 @@
 import {
     AddDocumentosToProtocolo,
     LoadProtocoloDetails,
-    type UiNotification,
+    UiNotification,
 } from "@/domain/usecases";
+import { ChangeProtocolStatus } from "@/domain/usecases/changeProtocolStatus";
 import { PageContainer } from "@/presentation/components/PageContainer";
 
 import { DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL, LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
@@ -18,6 +19,7 @@ import { AprovarRejeitarCard } from "@/presentation/views/DetailsProtocoloServid
 import { useParams } from "@tanstack/react-router";
 
 type DetailsProtocoloServidorProps = {
+    changeProtocolStatus: ChangeProtocolStatus;
     loadProtocoloDetails: LoadProtocoloDetails;
     addDocumentosToProtocolo: AddDocumentosToProtocolo;
     uiNotification: UiNotification;
@@ -26,7 +28,8 @@ type DetailsProtocoloServidorProps = {
 export function DetailsProtocoloServidor({
     loadProtocoloDetails,
     uiNotification,
-    addDocumentosToProtocolo
+    addDocumentosToProtocolo,
+    changeProtocolStatus
 }: DetailsProtocoloServidorProps) {
 
     const [token] = useAccessToken();
@@ -47,7 +50,11 @@ export function DetailsProtocoloServidor({
             <div className="space-y-10">
                 {data != null && !isLoading && !isError && (
                     <>
-                        <AprovarRejeitarCard protocolo={data} />
+                        <AprovarRejeitarCard
+                            changeProtocolStatus={changeProtocolStatus}
+                            protocolo={data}
+                            uiNotification={uiNotification} />
+
                         <InformacoesCard protocolo={data} />
                         <HistoricoAtualizacoesTable />
                         <GuiasPagamentoTable protocolo={data} />
