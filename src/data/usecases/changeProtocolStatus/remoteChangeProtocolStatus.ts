@@ -5,7 +5,8 @@ import type {
 } from "@/domain/usecases/changeProtocolStatus";
 
 import { HttpClient, HttpStatusCode } from "../../protocols/http/httpClient";
-import { UnexpectedError } from "@/domain/errors";
+import { UnexpectedError, ValidationError } from "@/domain/errors";
+import { ProtocoloWebErrorResponse } from "@/domain/models";
 
 export class RemoteChangeProtocolStatus implements ChangeProtocolStatus {
   constructor(
@@ -31,6 +32,14 @@ export class RemoteChangeProtocolStatus implements ChangeProtocolStatus {
     switch (response.statusCode) {
       case HttpStatusCode.ok: {
         return response.body;
+      }
+      case HttpStatusCode.notFound: {
+        const errorResponse = response.body as ProtocoloWebErrorResponse;
+        const errors = errorResponse?.errors;
+        if (errors != null) {
+          throw new ValidationError({ messages: errors });
+        }
+        throw new UnexpectedError();
       }
       default:
         throw new UnexpectedError();
