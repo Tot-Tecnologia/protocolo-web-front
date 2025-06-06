@@ -38,7 +38,7 @@ describe("RemoteChangeProtocolStatus", () => {
     expect(httpClientSpy.body).toEqual(args);
   });
 
-  test("should throw UnexpectedError if HttpClient returns 404 with message", async () => {
+  test("should throw ValidationError if HttpClient returns 404 with message", async () => {
     const { sut, httpClientSpy } = makeSut();
 
     const errorResponse: ProtocoloWebErrorResponse = {
