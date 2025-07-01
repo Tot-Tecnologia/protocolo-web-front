@@ -1,4 +1,5 @@
 import { Link, LinkComponentProps, useNavigate } from "@tanstack/react-router";
+import { UserType } from "@/domain/models";
 import { router } from "@/presentation/router";
 import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { Button } from "@/presentation/components/Button";
@@ -33,7 +34,7 @@ export function PageContainer({
 
   return (
     <div className="block min-h-dvh px-2.5 py-4 md:grid md:grid-cols-[auto_1fr] md:px-4 md:py-6">
-      <NavBar className="hidden md:block" userType={userType} />
+      <NavBar className="hidden md:block" userType={userType as UserType} />
 
       <div>
         <div className="flex items-center justify-between pb-10">

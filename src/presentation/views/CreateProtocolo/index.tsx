@@ -86,7 +86,10 @@ export function CreateProtocolo({
     <PageContainer title="Solicitar Protocolo">
       <FormProvider {...form}>
         <form onSubmit={handleSubmitForm} className="flex flex-col gap-y-6">
-          <Card title="Informações do solicitante" detail="(*) Campos obrigatórios">
+          <Card
+            title="Informações do solicitante"
+            detail="(*) Campos obrigatórios"
+          >
             <div className="flex flex-wrap gap-y-6">
               <Input<ProtocoloRequest>
                 name="cpfCnpj"
@@ -102,12 +105,18 @@ export function CreateProtocolo({
               />
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="logradouro" label="Logradouro *" />
+                <Input<ProtocoloRequest>
+                  name="logradouro"
+                  label="Logradouro *"
+                />
                 <Input<ProtocoloRequest> name="numero" label="Número *" />
               </OneLargeOneSmallInputsContainer>
 
               <OneLargeOneSmallInputsContainer>
-                <Input<ProtocoloRequest> name="bairro" label="Nome do bairro *" />
+                <Input<ProtocoloRequest>
+                  name="bairro"
+                  label="Nome do bairro *"
+                />
                 <Input<ProtocoloRequest>
                   name="cep"
                   label="CEP"

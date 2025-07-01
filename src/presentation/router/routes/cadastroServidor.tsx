@@ -3,5 +3,5 @@ import { makeServidorSignUp } from "@/presentation/main/factories/views/signUpFa
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(SIGN_UP_SERVIDOR_ROUTE_URL)({
-    component: makeServidorSignUp
-})
+  component: makeServidorSignUp,
+});

@@ -21,7 +21,7 @@ describe("RemoteLoadUserDetail", () => {
   test("should call HttpClient correctly", async () => {
     const { sut, url, httpClientSpy } = makeSut();
 
-    sut.load(token());
+    await sut.load(token());
 
     expect(httpClientSpy.method).toBe("get");
     expect(httpClientSpy.url).toContain(url);
