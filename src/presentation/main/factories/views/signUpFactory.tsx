@@ -1,4 +1,7 @@
-import { makeAddAccount, makeAddServidorAccount } from "@/presentation/main/factories/usecases/addAccountFactory";
+import {
+  makeAddAccount,
+  makeAddServidorAccount,
+} from "@/presentation/main/factories/usecases/addAccountFactory";
 import { makeUiNotification } from "@/presentation/main/factories/usecases/uiNotificationFactory";
 import { SignUp } from "@/presentation/views/SignUp";
 

@@ -112,8 +112,7 @@ describe("SignIn", () => {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(global.Storage.prototype.setItem).toHaveBeenCalledWith(
       "@ProtocoloWeb__Key=userType",
-      JSON.stringify(loadUserDetailSpy.userDetailModel.tipoUsuario)
-
-    )
+      JSON.stringify(loadUserDetailSpy.userDetailModel.tipoUsuario),
+    );
   });
 });

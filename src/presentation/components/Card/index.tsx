@@ -16,7 +16,7 @@ export function Card({ title, children, detail, className }: CardProps) {
     >
       {isHeaderVisible && (
         <>
-          <div className="px-3 py-3 md:px-5 md:py-4 flex justify-between">
+          <div className="flex justify-between px-3 py-3 md:px-5 md:py-4">
             <h2>{title}</h2>
             <h3>{detail}</h3>
           </div>

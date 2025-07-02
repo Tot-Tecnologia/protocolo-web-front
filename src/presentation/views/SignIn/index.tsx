@@ -27,23 +27,28 @@ type SignInProps = {
   userDetail: LoadUserDetail;
 };
 
-export function SignIn({ authentication, uiNotification, userDetail }: SignInProps) {
+export function SignIn({
+  authentication,
+  uiNotification,
+  userDetail,
+}: SignInProps) {
   const [, setAccessToken] = useAccessToken();
-  const [, setUserType] = useUserType()
+  const [, setUserType] = useUserType();
 
   const form = useFormWithZod({ schema: signInValidationSchema });
 
-  const authenticationMutation = useAuthenticationMutation({ authentication, userDetail });
+  const authenticationMutation = useAuthenticationMutation({
+    authentication,
+    userDetail,
+  });
 
   const navigate = useNavigate();
 
-  const handleSignIn = form.handleSubmit(async ({ email, password }) => {
-
+  const handleSignIn = form.handleSubmit(({ email, password }) => {
     authenticationMutation.mutate(
       { email, password },
       {
         onSuccess: ({ accessToken, userType }) => {
-
           setAccessToken(accessToken);
           setUserType(userType);
 
@@ -52,15 +57,13 @@ export function SignIn({ authentication, uiNotification, userDetail }: SignInPro
               ? CREATE_PROTOCOLO_ROUTE_URL
               : LIST_PROTOCOLOS_ROUTE_URL;
 
-          navigate({ to: route });
-
+          void navigate({ to: route });
         },
         onError: (err) => {
           uiNotification.error(err.message);
-        }
-      }
-    )
-
+        },
+      },
+    );
   });
 
   const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });

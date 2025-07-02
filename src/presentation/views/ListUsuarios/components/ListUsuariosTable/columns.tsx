@@ -6,16 +6,16 @@ import { createColumnHelper } from "@tanstack/react-table";
 const columnHelper = createColumnHelper<LoadUsuarioListResponseData>();
 
 export function useListUsuariosTableColumns() {
-    return [
-        columnHelper.accessor("nome", {
-            header: "Nome"
-        }),
-        columnHelper.accessor("orgao", {
-            header: "Orgão"
-        }),
-        columnHelper.display({
-            id: ACTIONS_COLUMN_ID,
-            cell: (info) => <ListUsuariosActionsColumn info={info} />,
-        })
-    ]
+  return [
+    columnHelper.accessor("nome", {
+      header: "Nome",
+    }),
+    columnHelper.accessor("orgao", {
+      header: "Órgão",
+    }),
+    columnHelper.display({
+      id: ACTIONS_COLUMN_ID,
+      cell: (info) => <ListUsuariosActionsColumn info={info} />,
+    }),
+  ];
 }

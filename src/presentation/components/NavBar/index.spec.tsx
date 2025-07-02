@@ -20,7 +20,6 @@ beforeAll(async () => {
 
 describe("NavBar", () => {
   test("should be able to navigate to AddProtocolo view", async () => {
-
     const { sut, user } = makeSut();
 
     renderWithProviders(<NavBar userType={UserType.CIDADAO} />);
@@ -33,13 +32,13 @@ describe("NavBar", () => {
     });
   });
 
-  test("should NOT render option to create protocol when user is SERVIDOR", async () => {
-
+  test("should NOT render option to create protocol when user is SERVIDOR", () => {
     renderWithProviders(<NavBar userType={UserType.SERVIDOR} />);
 
-    const link = screen.queryByTestId(`NavLink-to-${CREATE_PROTOCOLO_ROUTE_URL}`);
+    const link = screen.queryByTestId(
+      `NavLink-to-${CREATE_PROTOCOLO_ROUTE_URL}`,
+    );
 
     expect(link).not.toBeInTheDocument();
-
   });
 });
