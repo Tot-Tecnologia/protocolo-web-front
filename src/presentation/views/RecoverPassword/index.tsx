@@ -46,6 +46,8 @@ export function RecoverPassword({
           onSubmit={handleRecoverPassword}
           className="flex flex-col gap-4 *:w-full"
         >
+          <p>Insira o e-mail utilizado no cadastro:</p>
+
           <Input<RecoverPasswordDto> name="email" placeholder="E-mail" />
 
           <Button
