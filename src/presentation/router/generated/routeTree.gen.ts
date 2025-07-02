@@ -14,6 +14,7 @@ import { Route as rootRoute } from './../routes/__root'
 import { Route as SolicitarProtocoloImport } from './../routes/solicitarProtocolo'
 import { Route as RecuperarSenhaImport } from './../routes/recuperarSenha'
 import { Route as LoginImport } from './../routes/login'
+import { Route as EmailDeRecuperacaoEnviadoImport } from './../routes/emailDeRecuperacaoEnviado'
 import { Route as ConsultarUsuariosImport } from './../routes/consultarUsuarios'
 import { Route as ConsultarProtocolosImport } from './../routes/consultarProtocolos'
 import { Route as CadastroServidorImport } from './../routes/cadastroServidor'
@@ -38,6 +39,12 @@ const RecuperarSenhaRoute = RecuperarSenhaImport.update({
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EmailDeRecuperacaoEnviadoRoute = EmailDeRecuperacaoEnviadoImport.update({
+  id: '/emailDeRecuperacaoEnviado',
+  path: '/emailDeRecuperacaoEnviado',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -117,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsultarUsuariosImport
       parentRoute: typeof rootRoute
     }
+    '/emailDeRecuperacaoEnviado': {
+      id: '/emailDeRecuperacaoEnviado'
+      path: '/emailDeRecuperacaoEnviado'
+      fullPath: '/emailDeRecuperacaoEnviado'
+      preLoaderRoute: typeof EmailDeRecuperacaoEnviadoImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -156,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
   '/consultarUsuarios': typeof ConsultarUsuariosRoute
+  '/emailDeRecuperacaoEnviado': typeof EmailDeRecuperacaoEnviadoRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -168,6 +183,7 @@ export interface FileRoutesByTo {
   '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
   '/consultarUsuarios': typeof ConsultarUsuariosRoute
+  '/emailDeRecuperacaoEnviado': typeof EmailDeRecuperacaoEnviadoRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -181,6 +197,7 @@ export interface FileRoutesById {
   '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
   '/consultarUsuarios': typeof ConsultarUsuariosRoute
+  '/emailDeRecuperacaoEnviado': typeof EmailDeRecuperacaoEnviadoRoute
   '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
@@ -195,6 +212,7 @@ export interface FileRouteTypes {
     | '/cadastroServidor'
     | '/consultarProtocolos'
     | '/consultarUsuarios'
+    | '/emailDeRecuperacaoEnviado'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -206,6 +224,7 @@ export interface FileRouteTypes {
     | '/cadastroServidor'
     | '/consultarProtocolos'
     | '/consultarUsuarios'
+    | '/emailDeRecuperacaoEnviado'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -217,6 +236,7 @@ export interface FileRouteTypes {
     | '/cadastroServidor'
     | '/consultarProtocolos'
     | '/consultarUsuarios'
+    | '/emailDeRecuperacaoEnviado'
     | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
@@ -230,6 +250,7 @@ export interface RootRouteChildren {
   CadastroServidorRoute: typeof CadastroServidorRoute
   ConsultarProtocolosRoute: typeof ConsultarProtocolosRoute
   ConsultarUsuariosRoute: typeof ConsultarUsuariosRoute
+  EmailDeRecuperacaoEnviadoRoute: typeof EmailDeRecuperacaoEnviadoRoute
   LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProtocoloRoute: typeof SolicitarProtocoloRoute
@@ -242,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   CadastroServidorRoute: CadastroServidorRoute,
   ConsultarProtocolosRoute: ConsultarProtocolosRoute,
   ConsultarUsuariosRoute: ConsultarUsuariosRoute,
+  EmailDeRecuperacaoEnviadoRoute: EmailDeRecuperacaoEnviadoRoute,
   LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProtocoloRoute: SolicitarProtocoloRoute,
@@ -263,6 +285,7 @@ export const routeTree = rootRoute
         "/cadastroServidor",
         "/consultarProtocolos",
         "/consultarUsuarios",
+        "/emailDeRecuperacaoEnviado",
         "/login",
         "/recuperarSenha",
         "/solicitarProtocolo",
@@ -283,6 +306,9 @@ export const routeTree = rootRoute
     },
     "/consultarUsuarios": {
       "filePath": "consultarUsuarios.tsx"
+    },
+    "/emailDeRecuperacaoEnviado": {
+      "filePath": "emailDeRecuperacaoEnviado.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

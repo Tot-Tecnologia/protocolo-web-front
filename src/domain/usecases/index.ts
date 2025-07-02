@@ -6,3 +6,4 @@ export * from "./addProtocolo";
 export * from "./loadProtocoloDetails";
 export * from "./loadTiposDocumentoList";
 export * from "./addDocumentosToProtocolo";
+export * from "./passwordRecovery";
