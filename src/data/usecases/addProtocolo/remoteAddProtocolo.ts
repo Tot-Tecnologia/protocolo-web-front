@@ -14,10 +14,7 @@ export class RemoteAddProtocolo implements AddProtocolo {
     private readonly httpClient: HttpClient,
   ) {}
 
-  async save(
-    args: AddProtocoloArgs,
-    token: string,
-  ): Promise<AddProtocoloResponse> {
+  async save(args: AddProtocoloArgs): Promise<AddProtocoloResponse> {
     const httpResponse = await this.httpClient.request<
       ProtocoloWebErrorResponse | AddProtocoloResponse
     >({
@@ -25,7 +22,6 @@ export class RemoteAddProtocolo implements AddProtocolo {
       method: "post",
       body: args,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
       },
     });

@@ -22,7 +22,7 @@ describe("RemoteLoadProtocoloList", () => {
 
     const loadProtocoloListArgs = mockLoadProtocoloListArgs();
 
-    await sut.loadWithFilter(loadProtocoloListArgs, "");
+    await sut.loadWithFilter(loadProtocoloListArgs);
 
     expect(httpClientSpy.url).toContain(url);
     expect(httpClientSpy.url).toContain(loadProtocoloListArgs.paginaAtual);
@@ -48,7 +48,7 @@ describe("RemoteLoadProtocoloList", () => {
       body: null,
     };
 
-    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs(), "");
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -73,7 +73,7 @@ describe("RemoteLoadProtocoloList", () => {
       body: responseBody,
     };
 
-    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs(), "");
+    const promise = sut.loadWithFilter(mockLoadProtocoloListArgs());
 
     await expect(promise).resolves.toEqual(responseBody);
   });

@@ -18,7 +18,7 @@ describe("RemoteLoadTiposDocumentoList", () => {
   test("should call HttpClient with correct values", async () => {
     const { sut, url, httpClientSpy } = makeSut();
 
-    await sut.loadAll("");
+    await sut.loadAll();
 
     expect(httpClientSpy.url).toContain(url);
     expect(httpClientSpy.method).toBe("get");
@@ -38,7 +38,7 @@ describe("RemoteLoadTiposDocumentoList", () => {
       body: null,
     };
 
-    const promise = sut.loadAll("");
+    const promise = sut.loadAll();
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -58,7 +58,7 @@ describe("RemoteLoadTiposDocumentoList", () => {
       body: responseBody,
     };
 
-    const promise = sut.loadAll("");
+    const promise = sut.loadAll();
 
     await expect(promise).resolves.toEqual(responseBody);
   });

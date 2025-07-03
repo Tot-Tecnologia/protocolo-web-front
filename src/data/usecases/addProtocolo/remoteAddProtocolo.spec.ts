@@ -26,7 +26,7 @@ describe("RemoteAddProtocolo", () => {
 
     const addProtocoloArgs = mockAddProtocoloArgs();
 
-    await sut.save(addProtocoloArgs, "");
+    await sut.save(addProtocoloArgs);
 
     expect(httpClientSpy.url).toBe(url);
     expect(httpClientSpy.method).toBe("post");
@@ -45,7 +45,7 @@ describe("RemoteAddProtocolo", () => {
       statusCode: errorResponse.statusCode,
     };
 
-    const promise = sut.save(mockAddProtocoloArgs(), "");
+    const promise = sut.save(mockAddProtocoloArgs());
 
     await expect(promise).rejects.toThrowError(
       new ValidationError({ messages: errorResponse.errors }),
@@ -60,7 +60,7 @@ describe("RemoteAddProtocolo", () => {
       statusCode: HttpStatusCode.badRequest,
     };
 
-    const promise = sut.save(mockAddProtocoloArgs(), "");
+    const promise = sut.save(mockAddProtocoloArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -73,7 +73,7 @@ describe("RemoteAddProtocolo", () => {
       statusCode: HttpStatusCode.serverError,
     };
 
-    const promise = sut.save(mockAddProtocoloArgs(), "");
+    const promise = sut.save(mockAddProtocoloArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });

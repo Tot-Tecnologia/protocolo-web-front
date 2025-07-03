@@ -24,6 +24,5 @@ export type LoadProtocoloListResponse =
 export interface LoadProtocoloList {
   loadWithFilter: (
     args: LoadProtocoloListArgs,
-    token: string, // TODO: remover token daqui
   ) => Promise<LoadProtocoloListResponse>;
 }

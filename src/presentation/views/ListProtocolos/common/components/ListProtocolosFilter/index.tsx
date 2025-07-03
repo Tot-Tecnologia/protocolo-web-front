@@ -16,7 +16,6 @@ import {
 } from "../../validations/listProtocolosFilterValidationSchema";
 import { useEffect } from "react";
 import { removeNullish } from "@/presentation/utils/objectUtils/removeNullish";
-import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
 import { LoadTiposDocumentoList } from "@/domain/usecases";
 
@@ -32,8 +31,6 @@ export function ListProtocolosFilter({
     defaultValues: listProtocolosFilterDefaultValues,
   });
 
-  const [token] = useAccessToken();
-
   const { setValue, getValues } = form;
 
   const numeroProtocolo = useWatch({
@@ -46,7 +43,6 @@ export function ListProtocolosFilter({
 
   const tiposDocumentoListQuery = useTiposDocumentoListQuery({
     loadTiposDocumentoList: loadTiposDocumentoList,
-    token: token,
   });
 
   const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });

@@ -12,8 +12,7 @@ export class UserDetailSpy implements LoadUserDetail {
   userDetailModel = mockUserDetailModel();
   arg?: string;
 
-  load(token: string): Promise<UserDetailModel> {
-    this.arg = token;
+  load(): Promise<UserDetailModel> {
     return Promise.resolve(this.userDetailModel);
   }
 }

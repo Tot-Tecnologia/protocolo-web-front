@@ -43,5 +43,5 @@ export type AddProtocoloResponse = {
 };
 
 export interface AddProtocolo {
-  save(args: AddProtocoloArgs, token: string): Promise<AddProtocoloResponse>;
+  save(args: AddProtocoloArgs): Promise<AddProtocoloResponse>;
 }

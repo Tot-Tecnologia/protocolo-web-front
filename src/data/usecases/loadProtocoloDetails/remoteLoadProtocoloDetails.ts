@@ -14,7 +14,6 @@ export class RemoteLoadProtocoloDetails implements LoadProtocoloDetails {
 
   async load(
     args: LoadProtocoloDetailsArgs,
-    token: string,
   ): Promise<LoadProtocoloDetailsResponse> {
     const fullUrl = `${this.url}/${args.numeroProtocolo}`;
 
@@ -22,7 +21,6 @@ export class RemoteLoadProtocoloDetails implements LoadProtocoloDetails {
       await this.httpClient.request<LoadProtocoloDetailsResponse>({
         url: fullUrl,
         method: "get",
-        headers: { Authorization: `Bearer ${token}` },
       });
 
     switch (response.statusCode) {

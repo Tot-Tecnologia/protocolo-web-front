@@ -13,15 +13,11 @@ const makeSut = () => {
   return { sut, url, httpClientSpy };
 };
 
-const token = () => {
-  return faker.internet.jwt();
-};
-
 describe("RemoteLoadUserDetail", () => {
   test("should call HttpClient correctly", async () => {
     const { sut, url, httpClientSpy } = makeSut();
 
-    await sut.load(token());
+    await sut.load();
 
     expect(httpClientSpy.method).toBe("get");
     expect(httpClientSpy.url).toContain(url);
@@ -41,7 +37,7 @@ describe("RemoteLoadUserDetail", () => {
       body: null,
     };
 
-    const promise = sut.load(token());
+    const promise = sut.load();
 
     await expect(promise).rejects.toThrowError(new UnauthorizedError());
   });
@@ -60,7 +56,7 @@ describe("RemoteLoadUserDetail", () => {
       body: data,
     };
 
-    const promise = sut.load(token());
+    const promise = sut.load();
 
     await expect(promise).resolves.toEqual(data);
   });

@@ -18,7 +18,6 @@ export class RemoteAddDocumentosToProtocolo
 
   async add(
     args: AddDocumentosToProtocoloArgs,
-    token: string,
   ): Promise<AddDocumentosToProtocoloResponse> {
     const { idProtocolo, ...body } = args;
     const httpResponse = await this.httpClient.request<
@@ -28,7 +27,6 @@ export class RemoteAddDocumentosToProtocolo
       method: "patch",
       body: body,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
       },
     });

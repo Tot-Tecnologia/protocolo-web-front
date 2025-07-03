@@ -27,7 +27,7 @@ describe("RemoteAddDocumentosToProtocolo", () => {
     const addDocumentosToProtocoloArgs = mockAddDocumentosToProtocoloArgs();
     const { idProtocolo, ...args } = addDocumentosToProtocoloArgs;
 
-    await sut.add(addDocumentosToProtocoloArgs, "");
+    await sut.add(addDocumentosToProtocoloArgs);
 
     expect(httpClientSpy.url).toBe(`${url}/${idProtocolo}`);
     expect(httpClientSpy.method).toBe("patch");
@@ -46,7 +46,7 @@ describe("RemoteAddDocumentosToProtocolo", () => {
       statusCode: errorResponse.statusCode,
     };
 
-    const promise = sut.add(mockAddDocumentosToProtocoloArgs(), "");
+    const promise = sut.add(mockAddDocumentosToProtocoloArgs());
 
     await expect(promise).rejects.toThrowError(
       new ValidationError({ messages: errorResponse.errors }),
@@ -61,7 +61,7 @@ describe("RemoteAddDocumentosToProtocolo", () => {
       statusCode: HttpStatusCode.badRequest,
     };
 
-    const promise = sut.add(mockAddDocumentosToProtocoloArgs(), "");
+    const promise = sut.add(mockAddDocumentosToProtocoloArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -74,7 +74,7 @@ describe("RemoteAddDocumentosToProtocolo", () => {
       statusCode: HttpStatusCode.serverError,
     };
 
-    const promise = sut.add(mockAddDocumentosToProtocoloArgs(), "");
+    const promise = sut.add(mockAddDocumentosToProtocoloArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });

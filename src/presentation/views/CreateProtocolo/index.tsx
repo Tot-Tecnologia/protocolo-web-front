@@ -12,7 +12,6 @@ import { PageContainer } from "@/presentation/components/PageContainer";
 import { Select } from "@/presentation/components/Select";
 import { TextArea } from "@/presentation/components/TextArea";
 import { DETAILS_PROTOCOLO_ROUTE_URL } from "@/presentation/constants/routesUrl";
-import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
 import {
@@ -48,11 +47,8 @@ export function CreateProtocolo({
 
   const navigate = useNavigate();
 
-  const [token] = useAccessToken();
-
   const tiposDocumentoListQuery = useTiposDocumentoListQuery({
     loadTiposDocumentoList: loadTiposDocumentoList,
-    token: token,
   });
 
   const addProtocoloMutation = useAddProtocoloMutation({ addProtocolo });

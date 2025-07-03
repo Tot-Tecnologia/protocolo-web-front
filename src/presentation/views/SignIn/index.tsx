@@ -20,6 +20,7 @@ import { useAuthenticationMutation } from "./common/hooks/useAuthenticationMutat
 import { useUserType } from "@/presentation/hooks/useUserType";
 import { LoadUserDetail } from "@/domain/usecases/loadUserDetail";
 import { UserType } from "@/domain/models";
+import { useLoadUserDetailMutation } from "@/presentation/views/SignIn/common/hooks/useLoadUserDetailMutation";
 
 type SignInProps = {
   authentication: Authentication;
@@ -39,31 +40,36 @@ export function SignIn({
 
   const authenticationMutation = useAuthenticationMutation({
     authentication,
+  });
+
+  const loadUserDetailMutation = useLoadUserDetailMutation({
     userDetail,
   });
 
   const navigate = useNavigate();
 
-  const handleSignIn = form.handleSubmit(({ email, password }) => {
-    authenticationMutation.mutate(
+  const handleSignIn = form.handleSubmit(async ({ email, password }) => {
+    const { accessToken } = await authenticationMutation.mutateAsync(
       { email, password },
       {
-        onSuccess: ({ accessToken, userType }) => {
-          setAccessToken(accessToken);
-          setUserType(userType);
-
-          const route =
-            userType === UserType.CIDADAO
-              ? CREATE_PROTOCOLO_ROUTE_URL
-              : LIST_PROTOCOLOS_ROUTE_URL;
-
-          void navigate({ to: route });
-        },
-        onError: (err) => {
-          uiNotification.error(err.message);
-        },
+        onError: (err) => uiNotification.error(err.message),
       },
     );
+    setAccessToken(accessToken);
+
+    loadUserDetailMutation.mutate(undefined, {
+      onSuccess: ({ tipoUsuario: userType }) => {
+        setUserType(userType);
+
+        const route =
+          userType === UserType.CIDADAO
+            ? CREATE_PROTOCOLO_ROUTE_URL
+            : LIST_PROTOCOLOS_ROUTE_URL;
+
+        void navigate({ to: route });
+      },
+      onError: (err) => uiNotification.error(err.message),
+    });
   });
 
   const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });

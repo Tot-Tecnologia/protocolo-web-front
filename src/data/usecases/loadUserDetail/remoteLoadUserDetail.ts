@@ -9,11 +9,10 @@ export class RemoteLoadUserDetail implements LoadUserDetail {
     private readonly httpClient: HttpClient,
   ) {}
 
-  async load(token: string): Promise<UserDetailModel> {
+  async load(): Promise<UserDetailModel> {
     const response = await this.httpClient.request<UserDetailModel>({
       url: this.url,
       method: "get",
-      headers: { Authorization: `Bearer ${token}` },
     });
 
     switch (response.statusCode) {

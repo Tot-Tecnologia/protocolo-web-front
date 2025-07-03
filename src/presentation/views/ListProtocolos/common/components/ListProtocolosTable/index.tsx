@@ -6,7 +6,6 @@ import { TablePagination } from "@/presentation/components/TablePagination";
 import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
 import { useListProtocolosTableColumns } from "./columns";
 import { LoadProtocoloList, LoadTiposDocumentoList } from "@/domain/usecases";
-import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { useProtocolosListQuery } from "@/presentation/views/ListProtocolos/common/hooks/useProtocolosListQuery";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
 import { removeNullish } from "@/presentation/utils/objectUtils/removeNullish";
@@ -27,8 +26,6 @@ export function ListProtocolosTable({
       from: LIST_PROTOCOLOS_ROUTE_URL,
     });
 
-  const [token] = useAccessToken();
-
   const tipoDocumentoParsed =
     tipoDocumento != null && tipoDocumento > 0 ? tipoDocumento : null;
 
@@ -44,12 +41,10 @@ export function ListProtocolosTable({
       }),
     },
     loadProtocoloList: loadProtocoloList,
-    token: token,
   });
 
   const tipoDocumentoListQuery = useTiposDocumentoListQuery({
     loadTiposDocumentoList: loadTiposDocumentoList,
-    token: token,
   });
 
   const columns = useListProtocolosTableColumns({

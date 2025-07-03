@@ -22,7 +22,7 @@ describe("RemoteLoadProtocoloDetails", () => {
 
     const loadProtocoloDetailsArgs = mockLoadProtocoloDetailsArgs();
 
-    await sut.load(loadProtocoloDetailsArgs, "");
+    await sut.load(loadProtocoloDetailsArgs);
 
     expect(httpClientSpy.url).toBe(
       `${url}/${loadProtocoloDetailsArgs.numeroProtocolo}`,
@@ -44,7 +44,7 @@ describe("RemoteLoadProtocoloDetails", () => {
       body: null,
     };
 
-    const promise = sut.load(mockLoadProtocoloDetailsArgs(), "");
+    const promise = sut.load(mockLoadProtocoloDetailsArgs());
 
     await expect(promise).rejects.toThrowError(new UnexpectedError());
   });
@@ -59,7 +59,7 @@ describe("RemoteLoadProtocoloDetails", () => {
       body: responseBody,
     };
 
-    const promise = sut.load(mockLoadProtocoloDetailsArgs(), "");
+    const promise = sut.load(mockLoadProtocoloDetailsArgs());
 
     await expect(promise).resolves.toEqual(responseBody);
   });

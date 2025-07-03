@@ -14,7 +14,6 @@ export class RemoteLoadProtocoloList implements LoadProtocoloList {
 
   async loadWithFilter(
     args: LoadProtocoloListArgs,
-    token: string,
   ): Promise<LoadProtocoloListResponse> {
     const queryString = new URLSearchParams(args as never).toString();
     const fullUrl = `${this.url}?${queryString}`;
@@ -22,7 +21,6 @@ export class RemoteLoadProtocoloList implements LoadProtocoloList {
     const response = await this.httpClient.request<LoadProtocoloListResponse>({
       url: fullUrl,
       method: "get",
-      headers: { Authorization: `Bearer ${token}` },
     });
 
     switch (response.statusCode) {

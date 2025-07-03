@@ -5,7 +5,6 @@ import {
   UiNotification,
 } from "@/domain/usecases";
 import { PageContainer } from "@/presentation/components/PageContainer";
-import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import {
   DETAILS_PROTOCOLO_ROUTE_URL,
   LIST_PROTOCOLOS_ROUTE_URL,
@@ -28,14 +27,11 @@ export function DetailsProtocolo({
   addDocumentosToProtocolo,
   uiNotification,
 }: DetailsProtocoloProps) {
-  const [token] = useAccessToken();
-
   const { numeroProtocolo } = useParams({ from: DETAILS_PROTOCOLO_ROUTE_URL });
 
   const { data, isLoading, isError } = useProtocoloDetailsQuery({
     numeroProtocolo: numeroProtocolo,
     loadProtocoloDetails: loadProtocoloDetails,
-    token: token,
   });
 
   return (
