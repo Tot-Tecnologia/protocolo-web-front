@@ -6,7 +6,7 @@ import {
   mockLoadProtocoloDetailsResponse,
 } from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
-import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpStatusCode } from "@/data/protocols/http";
 
 const makeSut = () => {
   const url = faker.internet.url();

@@ -4,7 +4,7 @@ import {
   HttpRequest,
   HttpResponse,
   HttpStatusCode,
-} from "@/data/protocols/http/httpClient";
+} from "@/data/protocols/http";
 
 export class AxiosHttpClient implements HttpClient {
   async request<TResponseBody = any, TRequestBody = any>(

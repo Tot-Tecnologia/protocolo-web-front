@@ -1,4 +1,4 @@
-import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpClient, HttpStatusCode } from "@/data/protocols/http";
 import { UnauthorizedError } from "@/domain/errors";
 import { LoadUserDetail } from "@/domain/usecases/loadUserDetail";
 import { UserDetailModel } from "@/domain/models";

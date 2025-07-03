@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpStatusCode } from "@/data/protocols/http";
 import { RemoteAddProtocolo } from "@/data/usecases/addProtocolo/remoteAddProtocolo";
 import { UnexpectedError, ValidationError } from "@/domain/errors";
 import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";

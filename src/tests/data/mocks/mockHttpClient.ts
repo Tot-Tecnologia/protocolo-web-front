@@ -5,7 +5,7 @@ import {
   HttpResponse,
   HttpRequest,
   HttpStatusCode,
-} from "@/data/protocols/http/httpClient";
+} from "@/data/protocols/http";
 import { faker } from "@faker-js/faker";
 
 export const mockHttpRequest = (): HttpRequest => {

@@ -4,7 +4,7 @@ import {
   LoadProtocoloListResponse,
 } from "@/domain/usecases";
 import { UnexpectedError } from "@/domain/errors";
-import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpClient, HttpStatusCode } from "@/data/protocols/http";
 
 export class RemoteLoadProtocoloList implements LoadProtocoloList {
   constructor(

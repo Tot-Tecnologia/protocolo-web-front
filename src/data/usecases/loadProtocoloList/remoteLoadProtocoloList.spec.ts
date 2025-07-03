@@ -3,7 +3,7 @@ import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockProtocoloWebPaginationResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
 import { mockLoadProtocoloListArgs } from "@/tests/domain/mocks";
 import { UnexpectedError } from "@/domain/errors";
-import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpStatusCode } from "@/data/protocols/http";
 import { LoadProtocoloListResponseData } from "@/domain/usecases";
 import { RemoteLoadProtocoloList } from "./remoteLoadProtocoloList";
 import { ProtocoloStatus } from "@/data/constants/protocoloStatusEnum";

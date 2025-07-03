@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpStatusCode } from "@/data/protocols/http";
 import {
   ProtocoloWebErrorResponse,
   ProtocoloWebPaginationResponse,

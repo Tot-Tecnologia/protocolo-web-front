@@ -3,7 +3,7 @@ import { HttpClientSpy } from "@/tests/data/mocks/mockHttpClient";
 import { mockProtocoloWebPaginationResponse } from "@/tests/domain/mocks/mockProtocoloWebResponse";
 import { UnexpectedError } from "@/domain/errors";
 import { TipoDocumentoModel } from "@/domain/models";
-import { HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpStatusCode } from "@/data/protocols/http";
 import { RemoteLoadTiposDocumentoList } from "./remoteLoadTiposDocumentoList";
 
 const makeSut = () => {

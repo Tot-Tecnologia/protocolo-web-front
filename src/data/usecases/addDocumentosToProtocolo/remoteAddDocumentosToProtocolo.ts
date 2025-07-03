@@ -1,4 +1,4 @@
-import { HttpClient, HttpStatusCode } from "@/data/protocols/http/httpClient";
+import { HttpClient, HttpStatusCode } from "@/data/protocols/http";
 import { UnexpectedError } from "@/domain/errors";
 import { ValidationError } from "@/domain/errors/validationError";
 import { ProtocoloWebErrorResponse } from "@/domain/models";
