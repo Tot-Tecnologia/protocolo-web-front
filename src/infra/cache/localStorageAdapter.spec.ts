@@ -73,7 +73,7 @@ describe("LocalStorageAdapter", () => {
     const value = faker.lorem.sentence();
 
     sut.set(key, { value });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const returnedValueOnGet = sut.get(key);
 
     expect(returnedValueOnGet).toStrictEqual({ value });
@@ -82,7 +82,6 @@ describe("LocalStorageAdapter", () => {
   test("should return null when a key is not in use", () => {
     const sut = makeSut();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const value = sut.get(faker.lorem.word());
 
     expect(value).toBeNull();
