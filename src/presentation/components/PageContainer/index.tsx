@@ -9,6 +9,9 @@ import { NavBar } from "@/presentation/components/NavBar";
 import { ArrowLeftIcon } from "@/presentation/icons/ArrowLeftIcon";
 import { LogoutIcon } from "@/presentation/icons/LogoutIcon";
 import { useAuthContext } from "@/presentation/constants/AuthContext/common/hooks/useAuthContext";
+import { Dropdown } from "@/presentation/components/Dropdown";
+import { NavLinksList } from "@/presentation/components/NavBar/common/components/NavLinksList";
+import { NavLink } from "@/presentation/components/NavBar/common/components/NavLink";
 
 type PageContainerProps = {
   title?: React.ReactNode;
@@ -49,20 +52,38 @@ export function PageContainer({
             <h1 className="text-xl font-semibold">{title}</h1>
           </div>
 
-          <Button
-            variant="outlined"
-            size="small"
-            className="block md:hidden"
-            onClick={() => alert("TODO")}
+          <Dropdown
+            positionX="right"
+            anchorEl={
+              <Button
+                variant="outlined"
+                size="small"
+                className="flex md:hidden"
+              >
+                Menu
+              </Button>
+            }
           >
-            Menu
-          </Button>
+            <ul className="flex w-55 flex-col gap-y-1">
+              <NavLinksList userType={protocoloWebUser?.tipoUsuario} />
+              <NavLink
+                to={"#" as never}
+                onClick={handleLogout}
+                iconSvg={
+                  <LogoutIcon className="text-error-light ml-0.5 size-6" />
+                }
+              >
+                Sair
+              </NavLink>
+            </ul>
+          </Dropdown>
 
           <Button
             aria-label="Deslogar do sistema"
             size="small"
             variant="outlined"
             onClick={handleLogout}
+            className="hidden md:flex"
           >
             <LogoutIcon className="mr-2 size-4.25" /> Sair
           </Button>

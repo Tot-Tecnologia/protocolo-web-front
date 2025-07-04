@@ -1,10 +1,6 @@
 import clsx from "clsx";
-import { NavLink } from "@/presentation/components/NavBar/common/components/NavLink";
-import {
-  CREATE_PROTOCOLO_ROUTE_URL,
-  LIST_PROTOCOLOS_ROUTE_URL,
-} from "@/presentation/constants/routesUrl";
 import { UserType } from "@/domain/models";
+import { NavLinksList } from "@/presentation/components/NavBar/common/components/NavLinksList";
 
 type NavBarProps = {
   className?: string;
@@ -32,21 +28,7 @@ export function NavBar({ className, userType }: NavBarProps) {
       <span className="block text-xs text-gray-400">MENU</span>
 
       <ul className="mt-3 flex w-62 flex-col gap-y-1">
-        {userType === UserType.CIDADAO ? (
-          <li>
-            <NavLink to={CREATE_PROTOCOLO_ROUTE_URL} iconSrc="/pageIcon.svg">
-              Solicitação
-            </NavLink>
-          </li>
-        ) : (
-          <></>
-        )}
-
-        <li>
-          <NavLink to={LIST_PROTOCOLOS_ROUTE_URL} iconSrc="/tableIcon.svg">
-            Consultar Solicitação
-          </NavLink>
-        </li>
+        <NavLinksList userType={userType} />
       </ul>
     </nav>
   );
