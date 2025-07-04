@@ -113,10 +113,6 @@ export function ListProtocolosFilter({
           ))}
         </Select>
 
-        <span className="hidden text-[0px] md:block lg:hidden">
-          Essa span só serve para ocupar uma coluna do grid em telas md
-        </span>
-
         <Button className="mt-4 md:mt-0" type="submit">
           Consultar
         </Button>
