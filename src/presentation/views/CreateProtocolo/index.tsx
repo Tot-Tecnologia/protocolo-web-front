@@ -123,11 +123,7 @@ export function CreateProtocolo({
 
               <OneLargeOneSmallInputsContainer>
                 <Input<ProtocoloRequest> name="cidade" label="Cidade *" />
-                <Select<ProtocoloRequest>
-                  name="estado"
-                  label="Estado *"
-                  defaultValue="MG"
-                >
+                <Select<ProtocoloRequest> name="estado" label="Estado *">
                   <option value="">Selecione</option>
                   {estadosBR.map((estado) => (
                     <option key={estado} value={estado}>

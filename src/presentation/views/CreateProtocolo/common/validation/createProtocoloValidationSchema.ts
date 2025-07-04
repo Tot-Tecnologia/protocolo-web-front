@@ -52,7 +52,7 @@ export const protocoloRequestDefaultValues: ProtocoloRequest = {
   numero: "",
   bairro: "",
   cep: "",
-  estado: "",
+  estado: "MG",
   complemento: "",
   descricao: "",
   cidade: "",

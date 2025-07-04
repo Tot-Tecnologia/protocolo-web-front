@@ -16,9 +16,10 @@ function SelectComponent(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return <select {...props} />;
 }
 
-export function Select<TFieldValues extends FieldValues = FieldValues>(
-  props: SelectProps<TFieldValues>,
-) {
+export function Select<TFieldValues extends FieldValues = FieldValues>({
+  valueAsNumber,
+  ...props
+}: SelectProps<TFieldValues>) {
   return (
     <Controller
       name={props.name}
@@ -34,7 +35,7 @@ export function Select<TFieldValues extends FieldValues = FieldValues>(
             if (props.onChange) {
               props.onChange(event);
             }
-            if (props.valueAsNumber) {
+            if (valueAsNumber) {
               const value = event.target.value;
               field.onChange(value?.length ? Number(value) : null);
             } else {
