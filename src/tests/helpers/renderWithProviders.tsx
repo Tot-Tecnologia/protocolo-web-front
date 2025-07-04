@@ -4,7 +4,16 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
 import { ToastContainer } from "react-toastify";
 
-export const mockedRouter = createRouter({ routeTree });
+export const mockedRouter = createRouter({
+  routeTree,
+  context: {
+    firebaseUser: undefined!,
+    protocoloWebUser: undefined!,
+    queryClient: undefined!,
+    isAuthenticated: true,
+  },
+});
+
 export const mockedQueryClient = new QueryClient();
 
 export const updateRouterWithWrappedChildren = ({

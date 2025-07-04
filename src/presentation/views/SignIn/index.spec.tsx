@@ -23,7 +23,6 @@ const makeSut = () => {
     <SignIn
       authentication={authenticationSpy}
       uiNotification={makeUiNotification()}
-      userDetail={loadUserDetailSpy}
     />,
   );
 
@@ -96,23 +95,5 @@ describe("SignIn", () => {
       expect(authenticationSpy.args?.email).toBe(emailValue);
       expect(authenticationSpy.args?.password).toBe(passwordValue);
     });
-  });
-
-  test("should save accessToken and userType locally on success", async () => {
-    const { sut, user, authenticationSpy, loadUserDetailSpy } = makeSut();
-
-    await simulateValidSubmitSignIn({ sut, user });
-
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(global.Storage.prototype.setItem).toHaveBeenCalledWith(
-      "@ProtocoloWeb__Key=accessToken",
-      JSON.stringify(authenticationSpy.accountModel.accessToken),
-    );
-
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(global.Storage.prototype.setItem).toHaveBeenCalledWith(
-      "@ProtocoloWeb__Key=userType",
-      JSON.stringify(loadUserDetailSpy.userDetailModel.tipoUsuario),
-    );
   });
 });

@@ -8,7 +8,11 @@ import { mockAuthenticationArgs } from "@/tests/domain/mocks";
 import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
 import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  UserCredential,
+} from "firebase/auth";
 
 const auth = null as never;
 const accessToken = faker.string.uuid();
@@ -46,6 +50,7 @@ const simulateFirebaseError = async (errorCode: string) => {
 vi.mock("firebase/auth", () => {
   return {
     signInWithEmailAndPassword: mockedSignInWithEmailAndPassword,
+    signOut: vi.fn(),
   };
 });
 
@@ -122,5 +127,13 @@ describe("FirebaseAuthentication", () => {
         "E-mail não verificado! Acesse o e-mail cadastrado para confirmação.",
       ),
     );
+  });
+
+  test("should call firebase's signOut with correct arguments", async () => {
+    const { sut } = makeSut();
+
+    await sut.signOut();
+
+    expect(signOut).toHaveBeenCalledWith(auth);
   });
 });

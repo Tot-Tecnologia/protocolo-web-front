@@ -4,7 +4,12 @@ import { createRouter } from "@tanstack/react-router";
 
 export const router = createRouter({
   routeTree,
-  context: { queryClient },
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
+  context: {
+    queryClient: queryClient,
+    firebaseUser: undefined!,
+    protocoloWebUser: undefined!,
+    isAuthenticated: false,
+  },
 });

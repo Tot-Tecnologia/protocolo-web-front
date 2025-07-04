@@ -21,4 +21,8 @@ export class AuthenticationSpy implements Authentication {
     this.args = args;
     return Promise.resolve(this.accountModel);
   }
+
+  signOut(): Promise<void> {
+    return Promise.resolve();
+  }
 }

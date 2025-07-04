@@ -7,4 +7,5 @@ export type AuthenticationArgs = {
 
 export interface Authentication {
   signIn(args: AuthenticationArgs): Promise<AccountModel>;
+  signOut(): Promise<void>;
 }

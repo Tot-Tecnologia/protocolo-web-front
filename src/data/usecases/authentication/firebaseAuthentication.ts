@@ -6,7 +6,7 @@ import {
 import { AccountModel } from "@/domain/models";
 import { Authentication, AuthenticationArgs } from "@/domain/usecases";
 import { FirebaseError } from "firebase/app";
-import { Auth, signInWithEmailAndPassword } from "firebase/auth";
+import { Auth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export class FirebaseAuthentication implements Authentication {
   constructor(private readonly auth: Auth) {}
@@ -49,6 +49,14 @@ export class FirebaseAuthentication implements Authentication {
         throw error;
       }
 
+      throw new UnexpectedError();
+    }
+  }
+
+  async signOut(): Promise<void> {
+    try {
+      await signOut(this.auth);
+    } catch {
       throw new UnexpectedError();
     }
   }

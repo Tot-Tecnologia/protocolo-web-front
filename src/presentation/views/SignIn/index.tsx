@@ -2,13 +2,10 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { FormProvider } from "react-hook-form";
 import { Authentication, UiNotification } from "@/domain/usecases";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
-import { useAccessToken } from "@/presentation/hooks/useAccessToken";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import {
-  CREATE_PROTOCOLO_ROUTE_URL,
-  LIST_PROTOCOLOS_ROUTE_URL,
   RECOVER_PASSWORD_ROUTE_URL,
   SIGN_UP_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
@@ -17,59 +14,27 @@ import {
   signInValidationSchema,
 } from "./common/validation/signInValidationSchema";
 import { useAuthenticationMutation } from "./common/hooks/useAuthenticationMutation";
-import { useUserType } from "@/presentation/hooks/useUserType";
-import { LoadUserDetail } from "@/domain/usecases/loadUserDetail";
-import { UserType } from "@/domain/models";
-import { useLoadUserDetailMutation } from "@/presentation/views/SignIn/common/hooks/useLoadUserDetailMutation";
 
 type SignInProps = {
   authentication: Authentication;
   uiNotification: UiNotification;
-  userDetail: LoadUserDetail;
 };
 
-export function SignIn({
-  authentication,
-  uiNotification,
-  userDetail,
-}: SignInProps) {
-  const [, setAccessToken] = useAccessToken();
-  const [, setUserType] = useUserType();
-
+export function SignIn({ authentication, uiNotification }: SignInProps) {
   const form = useFormWithZod({ schema: signInValidationSchema });
 
   const authenticationMutation = useAuthenticationMutation({
     authentication,
   });
 
-  const loadUserDetailMutation = useLoadUserDetailMutation({
-    userDetail,
-  });
-
   const navigate = useNavigate();
 
   const handleSignIn = form.handleSubmit(async ({ email, password }) => {
-    const { accessToken } = await authenticationMutation.mutateAsync(
+    await authenticationMutation.mutateAsync(
       { email, password },
-      {
-        onError: (err) => uiNotification.error(err.message),
-      },
+      { onError: (err) => uiNotification.error(err.message) },
     );
-    setAccessToken(accessToken);
-
-    loadUserDetailMutation.mutate(undefined, {
-      onSuccess: ({ tipoUsuario: userType }) => {
-        setUserType(userType);
-
-        const route =
-          userType === UserType.CIDADAO
-            ? CREATE_PROTOCOLO_ROUTE_URL
-            : LIST_PROTOCOLOS_ROUTE_URL;
-
-        void navigate({ to: route });
-      },
-      onError: (err) => uiNotification.error(err.message),
-    });
+    // O evento onAuthStateChanged dentro do AuthContextProvider é disparado.
   });
 
   const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });
