@@ -12,6 +12,7 @@ import {
 
 type IUseListProtocolosTableColumnsProps = {
   tipoDocumentoList: TipoDocumentoModel[] | undefined;
+  link: string;
 };
 
 const columnHelper = createColumnHelper<LoadProtocoloListResponseData>();
@@ -33,6 +34,7 @@ const getColor = (status: ProtocoloStatus): ThemeColor => {
 
 export function useListProtocolosTableColumns({
   tipoDocumentoList,
+  link,
 }: IUseListProtocolosTableColumnsProps) {
   return [
     columnHelper.accessor("numeroProtocolo", {
@@ -69,7 +71,7 @@ export function useListProtocolosTableColumns({
     }),
     columnHelper.display({
       id: ACTIONS_COLUMN_ID,
-      cell: (info) => <ListProtocolosActionsColumn info={info} />,
+      cell: (info) => <ListProtocolosActionsColumn link={link} info={info} />,
     }),
   ];
 }

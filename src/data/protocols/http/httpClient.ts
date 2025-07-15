@@ -6,6 +6,7 @@ export enum HttpStatusCode {
   badRequest = 400,
   unprocessableEntity = 422,
   serverError = 500,
+  notFound = 404,
 }
 
 export type HttpRequest<TBody = any> = {

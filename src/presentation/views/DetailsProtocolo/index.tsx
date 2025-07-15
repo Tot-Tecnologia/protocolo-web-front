@@ -44,7 +44,7 @@ export function DetailsProtocolo({
           <>
             <InformacoesCard protocolo={data} />
             <HistoricoAtualizacoesTable />
-            <GuiasPagamentoTable />
+            <GuiasPagamentoTable protocolo={data} />
             <ArquivosTable protocolo={data} />
             <ComplementarCard
               addDocumentosToProtocolo={addDocumentosToProtocolo}

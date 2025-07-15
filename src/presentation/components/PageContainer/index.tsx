@@ -88,7 +88,6 @@ export function PageContainer({
             <LogoutIcon className="mr-2 size-4.25" /> Sair
           </Button>
         </div>
-
         {children}
       </div>
     </div>
