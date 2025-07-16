@@ -1,3 +1,4 @@
+import { AuthContextProvider } from "@/presentation/constants/AuthContext/common/components/AuthContextProvider";
 import { routeTree } from "@/presentation/router/generated/routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
@@ -25,7 +26,13 @@ export const updateRouterWithWrappedChildren = ({
     component: () => (
       // Providers default são colocados logo abaixo
       <QueryClientProvider client={mockedQueryClient}>
-        {children}
+        <AuthContextProvider
+          authentication={undefined!}
+          uiNotification={undefined!}
+          loadUserDetail={undefined!}
+        >
+          {children}
+        </AuthContextProvider>
         <ToastContainer />
       </QueryClientProvider>
     ),

@@ -41,10 +41,15 @@ export function AuthContextProvider({
     const unsubscribe = onAuthStateChanged(
       firebaseAuth,
       async (newFirebaseUser) => {
-        setFirebaseUser(newFirebaseUser);
+        if (newFirebaseUser?.emailVerified) {
+          setFirebaseUser(newFirebaseUser);
+          const newAccessToken = await newFirebaseUser?.getIdToken();
+          setAccessToken(newAccessToken ?? "");
+        } else {
+          setFirebaseUser(null);
+          setAccessToken("");
+        }
         setLoadingFirebaseUser(false);
-        const newAccessToken = await newFirebaseUser?.getIdToken();
-        setAccessToken(newAccessToken ?? "");
       },
     );
     return unsubscribe;

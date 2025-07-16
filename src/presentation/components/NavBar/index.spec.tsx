@@ -32,13 +32,15 @@ describe("NavBar", () => {
     });
   });
 
-  test("should NOT render option to create protocol when user is SERVIDOR", () => {
+  test("should NOT render option to create protocol when user is SERVIDOR", async () => {
     renderWithProviders(<NavBar userType={UserType.SERVIDOR} />);
 
     const link = screen.queryByTestId(
       `NavLink-to-${CREATE_PROTOCOLO_ROUTE_URL}`,
     );
 
-    expect(link).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(link).not.toBeInTheDocument();
+    });
   });
 });

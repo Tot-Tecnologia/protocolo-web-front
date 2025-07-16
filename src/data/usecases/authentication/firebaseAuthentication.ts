@@ -20,6 +20,7 @@ export class FirebaseAuthentication implements Authentication {
       );
 
       if (!firebaseResponse.user.emailVerified) {
+        await this.signOut();
         throw new UnauthorizedError(
           "E-mail não verificado! Acesse o e-mail cadastrado para confirmação.",
         );

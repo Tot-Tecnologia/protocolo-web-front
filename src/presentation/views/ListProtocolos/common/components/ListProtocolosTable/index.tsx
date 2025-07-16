@@ -35,9 +35,7 @@ export function ListProtocolosTable({
   const tipoDocumentoParsed =
     tipoDocumento != null && tipoDocumento > 0 ? tipoDocumento : null;
 
-  const {
-    protocoloWebUser: { tipoUsuario: userType },
-  } = useAuthContext();
+  const { protocoloWebUser } = useAuthContext();
 
   const protocolosListQuery = useProtocolosListQuery({
     args: {
@@ -60,9 +58,9 @@ export function ListProtocolosTable({
   const columns = useListProtocolosTableColumns({
     tipoDocumentoList: tipoDocumentoListQuery.data,
     link:
-      userType == UserType.CIDADAO
-        ? DETAILS_PROTOCOLO_ROUTE_URL
-        : DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL,
+      protocoloWebUser?.tipoUsuario == UserType.SERVIDOR
+        ? DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL
+        : DETAILS_PROTOCOLO_ROUTE_URL,
   });
 
   const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });
