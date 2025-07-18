@@ -1,8 +1,10 @@
 import { Link, LinkComponentProps, useNavigate } from "@tanstack/react-router";
+import { UserType } from "@/domain/models";
 import { router } from "@/presentation/router";
 import {
   LIST_PROTOCOLOS_ROUTE_URL,
-  SIGN_IN_ROUTE_URL,
+  SIGN_IN_CIDADAO_ROUTE_URL,
+  SIGN_IN_SERVIDOR_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 import { Button } from "@/presentation/components/Button";
 import { NavBar } from "@/presentation/components/NavBar";
@@ -12,6 +14,7 @@ import { useAuthContext } from "@/presentation/constants/AuthContext/common/hook
 import { Dropdown } from "@/presentation/components/Dropdown";
 import { NavLinksList } from "@/presentation/components/NavBar/common/components/NavLinksList";
 import { NavLink } from "@/presentation/components/NavBar/common/components/NavLink";
+import { useLastUserType } from "@/presentation/hooks/useLastUserType";
 
 type PageContainerProps = {
   title?: React.ReactNode;
@@ -26,11 +29,18 @@ export function PageContainer({
 }: PageContainerProps) {
   const { protocoloWebUser, signOut } = useAuthContext();
 
+  const [lastUserType] = useLastUserType();
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     await signOut();
-    void navigate({ to: SIGN_IN_ROUTE_URL });
+    void navigate({
+      to:
+        lastUserType === UserType.SERVIDOR
+          ? SIGN_IN_SERVIDOR_ROUTE_URL
+          : SIGN_IN_CIDADAO_ROUTE_URL,
+    });
   };
 
   return (

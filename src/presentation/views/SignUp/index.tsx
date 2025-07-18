@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
-import { useNavigate } from "@tanstack/react-router";
+import { useMatch, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
-import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import {
+  SIGN_IN_CIDADAO_ROUTE_URL,
+  SIGN_IN_SERVIDOR_ROUTE_URL,
+  SIGN_UP_SERVIDOR_ROUTE_URL,
+} from "@/presentation/constants/routesUrl";
 import { changeCpfCnpjEventHandler } from "@/presentation/utils/inputMasks";
 import { phoneMask } from "@/presentation/utils/inputMasks";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
@@ -23,6 +27,11 @@ type SignUpProps = {
 export function SignUp({ addAccount, uiNotification }: SignUpProps) {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
+  const isSignUpServidor = useMatch({
+    from: SIGN_UP_SERVIDOR_ROUTE_URL,
+    shouldThrow: false,
+  });
+
   const form = useFormWithZod({ schema: signUpValidationSchema });
 
   const addAccountMutation = useAddAccountMutation({ addAccount });
@@ -37,18 +46,29 @@ export function SignUp({ addAccount, uiNotification }: SignUpProps) {
         uiNotification.success(
           "Cadastro realizado! Acesse seu e-mail para validar sua conta e concluir o processo.",
         );
-        void navigate({ to: SIGN_IN_ROUTE_URL });
+        void navigate({
+          to: isSignUpServidor
+            ? SIGN_IN_SERVIDOR_ROUTE_URL
+            : SIGN_IN_CIDADAO_ROUTE_URL,
+        });
       },
       onError: (error) => uiNotification.error(error.message),
     });
   });
 
-  const handleClickBack = () => navigate({ to: SIGN_IN_ROUTE_URL });
+  const handleClickBack = () =>
+    navigate({
+      to: isSignUpServidor
+        ? SIGN_IN_SERVIDOR_ROUTE_URL
+        : SIGN_IN_CIDADAO_ROUTE_URL,
+    });
 
   const handleChangeAgreedToTerms = () => setAgreedToTerms((old) => !old);
 
   return (
-    <MainPageWithImage title="Cadastrar">
+    <MainPageWithImage
+      title={`Cadastrar ${isSignUpServidor ? "Servidor" : "Cidadão"}`}
+    >
       <FormProvider {...form}>
         <form onSubmit={handleSignUp}>
           <div className="flex flex-col gap-4 *:w-full">

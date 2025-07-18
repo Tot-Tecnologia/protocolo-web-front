@@ -1,10 +1,17 @@
+import { UserType } from "@/domain/models";
 import { Button } from "@/presentation/components/Button";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
-import { SIGN_IN_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import {
+  SIGN_IN_CIDADAO_ROUTE_URL,
+  SIGN_IN_SERVIDOR_ROUTE_URL,
+} from "@/presentation/constants/routesUrl";
+import { useLastUserType } from "@/presentation/hooks/useLastUserType";
 import { useNavigate } from "@tanstack/react-router";
 
 export function RecoverPasswordMessage() {
   const navigate = useNavigate();
+
+  const [lastUserType] = useLastUserType();
 
   return (
     <MainPageWithImage title="Pronto!">
@@ -17,7 +24,14 @@ export function RecoverPasswordMessage() {
 
         <Button
           type="button"
-          onClick={() => navigate({ to: SIGN_IN_ROUTE_URL })}
+          onClick={() =>
+            navigate({
+              to:
+                lastUserType === UserType.SERVIDOR
+                  ? SIGN_IN_SERVIDOR_ROUTE_URL
+                  : SIGN_IN_CIDADAO_ROUTE_URL,
+            })
+          }
         >
           Continuar
         </Button>
