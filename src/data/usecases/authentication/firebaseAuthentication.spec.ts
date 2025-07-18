@@ -129,6 +129,23 @@ describe("FirebaseAuthentication", () => {
     );
   });
 
+  test("should call firebase's signOut when user e-mail isnt verified", async () => {
+    const { sut } = makeSut();
+    const signOutSpy = vi.spyOn(sut, "signOut");
+
+    mockedSignInWithEmailAndPassword.mockResolvedValueOnce({
+      user: { emailVerified: false },
+    });
+
+    try {
+      await sut.signIn(mockAuthenticationArgs());
+    } catch {
+      // Previne que o teste falhe por conta do UnauthorizedError.
+    }
+
+    expect(signOutSpy).toHaveBeenCalledOnce();
+  });
+
   test("should call firebase's signOut with correct arguments", async () => {
     const { sut } = makeSut();
 

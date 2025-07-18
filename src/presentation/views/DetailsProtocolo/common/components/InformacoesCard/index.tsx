@@ -14,25 +14,72 @@ export function InformacoesCard({ protocolo }: InformacoesCardProps) {
   return (
     <Card title="Informações">
       <div className="flex flex-col gap-y-4">
-        <div className="flex flex-col gap-x-10 gap-y-4 md:flex-row">
-          <p>
-            <b>Número</b>: {protocolo.numeroProtocolo}
-          </p>
-          <p>
-            <b>Situação</b>: {ProtocoloStatusEnumDescription[protocolo.status]}
-          </p>
+        <div className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              Nome solicitante
+            </span>
+            {protocolo.nomeSolicitante}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              CPF/CNPJ
+            </span>
+            {protocolo.cpfCnpj}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              Endereço
+            </span>
+            {`${protocolo.logradouro}, ${protocolo.bairro}, Número ${protocolo.numero}`}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              Cidade
+            </span>
+            {`${protocolo.cidade} - ${protocolo.estado}`}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              CEP
+            </span>
+            {protocolo.cep}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              Número
+            </span>
+            {protocolo.numeroProtocolo}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              Situação
+            </span>
+            {ProtocoloStatusEnumDescription[protocolo.status]}
+          </div>
+
+          <div>
+            <span className="block text-sm font-semibold text-slate-800">
+              Tipo
+            </span>
+            {protocolo.tipoDocumentoTexto}
+          </div>
+
+          <div className="col-span-full">
+            <span className="block text-sm font-semibold text-slate-800">
+              Descrição
+            </span>
+            {protocolo.descricao.length
+              ? protocolo.descricao
+              : "Sem observações."}
+          </div>
         </div>
-
-        <p>
-          <b>Tipo</b>: {protocolo.tipoDocumentoTexto}
-        </p>
-
-        <p>
-          <b>Descrição</b>:{" "}
-          {protocolo.descricao.length
-            ? protocolo.descricao
-            : "Sem observações."}
-        </p>
       </div>
     </Card>
   );

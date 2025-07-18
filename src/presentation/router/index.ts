@@ -1,6 +1,7 @@
+import { UserType } from "@/domain/models";
 import { queryClient } from "@/presentation/queryClient";
 import { routeTree } from "@/presentation/router/generated/routeTree.gen";
-import { createRouter } from "@tanstack/react-router";
+import { createHashHistory, createRouter } from "@tanstack/react-router";
 
 export const router = createRouter({
   routeTree,
@@ -11,5 +12,7 @@ export const router = createRouter({
     firebaseUser: undefined!,
     protocoloWebUser: undefined!,
     isAuthenticated: false,
+    lastUserType: UserType.CIDADAO,
   },
+  history: createHashHistory(),
 });

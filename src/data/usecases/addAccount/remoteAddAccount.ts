@@ -7,6 +7,7 @@ import {
   Auth,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 export class RemoteAddAccount implements AddAccount {
@@ -32,6 +33,7 @@ export class RemoteAddAccount implements AddAccount {
           args.senha,
         );
         await sendEmailVerification(userCredentials.user);
+        await signOut(this.auth);
         return httpResponse.body as void;
       }
 

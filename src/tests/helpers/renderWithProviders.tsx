@@ -1,8 +1,10 @@
-import { routeTree } from "@/presentation/router/generated/routeTree.gen";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
+import { UserType } from "@/domain/models";
+import { AuthContextProvider } from "@/presentation/constants/AuthContext/common/components/AuthContextProvider";
+import { routeTree } from "@/presentation/router/generated/routeTree.gen";
 
 export const mockedRouter = createRouter({
   routeTree,
@@ -11,6 +13,7 @@ export const mockedRouter = createRouter({
     protocoloWebUser: undefined!,
     queryClient: undefined!,
     isAuthenticated: true,
+    lastUserType: UserType.CIDADAO,
   },
 });
 
@@ -25,7 +28,13 @@ export const updateRouterWithWrappedChildren = ({
     component: () => (
       // Providers default são colocados logo abaixo
       <QueryClientProvider client={mockedQueryClient}>
-        {children}
+        <AuthContextProvider
+          authentication={undefined!}
+          uiNotification={undefined!}
+          loadUserDetail={undefined!}
+        >
+          {children}
+        </AuthContextProvider>
         <ToastContainer />
       </QueryClientProvider>
     ),

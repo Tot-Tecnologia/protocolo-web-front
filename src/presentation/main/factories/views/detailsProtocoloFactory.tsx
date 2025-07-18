@@ -7,7 +7,9 @@ export function makeDetailsProtocolo() {
   return (
     <DetailsProtocolo
       loadProtocoloDetails={makeLoadProtocoloDetails()}
-      addDocumentosToProtocolo={makeAddDocumentosToProtocolo()}
+      addDocumentosToProtocolo={makeAddDocumentosToProtocolo({
+        tipo: "documentos",
+      })}
       uiNotification={makeUiNotification()}
     />
   );

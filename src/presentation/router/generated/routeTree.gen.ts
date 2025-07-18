@@ -13,14 +13,18 @@
 import { Route as rootRoute } from './../routes/__root'
 import { Route as SolicitarProtocoloImport } from './../routes/solicitarProtocolo'
 import { Route as RecuperarSenhaImport } from './../routes/recuperarSenha'
-import { Route as LoginImport } from './../routes/login'
 import { Route as EmailDeRecuperacaoEnviadoImport } from './../routes/emailDeRecuperacaoEnviado'
 import { Route as ConsultarUsuariosImport } from './../routes/consultarUsuarios'
 import { Route as ConsultarProtocolosImport } from './../routes/consultarProtocolos'
-import { Route as CadastroServidorImport } from './../routes/cadastroServidor'
-import { Route as CadastroImport } from './../routes/cadastro'
 import { Route as IndexImport } from './../routes/index'
+import { Route as LoginIndexImport } from './../routes/login.index'
+import { Route as CadastroIndexImport } from './../routes/cadastro.index'
+import { Route as LoginServidorImport } from './../routes/login.servidor'
+import { Route as LoginCidadaoImport } from './../routes/login.cidadao'
+import { Route as ExibirProtocoloServidorNumeroProtocoloImport } from './../routes/exibirProtocoloServidor.$numeroProtocolo'
 import { Route as ExibirProtocoloNumeroProtocoloImport } from './../routes/exibirProtocolo.$numeroProtocolo'
+import { Route as CadastroServidorImport } from './../routes/cadastro.servidor'
+import { Route as CadastroCidadaoImport } from './../routes/cadastro.cidadao'
 
 // Create/Update Routes
 
@@ -33,12 +37,6 @@ const SolicitarProtocoloRoute = SolicitarProtocoloImport.update({
 const RecuperarSenhaRoute = RecuperarSenhaImport.update({
   id: '/recuperarSenha',
   path: '/recuperarSenha',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,23 +58,42 @@ const ConsultarProtocolosRoute = ConsultarProtocolosImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const CadastroServidorRoute = CadastroServidorImport.update({
-  id: '/cadastroServidor',
-  path: '/cadastroServidor',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CadastroRoute = CadastroImport.update({
-  id: '/cadastro',
-  path: '/cadastro',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const LoginIndexRoute = LoginIndexImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CadastroIndexRoute = CadastroIndexImport.update({
+  id: '/cadastro/',
+  path: '/cadastro/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginServidorRoute = LoginServidorImport.update({
+  id: '/login/servidor',
+  path: '/login/servidor',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginCidadaoRoute = LoginCidadaoImport.update({
+  id: '/login/cidadao',
+  path: '/login/cidadao',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExibirProtocoloServidorNumeroProtocoloRoute =
+  ExibirProtocoloServidorNumeroProtocoloImport.update({
+    id: '/exibirProtocoloServidor/$numeroProtocolo',
+    path: '/exibirProtocoloServidor/$numeroProtocolo',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 const ExibirProtocoloNumeroProtocoloRoute =
   ExibirProtocoloNumeroProtocoloImport.update({
@@ -84,6 +101,18 @@ const ExibirProtocoloNumeroProtocoloRoute =
     path: '/exibirProtocolo/$numeroProtocolo',
     getParentRoute: () => rootRoute,
   } as any)
+
+const CadastroServidorRoute = CadastroServidorImport.update({
+  id: '/cadastro/servidor',
+  path: '/cadastro/servidor',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CadastroCidadaoRoute = CadastroCidadaoImport.update({
+  id: '/cadastro/cidadao',
+  path: '/cadastro/cidadao',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -94,20 +123,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/cadastro': {
-      id: '/cadastro'
-      path: '/cadastro'
-      fullPath: '/cadastro'
-      preLoaderRoute: typeof CadastroImport
-      parentRoute: typeof rootRoute
-    }
-    '/cadastroServidor': {
-      id: '/cadastroServidor'
-      path: '/cadastroServidor'
-      fullPath: '/cadastroServidor'
-      preLoaderRoute: typeof CadastroServidorImport
       parentRoute: typeof rootRoute
     }
     '/consultarProtocolos': {
@@ -131,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailDeRecuperacaoEnviadoImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
     '/recuperarSenha': {
       id: '/recuperarSenha'
       path: '/recuperarSenha'
@@ -152,11 +160,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolicitarProtocoloImport
       parentRoute: typeof rootRoute
     }
+    '/cadastro/cidadao': {
+      id: '/cadastro/cidadao'
+      path: '/cadastro/cidadao'
+      fullPath: '/cadastro/cidadao'
+      preLoaderRoute: typeof CadastroCidadaoImport
+      parentRoute: typeof rootRoute
+    }
+    '/cadastro/servidor': {
+      id: '/cadastro/servidor'
+      path: '/cadastro/servidor'
+      fullPath: '/cadastro/servidor'
+      preLoaderRoute: typeof CadastroServidorImport
+      parentRoute: typeof rootRoute
+    }
     '/exibirProtocolo/$numeroProtocolo': {
       id: '/exibirProtocolo/$numeroProtocolo'
       path: '/exibirProtocolo/$numeroProtocolo'
       fullPath: '/exibirProtocolo/$numeroProtocolo'
       preLoaderRoute: typeof ExibirProtocoloNumeroProtocoloImport
+      parentRoute: typeof rootRoute
+    }
+    '/exibirProtocoloServidor/$numeroProtocolo': {
+      id: '/exibirProtocoloServidor/$numeroProtocolo'
+      path: '/exibirProtocoloServidor/$numeroProtocolo'
+      fullPath: '/exibirProtocoloServidor/$numeroProtocolo'
+      preLoaderRoute: typeof ExibirProtocoloServidorNumeroProtocoloImport
+      parentRoute: typeof rootRoute
+    }
+    '/login/cidadao': {
+      id: '/login/cidadao'
+      path: '/login/cidadao'
+      fullPath: '/login/cidadao'
+      preLoaderRoute: typeof LoginCidadaoImport
+      parentRoute: typeof rootRoute
+    }
+    '/login/servidor': {
+      id: '/login/servidor'
+      path: '/login/servidor'
+      fullPath: '/login/servidor'
+      preLoaderRoute: typeof LoginServidorImport
+      parentRoute: typeof rootRoute
+    }
+    '/cadastro/': {
+      id: '/cadastro/'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -166,108 +223,141 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cadastro': typeof CadastroRoute
-  '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
   '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/emailDeRecuperacaoEnviado': typeof EmailDeRecuperacaoEnviadoRoute
-  '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
+  '/cadastro/cidadao': typeof CadastroCidadaoRoute
+  '/cadastro/servidor': typeof CadastroServidorRoute
   '/exibirProtocolo/$numeroProtocolo': typeof ExibirProtocoloNumeroProtocoloRoute
+  '/exibirProtocoloServidor/$numeroProtocolo': typeof ExibirProtocoloServidorNumeroProtocoloRoute
+  '/login/cidadao': typeof LoginCidadaoRoute
+  '/login/servidor': typeof LoginServidorRoute
+  '/cadastro': typeof CadastroIndexRoute
+  '/login': typeof LoginIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cadastro': typeof CadastroRoute
-  '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
   '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/emailDeRecuperacaoEnviado': typeof EmailDeRecuperacaoEnviadoRoute
-  '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
+  '/cadastro/cidadao': typeof CadastroCidadaoRoute
+  '/cadastro/servidor': typeof CadastroServidorRoute
   '/exibirProtocolo/$numeroProtocolo': typeof ExibirProtocoloNumeroProtocoloRoute
+  '/exibirProtocoloServidor/$numeroProtocolo': typeof ExibirProtocoloServidorNumeroProtocoloRoute
+  '/login/cidadao': typeof LoginCidadaoRoute
+  '/login/servidor': typeof LoginServidorRoute
+  '/cadastro': typeof CadastroIndexRoute
+  '/login': typeof LoginIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/cadastro': typeof CadastroRoute
-  '/cadastroServidor': typeof CadastroServidorRoute
   '/consultarProtocolos': typeof ConsultarProtocolosRoute
   '/consultarUsuarios': typeof ConsultarUsuariosRoute
   '/emailDeRecuperacaoEnviado': typeof EmailDeRecuperacaoEnviadoRoute
-  '/login': typeof LoginRoute
   '/recuperarSenha': typeof RecuperarSenhaRoute
   '/solicitarProtocolo': typeof SolicitarProtocoloRoute
+  '/cadastro/cidadao': typeof CadastroCidadaoRoute
+  '/cadastro/servidor': typeof CadastroServidorRoute
   '/exibirProtocolo/$numeroProtocolo': typeof ExibirProtocoloNumeroProtocoloRoute
+  '/exibirProtocoloServidor/$numeroProtocolo': typeof ExibirProtocoloServidorNumeroProtocoloRoute
+  '/login/cidadao': typeof LoginCidadaoRoute
+  '/login/servidor': typeof LoginServidorRoute
+  '/cadastro/': typeof CadastroIndexRoute
+  '/login/': typeof LoginIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/cadastro'
-    | '/cadastroServidor'
     | '/consultarProtocolos'
     | '/consultarUsuarios'
     | '/emailDeRecuperacaoEnviado'
-    | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
+    | '/cadastro/cidadao'
+    | '/cadastro/servidor'
     | '/exibirProtocolo/$numeroProtocolo'
+    | '/exibirProtocoloServidor/$numeroProtocolo'
+    | '/login/cidadao'
+    | '/login/servidor'
+    | '/cadastro'
+    | '/login'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/cadastro'
-    | '/cadastroServidor'
     | '/consultarProtocolos'
     | '/consultarUsuarios'
     | '/emailDeRecuperacaoEnviado'
-    | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
+    | '/cadastro/cidadao'
+    | '/cadastro/servidor'
     | '/exibirProtocolo/$numeroProtocolo'
+    | '/exibirProtocoloServidor/$numeroProtocolo'
+    | '/login/cidadao'
+    | '/login/servidor'
+    | '/cadastro'
+    | '/login'
   id:
     | '__root__'
     | '/'
-    | '/cadastro'
-    | '/cadastroServidor'
     | '/consultarProtocolos'
     | '/consultarUsuarios'
     | '/emailDeRecuperacaoEnviado'
-    | '/login'
     | '/recuperarSenha'
     | '/solicitarProtocolo'
+    | '/cadastro/cidadao'
+    | '/cadastro/servidor'
     | '/exibirProtocolo/$numeroProtocolo'
+    | '/exibirProtocoloServidor/$numeroProtocolo'
+    | '/login/cidadao'
+    | '/login/servidor'
+    | '/cadastro/'
+    | '/login/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CadastroRoute: typeof CadastroRoute
-  CadastroServidorRoute: typeof CadastroServidorRoute
   ConsultarProtocolosRoute: typeof ConsultarProtocolosRoute
   ConsultarUsuariosRoute: typeof ConsultarUsuariosRoute
   EmailDeRecuperacaoEnviadoRoute: typeof EmailDeRecuperacaoEnviadoRoute
-  LoginRoute: typeof LoginRoute
   RecuperarSenhaRoute: typeof RecuperarSenhaRoute
   SolicitarProtocoloRoute: typeof SolicitarProtocoloRoute
+  CadastroCidadaoRoute: typeof CadastroCidadaoRoute
+  CadastroServidorRoute: typeof CadastroServidorRoute
   ExibirProtocoloNumeroProtocoloRoute: typeof ExibirProtocoloNumeroProtocoloRoute
+  ExibirProtocoloServidorNumeroProtocoloRoute: typeof ExibirProtocoloServidorNumeroProtocoloRoute
+  LoginCidadaoRoute: typeof LoginCidadaoRoute
+  LoginServidorRoute: typeof LoginServidorRoute
+  CadastroIndexRoute: typeof CadastroIndexRoute
+  LoginIndexRoute: typeof LoginIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CadastroRoute: CadastroRoute,
-  CadastroServidorRoute: CadastroServidorRoute,
   ConsultarProtocolosRoute: ConsultarProtocolosRoute,
   ConsultarUsuariosRoute: ConsultarUsuariosRoute,
   EmailDeRecuperacaoEnviadoRoute: EmailDeRecuperacaoEnviadoRoute,
-  LoginRoute: LoginRoute,
   RecuperarSenhaRoute: RecuperarSenhaRoute,
   SolicitarProtocoloRoute: SolicitarProtocoloRoute,
+  CadastroCidadaoRoute: CadastroCidadaoRoute,
+  CadastroServidorRoute: CadastroServidorRoute,
   ExibirProtocoloNumeroProtocoloRoute: ExibirProtocoloNumeroProtocoloRoute,
+  ExibirProtocoloServidorNumeroProtocoloRoute:
+    ExibirProtocoloServidorNumeroProtocoloRoute,
+  LoginCidadaoRoute: LoginCidadaoRoute,
+  LoginServidorRoute: LoginServidorRoute,
+  CadastroIndexRoute: CadastroIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -281,25 +371,23 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/cadastro",
-        "/cadastroServidor",
         "/consultarProtocolos",
         "/consultarUsuarios",
         "/emailDeRecuperacaoEnviado",
-        "/login",
         "/recuperarSenha",
         "/solicitarProtocolo",
-        "/exibirProtocolo/$numeroProtocolo"
+        "/cadastro/cidadao",
+        "/cadastro/servidor",
+        "/exibirProtocolo/$numeroProtocolo",
+        "/exibirProtocoloServidor/$numeroProtocolo",
+        "/login/cidadao",
+        "/login/servidor",
+        "/cadastro/",
+        "/login/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/cadastro": {
-      "filePath": "cadastro.tsx"
-    },
-    "/cadastroServidor": {
-      "filePath": "cadastroServidor.tsx"
     },
     "/consultarProtocolos": {
       "filePath": "consultarProtocolos.tsx"
@@ -310,17 +398,35 @@ export const routeTree = rootRoute
     "/emailDeRecuperacaoEnviado": {
       "filePath": "emailDeRecuperacaoEnviado.tsx"
     },
-    "/login": {
-      "filePath": "login.tsx"
-    },
     "/recuperarSenha": {
       "filePath": "recuperarSenha.tsx"
     },
     "/solicitarProtocolo": {
       "filePath": "solicitarProtocolo.tsx"
     },
+    "/cadastro/cidadao": {
+      "filePath": "cadastro.cidadao.tsx"
+    },
+    "/cadastro/servidor": {
+      "filePath": "cadastro.servidor.tsx"
+    },
     "/exibirProtocolo/$numeroProtocolo": {
       "filePath": "exibirProtocolo.$numeroProtocolo.tsx"
+    },
+    "/exibirProtocoloServidor/$numeroProtocolo": {
+      "filePath": "exibirProtocoloServidor.$numeroProtocolo.tsx"
+    },
+    "/login/cidadao": {
+      "filePath": "login.cidadao.tsx"
+    },
+    "/login/servidor": {
+      "filePath": "login.servidor.tsx"
+    },
+    "/cadastro/": {
+      "filePath": "cadastro.index.tsx"
+    },
+    "/login/": {
+      "filePath": "login.index.tsx"
     }
   }
 }

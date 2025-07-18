@@ -3,12 +3,18 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Table } from "@/presentation/components/Table";
 import { TablePagination } from "@/presentation/components/TablePagination";
-import { LIST_PROTOCOLOS_ROUTE_URL } from "@/presentation/constants/routesUrl";
+import {
+  DETAILS_PROTOCOLO_ROUTE_URL,
+  DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL,
+  LIST_PROTOCOLOS_ROUTE_URL,
+} from "@/presentation/constants/routesUrl";
 import { useListProtocolosTableColumns } from "./columns";
 import { LoadProtocoloList, LoadTiposDocumentoList } from "@/domain/usecases";
 import { useProtocolosListQuery } from "@/presentation/views/ListProtocolos/common/hooks/useProtocolosListQuery";
 import { useTiposDocumentoListQuery } from "@/presentation/queries/useTiposDocumentoListQuery";
 import { removeNullish } from "@/presentation/utils/objectUtils/removeNullish";
+import { UserType } from "@/domain/models";
+import { useAuthContext } from "@/presentation/constants/AuthContext/common/hooks/useAuthContext";
 
 type ListProtocolosTableProps = {
   loadProtocoloList: LoadProtocoloList;
@@ -28,6 +34,8 @@ export function ListProtocolosTable({
 
   const tipoDocumentoParsed =
     tipoDocumento != null && tipoDocumento > 0 ? tipoDocumento : null;
+
+  const { protocoloWebUser } = useAuthContext();
 
   const protocolosListQuery = useProtocolosListQuery({
     args: {
@@ -49,6 +57,10 @@ export function ListProtocolosTable({
 
   const columns = useListProtocolosTableColumns({
     tipoDocumentoList: tipoDocumentoListQuery.data,
+    link:
+      protocoloWebUser?.tipoUsuario == UserType.SERVIDOR
+        ? DETAILS_PROTOCOLO_SERVIDOR_ROUTE_URL
+        : DETAILS_PROTOCOLO_ROUTE_URL,
   });
 
   const navigate = useNavigate({ from: LIST_PROTOCOLOS_ROUTE_URL });

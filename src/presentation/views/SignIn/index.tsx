@@ -1,19 +1,26 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { Link, useMatch, useNavigate } from "@tanstack/react-router";
 import { FormProvider } from "react-hook-form";
 import { Authentication, UiNotification } from "@/domain/usecases";
+import { UserType } from "@/domain/models";
+import { useAuthContext } from "@/presentation/constants/AuthContext/common/hooks/useAuthContext";
 import { useFormWithZod } from "@/presentation/hooks/useFormWithZod";
 import { Button } from "@/presentation/components/Button";
 import { Input } from "@/presentation/components/Input";
 import { MainPageWithImage } from "@/presentation/components/MainPageWithImage";
 import {
+  CREATE_PROTOCOLO_ROUTE_URL,
+  LIST_PROTOCOLOS_ROUTE_URL,
   RECOVER_PASSWORD_ROUTE_URL,
-  SIGN_UP_ROUTE_URL,
+  SIGN_IN_SERVIDOR_ROUTE_URL,
+  SIGN_UP_CIDADAO_ROUTE_URL,
 } from "@/presentation/constants/routesUrl";
 import {
   SignInDto,
   signInValidationSchema,
 } from "./common/validation/signInValidationSchema";
 import { useAuthenticationMutation } from "./common/hooks/useAuthenticationMutation";
+import { useLastUserType } from "@/presentation/hooks/useLastUserType";
 
 type SignInProps = {
   authentication: Authentication;
@@ -23,6 +30,15 @@ type SignInProps = {
 export function SignIn({ authentication, uiNotification }: SignInProps) {
   const form = useFormWithZod({ schema: signInValidationSchema });
 
+  const isSignInServidor = useMatch({
+    from: SIGN_IN_SERVIDOR_ROUTE_URL,
+    shouldThrow: false,
+  });
+
+  const { protocoloWebUser, isAuthenticated, loading } = useAuthContext();
+
+  const [, setLastuserType] = useLastUserType();
+
   const authenticationMutation = useAuthenticationMutation({
     authentication,
   });
@@ -30,17 +46,43 @@ export function SignIn({ authentication, uiNotification }: SignInProps) {
   const navigate = useNavigate();
 
   const handleSignIn = form.handleSubmit(async ({ email, password }) => {
-    await authenticationMutation.mutateAsync(
-      { email, password },
-      { onError: (err) => uiNotification.error(err.message) },
-    );
-    // O evento onAuthStateChanged dentro do AuthContextProvider é disparado.
+    try {
+      await authenticationMutation.mutateAsync(
+        { email, password },
+        { onError: (err) => uiNotification.error(err.message) },
+      );
+      // Depois que a promise resolver, o evento onAuthStateChanged dentro
+      // do AuthContextProvider é disparado com firebaseUser atualizado.
+    } catch {
+      // Não faz nada.
+    }
   });
 
-  const handleClickSignUp = () => navigate({ to: SIGN_UP_ROUTE_URL });
+  const handleClickSignUp = () => navigate({ to: SIGN_UP_CIDADAO_ROUTE_URL });
+
+  useEffect(() => {
+    if (isAuthenticated && protocoloWebUser?.tipoUsuario) {
+      const route =
+        protocoloWebUser?.tipoUsuario === UserType.CIDADAO
+          ? CREATE_PROTOCOLO_ROUTE_URL
+          : LIST_PROTOCOLOS_ROUTE_URL;
+
+      setLastuserType(protocoloWebUser?.tipoUsuario);
+
+      void navigate({ to: route });
+    }
+  }, [
+    isAuthenticated,
+    navigate,
+    protocoloWebUser?.tipoUsuario,
+    setLastuserType,
+  ]);
 
   return (
-    <MainPageWithImage title="Login" fitImageToDisplayHeight>
+    <MainPageWithImage
+      title={`Login ${isSignInServidor ? "Servidor" : "Cidadão"}`}
+      fitImageToDisplayHeight
+    >
       <FormProvider {...form}>
         <form onSubmit={handleSignIn} className="flex flex-col gap-4 *:w-full">
           <Input<SignInDto> name="email" placeholder="E-mail" />
@@ -61,7 +103,7 @@ export function SignIn({ authentication, uiNotification }: SignInProps) {
             className="mt-6"
             type="submit"
             size="large"
-            loading={authenticationMutation.isPending}
+            loading={authenticationMutation.isPending || loading}
           >
             Acessar
           </Button>

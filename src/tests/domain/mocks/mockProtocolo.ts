@@ -47,6 +47,7 @@ export const mockLoadProtocoloDetailsResponse =
     tipoDocumentoTexto: faker.person.fullName(),
     status: faker.helpers.arrayElement(Object.values(ProtocoloStatus)),
     numeroProtocolo: faker.lorem.word(),
+    guias: [],
   });
 
 export const mockProtocoloModel = (): IProtocoloModel => ({

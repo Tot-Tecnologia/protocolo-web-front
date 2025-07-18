@@ -8,21 +8,29 @@ import { DeepPartial } from "@/types/utils";
 import { faker } from "@faker-js/faker";
 import { UserCredential } from "firebase/auth";
 
-const { mockedSignInWithEmailAndPassword, mockedSendEmailVerification } =
-  vi.hoisted(() => {
-    const mockedSignInWithEmailAndPassword = vi.fn(
-      (): DeepPartial<UserCredential> => ({
-        user: {
-          getIdToken: () => Promise.resolve(faker.string.uuid()),
-          emailVerified: true,
-        },
-      }),
-    );
+const {
+  mockedSignInWithEmailAndPassword,
+  mockedSendEmailVerification,
+  mockedSignOut,
+} = vi.hoisted(() => {
+  const mockedSignInWithEmailAndPassword = vi.fn(
+    (): DeepPartial<UserCredential> => ({
+      user: {
+        getIdToken: () => Promise.resolve(faker.string.uuid()),
+        emailVerified: true,
+      },
+    }),
+  );
 
-    const mockedSendEmailVerification = vi.fn();
+  const mockedSendEmailVerification = vi.fn();
+  const mockedSignOut = vi.fn();
 
-    return { mockedSignInWithEmailAndPassword, mockedSendEmailVerification };
-  });
+  return {
+    mockedSignInWithEmailAndPassword,
+    mockedSendEmailVerification,
+    mockedSignOut,
+  };
+});
 
 const makeSut = () => {
   const url = faker.internet.url();
@@ -43,6 +51,7 @@ vi.mock("firebase/auth", () => {
   return {
     signInWithEmailAndPassword: mockedSignInWithEmailAndPassword,
     sendEmailVerification: mockedSendEmailVerification,
+    signOut: mockedSignOut,
   };
 });
 
@@ -69,6 +78,14 @@ describe("RemoteAddAccount", () => {
     await sut.signUp(mockAddAccountArgs());
 
     expect(mockedSignInWithEmailAndPassword).toHaveBeenCalledOnce();
+  });
+
+  test("should call signOut after send email verification from firebase", async () => {
+    const { sut } = makeSut();
+
+    await sut.signUp(mockAddAccountArgs());
+
+    expect(mockedSignOut).toHaveBeenCalledOnce();
   });
 
   test("should throw ValidationError if HttpClient returns 400 with message", async () => {

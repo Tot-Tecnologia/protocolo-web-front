@@ -43,7 +43,7 @@ const simulateValidSubmitSignIn = async ({
 
   const emailInput = sut.getByPlaceholderText<HTMLInputElement>("E-mail");
   const passwordInput = sut.getByPlaceholderText<HTMLInputElement>("Senha");
-  const submitButton = sut.getByRole("button", {
+  const submitButton = await sut.findByRole("button", {
     name: "Acessar",
   });
 
